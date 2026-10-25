@@ -194,6 +194,7 @@ type Milestone = { id: MilestoneId; star: 1|2|3|4|5|6|7; label: string; earnedAt
   - `<KiBlast from:{x,y} to:{x,y} onDone()/>`
   - `<LensCrack visible: boolean/>`
   - `<SpeedLines/>`
+  - `<FlashFrame trigger: number/>`: a brief white flash whenever `trigger` changes
   - `<CapsulePuff/>`
   - `<FighterSilhouette powered: boolean/>`
   - `<DragonSilhouette/>`
