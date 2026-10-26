@@ -42,6 +42,9 @@ void main(){
   gl_FragColor = vec4(col * uIntro, alpha);
 }`;
 
+/** A big night lists only the best few here; the log holds the rest, so the radar stays on screen. */
+const FINDS_SHOWN = 5;
+
 const scanLabel = (iso: string) => {
   const d = new Date(iso);
   const date = d
@@ -119,6 +122,7 @@ export function RadarScreen() {
     [jobs, since],
   );
   const best = fresh[0];
+  const shown = fresh.slice(0, FINDS_SHOWN);
   const blips = useMemo(
     () =>
       (jobs ?? []).map((j, i) => ({
@@ -284,7 +288,7 @@ export function RadarScreen() {
           fit.
         </p>
         <ol>
-          {fresh.map((j) => (
+          {shown.map((j) => (
             <li key={j.id} className="rd-find">
               <Link to={`/job/${encodeURIComponent(j.id)}`}>
                 <span
@@ -303,7 +307,9 @@ export function RadarScreen() {
           ))}
         </ol>
         <Link className="rd-all" to="/log">
-          All {jobs?.length ?? 0} tracked jobs
+          {fresh.length > shown.length
+            ? `See all ${fresh.length} new jobs`
+            : `All ${jobs?.length ?? 0} tracked jobs`}
         </Link>
       </aside>
     </div>
