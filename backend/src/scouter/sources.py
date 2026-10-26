@@ -11,9 +11,10 @@ from scouter.collectors.ats import ATSCollector
 from scouter.collectors.base import Collector
 from scouter.collectors.freehire import FreeHireCollector
 from scouter.discovery import discover, resolve_comeet, seed_boards, seed_comeet_pages
+from scouter.tuning import TUNING
 
 log = logging.getLogger(__name__)
-DISCOVER_PER_RUN = 10
+DISCOVER_PER_RUN: int = TUNING["discovery"]["boards_per_run"]
 
 
 def ensure_seed_boards(session: Session) -> None:

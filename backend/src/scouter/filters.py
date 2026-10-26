@@ -7,6 +7,7 @@ from typing import Any, Literal
 import yaml
 
 from scouter.models import JobProfile, Profile, RawJob
+from scouter.tuning import TUNING
 
 Region = Literal["north", "center", "jerusalem", "south", "remote-il", "abroad", "unknown"]
 HiddenReason = Literal["senior", "region", "student"]
@@ -63,7 +64,9 @@ def drop_reason(raw: RawJob, jp: JobProfile, profile: Profile) -> DropReason | N
 
 
 def hidden_reason(raw: RawJob, jp: JobProfile, profile: Profile) -> HiddenReason | None:
-    if jp.study_years_left_required is not None and jp.study_years_left_required >= 1.5:
+    # Nour's rule (spec §11b): hide student-only roles that need this many years of study left, or more
+    hide_from = TUNING["student"]["hide_if_years_left_at_least"]
+    if jp.study_years_left_required is not None and jp.study_years_left_required >= hide_from:
         return "student"
     if jp.seniority == "senior+" and not profile.show_senior:
         return "senior"

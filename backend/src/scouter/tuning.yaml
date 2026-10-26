@@ -1,0 +1,15 @@
+# Tunable thresholds. Changing these never needs a code change.
+dedupe:
+  title_match: 90       # rapidfuzz token_set_ratio on normalised titles
+  text_match: 80        # ... and on the first 2,000 characters of the post
+discovery:
+  boards_per_run: 10    # new companies probed per scan, to keep the morning scan short and polite
+freehire:
+  roles: [fullstack, backend, frontend]
+  max_pages: 10
+paste:
+  min_text_chars: 400   # below this a page probably needs JavaScript; ask for pasted text
+extract:
+  semantic_match: 0.85  # embedding fallback is off until calibrated on the eval set (spec §5.4)
+student:
+  hide_if_years_left_at_least: 1.5   # Nour's decision, spec §11b

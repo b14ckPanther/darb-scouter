@@ -8,6 +8,7 @@ import httpx
 
 from scouter.collectors.base import CollectorError
 from scouter.models import RawJob, Requirement
+from scouter.tuning import TUNING
 
 _REQ = re.compile(r'\{text:"((?:[^"\\]|\\.)*)",priority:"(\w+)"')
 _MODES = {"onsite": "onsite", "on_site": "onsite", "hybrid": "hybrid", "remote": "remote"}
@@ -61,9 +62,9 @@ def parse_page(html: str, role: str) -> list[RawJob]:
 class FreeHireCollector:
     name = "freehire"
 
-    def __init__(self, roles: tuple[str, ...] = ("fullstack", "backend", "frontend"), max_pages: int = 10) -> None:
-        self.roles = roles
-        self.max_pages = max_pages
+    def __init__(self, roles: tuple[str, ...] | None = None, max_pages: int | None = None) -> None:
+        self.roles = roles or tuple(TUNING["freehire"]["roles"])
+        self.max_pages = max_pages or TUNING["freehire"]["max_pages"]
         self.last: list[RawJob] = []
 
     def collect(self, client: httpx.Client) -> list[RawJob]:

@@ -116,3 +116,10 @@ def test_user_additions_are_kept_alongside_config() -> None:
 
     p = load_seed().model_copy(update={"excluded_companies": ["Some Defense Co"]})
     assert {"Elbit", "Some Defense Co"} <= set(excluded_companies(p))
+
+
+def test_student_threshold_comes_from_config(monkeypatch: pytest.MonkeyPatch) -> None:
+    from scouter import filters
+
+    monkeypatch.setitem(filters.TUNING["student"], "hide_if_years_left_at_least", 1.0)
+    assert hidden_reason(raw(), JobProfile(study_years_left_required=1), load_seed()) == "student"

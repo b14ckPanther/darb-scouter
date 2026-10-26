@@ -6,11 +6,12 @@ from urllib.parse import parse_qsl, urlencode, urlparse, urlunparse
 from rapidfuzz import fuzz
 
 from scouter.models import RawJob
+from scouter.tuning import TUNING
 
 _SENIORITY = re.compile(r"\b(junior|jr|senior|sr|intern|student|entry level|graduate|mid level)\b")
 _COMPANY_SUFFIX = re.compile(r"\b(ltd|inc|llc|technologies|israel|internal)\b")
-TITLE_MATCH = 90
-TEXT_MATCH = 80
+TITLE_MATCH: int = TUNING["dedupe"]["title_match"]
+TEXT_MATCH: int = TUNING["dedupe"]["text_match"]
 
 
 def canonical_url(url: str) -> str:

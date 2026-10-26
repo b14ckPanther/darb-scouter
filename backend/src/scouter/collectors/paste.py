@@ -14,8 +14,9 @@ from selectolax.lexbor import LexborHTMLParser
 
 from scouter.collectors.text import html_to_text
 from scouter.models import RawJob
+from scouter.tuning import TUNING
 
-MIN_TEXT = 400
+MIN_TEXT: int = TUNING["paste"]["min_text_chars"]
 MAX_BYTES = 2_000_000
 MAX_REDIRECTS = 5
 ALLOWED = {("http", 80), ("https", 443)}

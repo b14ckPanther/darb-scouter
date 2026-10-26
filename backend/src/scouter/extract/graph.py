@@ -12,10 +12,11 @@ from scouter.embed import Embedder
 from scouter.extract.llm import LLM, DraftItem, LLMDraft
 from scouter.extract.quotes import verify
 from scouter.models import Education, Evidence, JobProfile, RawJob, RequirementItem
+from scouter.tuning import TUNING
 from scouter.vocab import SKILLS, canonical, skills_in
 
 log = logging.getLogger(__name__)
-SEMANTIC_MATCH = 0.85
+SEMANTIC_MATCH: float = TUNING["extract"]["semantic_match"]
 
 
 class State(TypedDict, total=False):
