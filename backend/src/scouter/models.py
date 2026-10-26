@@ -125,3 +125,27 @@ class Profile(Model):
     show_hidden_regions: bool = False
     show_senior: bool = False
     excluded_companies: list[str] = Field(default_factory=list)
+
+
+class SourceResult(Model):
+    found: int = 0
+    new: int = 0
+    failed: bool = False
+    error: str | None = None
+
+
+class RunSummary(Model):
+    started_at: str
+    finished_at: str | None = None
+    per_source: dict[str, SourceResult] = Field(default_factory=dict)
+    new_jobs: int = 0
+    new_matches: int = 0
+    top_score: int | None = None
+    dropped: dict[str, int] = Field(default_factory=dict)
+    alerts_failed: int = 0
+
+
+class Board(Model):
+    company: str
+    provider: Literal["greenhouse", "lever", "comeet"]
+    token: str
