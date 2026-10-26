@@ -1,0 +1,2083 @@
+[
+  {
+    "id": "junior-automation-and-frontend-developer-maternity-leave-replacement-6-months-earnix-5gelx2dc",
+    "title": "Junior Automation and Frontend  Developer - Maternity Leave Replacement (6 months)",
+    "company": "Earnix",
+    "city": "Ramat Gan",
+    "workMode": "hybrid",
+    "url": "https://earnix.com/career/b7.372/junior-automation-and-frontend-developer-maternity-leave-replacement-(6-months)/?utm_source=freehire.me",
+    "postedAt": "2026-10-25T12:01:53Z",
+    "foundAt": "2026-10-25T05:00:00.000Z",
+    "seniority": "junior",
+    "score": {
+      "total": 9832,
+      "lines": [
+        {
+          "kind": "must",
+          "label": "React",
+          "skill": "react",
+          "trainLabel": "React",
+          "points": 2833,
+          "evidence": {
+            "quote": "1+ years of proven experience as a Frontend Developer, with proficiency in React",
+            "display": "1+ years of proven experience as a Frontend Developer, with proficiency in React",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "must",
+          "label": "TypeScript + JavaScript",
+          "skill": "typescript",
+          "trainLabel": "TypeScript",
+          "points": 2833,
+          "evidence": {
+            "quote": "Good knowledge of JavaScript and TypeScript",
+            "display": "Good knowledge of JavaScript and TypeScript",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "must",
+          "label": "AI coding tools",
+          "skill": "ai-tools",
+          "trainLabel": "AI coding tools",
+          "points": 2833,
+          "evidence": {
+            "quote": "Hands-on experience using modern AI development tools (AI coding assistants, LLM-based or agentic tools)",
+            "display": "Hands-on experience using modern AI development tools (AI coding assistants, LLM-based or agentic tools)",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "nice",
+          "label": "SQL + Java + Microservices",
+          "skill": "java",
+          "trainLabel": "Java",
+          "points": 333,
+          "trainGain": 167,
+          "evidence": {
+            "quote": "Java and other backend knowledge, including microservices and databases",
+            "display": "Java and other backend knowledge, including microservices and databases",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "nice",
+          "label": "CI/CD",
+          "skill": "cicd",
+          "trainLabel": "CI/CD",
+          "points": 500,
+          "evidence": {
+            "quote": "Experience with Jenkins, Git, CI/CD, and cloud platforms",
+            "display": "Experience with Jenkins, Git, CI/CD, and cloud platforms",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "nice",
+          "label": "Automated testing",
+          "skill": "testing",
+          "trainLabel": "Automated testing",
+          "points": 500,
+          "evidence": {
+            "quote": "Experience with automated testing frameworks and building maintainable test automation",
+            "display": "Experience with automated testing frameworks and building maintainable test automation",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "seniority",
+          "label": "Seniority: junior",
+          "points": 0
+        },
+        {
+          "kind": "experience",
+          "label": "1+ years: you meet it",
+          "points": 0,
+          "evidence": {
+            "quote": "1+ years of proven experience as a Frontend Developer, with proficiency in React",
+            "display": "1+ years of proven experience as a Frontend Developer, with proficiency in React",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "location",
+          "label": "Center: in your region",
+          "points": 0
+        }
+      ]
+    }
+  },
+  {
+    "id": "junior-full-stack-developer-artlist-fmrmk3rn",
+    "title": "Junior Full Stack Developer",
+    "company": "Artlist",
+    "city": "Tel Aviv",
+    "workMode": "onsite",
+    "url": "https://www.artlistjobs.io/job-page/33.47A?utm_source=freehire.me",
+    "postedAt": "2026-10-25T12:19:31Z",
+    "foundAt": "2026-10-25T05:00:00.000Z",
+    "seniority": "junior",
+    "score": {
+      "total": 8424,
+      "lines": [
+        {
+          "kind": "must",
+          "label": "React + JavaScript + Node.js",
+          "skill": "react",
+          "trainLabel": "React",
+          "points": 2833,
+          "evidence": {
+            "quote": "Solid foundation in Node.js and React",
+            "display": "Solid foundation in Node.js and React",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "must",
+          "label": "REST APIs + Webhooks + async flows",
+          "skill": "webhooks",
+          "trainLabel": "Webhooks + async flows",
+          "points": 2408,
+          "trainGain": 425,
+          "evidence": {
+            "quote": "Good understanding of REST APIs, webhooks, and asynchronous workflows",
+            "display": "Good understanding of REST APIs, webhooks, and asynchronous workflows",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "must",
+          "label": "AI coding tools",
+          "skill": "ai-tools",
+          "trainLabel": "AI coding tools",
+          "points": 2833,
+          "evidence": {
+            "quote": "Hands-on, daily use of modern AI coding tools",
+            "display": "Hands-on, daily use of modern AI coding tools",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "nice",
+          "label": "PostgreSQL + SQL",
+          "skill": "postgresql",
+          "trainLabel": "PostgreSQL",
+          "points": 500,
+          "evidence": {
+            "quote": "Experience with relational databases, particularly PostgreSQL",
+            "display": "Experience with relational databases, particularly PostgreSQL",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "nice",
+          "label": "AWS",
+          "skill": "aws",
+          "trainLabel": "AWS",
+          "points": 150,
+          "trainGain": 350,
+          "evidence": {
+            "quote": "Familiarity with cloud concepts or AWS infrastructure (SQS / SNS messaging)",
+            "display": "Familiarity with cloud concepts or AWS infrastructure (SQS / SNS messaging)",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "nice",
+          "label": "Payments",
+          "skill": "payments",
+          "trainLabel": "Payments",
+          "points": 0,
+          "trainGain": 500,
+          "evidence": {
+            "quote": "Prior exposure to payment gateways or billing systems (Stripe, PayPal, Adyen, BlueSnap)",
+            "display": "Prior exposure to payment gateways or billing systems (Stripe, PayPal, Adyen, BlueSnap)",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "seniority",
+          "label": "Seniority: junior",
+          "points": 0
+        },
+        {
+          "kind": "experience",
+          "label": "No experience minimum stated",
+          "points": 0
+        },
+        {
+          "kind": "education",
+          "label": "Degree required: partly met (final semester)",
+          "points": -300,
+          "evidence": {
+            "quote": "B.Sc. in Computer Science, Software Engineering, or equivalent practical experience",
+            "display": "B.Sc. in Computer Science, Software Engineering, or equivalent practical experience",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "location",
+          "label": "Center: in your region",
+          "points": 0
+        }
+      ]
+    }
+  },
+  {
+    "id": "junior-full-stack-engineer-zoomd-fnl4umq2",
+    "title": "Junior Full Stack Engineer",
+    "company": "Zoomd",
+    "city": "Herzliya",
+    "workMode": "onsite",
+    "url": "https://zoomd.breezy.hr/p/eec7a355accb-junior-full-stack-engineer?utm_source=freehire.me",
+    "postedAt": "2026-08-23T07:27:12Z",
+    "foundAt": "2026-10-25T05:00:00.000Z",
+    "seniority": "junior",
+    "score": {
+      "total": 8258,
+      "lines": [
+        {
+          "kind": "must",
+          "label": "React + Python",
+          "skill": "python",
+          "trainLabel": "Python",
+          "points": 1842,
+          "trainGain": 991,
+          "evidence": {
+            "quote": "At least 1 year of experience working with Python, FastAPI, and React in real-life scenarios",
+            "display": "At least 1 year of experience working with Python, FastAPI, and React in real-life scenarios",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "must",
+          "label": "SQL",
+          "skill": "sql",
+          "trainLabel": "SQL",
+          "points": 2833,
+          "evidence": {
+            "quote": "At least 1 year working with relational databases using SQL",
+            "display": "At least 1 year working with relational databases using SQL",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "must",
+          "label": "AI coding tools",
+          "skill": "ai-tools",
+          "trainLabel": "AI coding tools",
+          "points": 2833,
+          "evidence": {
+            "quote": "Experience working with AI-driven development (Claude preferred, but not required)",
+            "display": "Experience working with AI-driven development (Claude preferred, but not required)",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "nice",
+          "label": "LLMs / GenAI",
+          "skill": "llm",
+          "trainLabel": "LLMs / GenAI",
+          "points": 1050,
+          "trainGain": 450,
+          "evidence": {
+            "quote": "Experience developing MCPs, working with FastMCP, and building agents",
+            "display": "Experience developing MCPs, working with FastMCP, and building agents",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "seniority",
+          "label": "Seniority: junior",
+          "points": 0
+        },
+        {
+          "kind": "experience",
+          "label": "1+ years: you meet it",
+          "points": 0,
+          "evidence": {
+            "quote": "At least 1 year of experience working with Python, FastAPI, and React in real-life scenarios",
+            "display": "At least 1 year of experience working with Python, FastAPI, and React in real-life scenarios",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "education",
+          "label": "Degree required: partly met (final semester)",
+          "points": -300,
+          "evidence": {
+            "quote": "Degree in STEM or a related field",
+            "display": "Degree in STEM or a related field",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "location",
+          "label": "Center: in your region",
+          "points": 0
+        }
+      ]
+    }
+  },
+  {
+    "id": "junior-react-developer-inmanage-wc6mf6wp",
+    "title": "Junior React Developer",
+    "company": "inManage",
+    "city": "Tel Aviv",
+    "workMode": "onsite",
+    "url": "https://www.comeet.com/jobs/inmanage/B7.006/junior-react-developer/4C.C25?t=1792923661847&t=1792929017307&utm_source=freehire.me",
+    "postedAt": "2026-10-25T12:13:40Z",
+    "foundAt": "2026-10-23T04:00:00.000Z",
+    "seniority": "junior",
+    "score": {
+      "total": 6416,
+      "lines": [
+        {
+          "kind": "must",
+          "label": "React + JavaScript + HTML / CSS",
+          "skill": "react",
+          "trainLabel": "React",
+          "points": 2833,
+          "evidence": {
+            "quote": "Knowledge of Javascript, Reactjs, CSS, HTML",
+            "display": "Knowledge of Javascript, Reactjs, CSS, HTML",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "must",
+          "label": "Unrecognised: Understanding of design patterns",
+          "points": 0,
+          "evidence": {
+            "quote": "Understanding of design patterns",
+            "display": "Understanding of design patterns",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "must",
+          "label": "REST APIs",
+          "skill": "rest",
+          "trainLabel": "REST APIs",
+          "points": 2833,
+          "evidence": {
+            "quote": "Knowledge of RESTful api, Web services, JSON",
+            "display": "Knowledge of RESTful api, Web services, JSON",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "nice",
+          "label": "React Native",
+          "skill": "react-native",
+          "trainLabel": "React Native",
+          "points": 1050,
+          "trainGain": 450,
+          "evidence": {
+            "quote": "Knowledge of React Native",
+            "display": "Knowledge of React Native",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "seniority",
+          "label": "Seniority: junior",
+          "points": 0
+        },
+        {
+          "kind": "experience",
+          "label": "No experience minimum stated",
+          "points": 0
+        },
+        {
+          "kind": "education",
+          "label": "Degree required: partly met (final semester)",
+          "points": -300,
+          "evidence": {
+            "quote": "B.Sc in computer science or related field",
+            "display": "B.Sc in computer science or related field",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "location",
+          "label": "Center: in your region",
+          "points": 0
+        }
+      ]
+    }
+  },
+  {
+    "id": "junior-fullstack-software-developer-wedev-mcmpxfiw",
+    "title": "Junior Fullstack Software Developer",
+    "company": "WeDev",
+    "city": "Holon",
+    "workMode": "onsite",
+    "url": "https://job-boards.eu.greenhouse.io/wedev/jobs/4871703101?utm_source=freehire.me",
+    "postedAt": "2026-05-20T11:01:55Z",
+    "foundAt": "2026-10-22T19:00:00.000Z",
+    "seniority": "junior",
+    "score": {
+      "total": 6250,
+      "lines": [
+        {
+          "kind": "must",
+          "label": "React",
+          "skill": "react",
+          "trainLabel": "React",
+          "points": 2500,
+          "evidence": {
+            "quote": "Knowledge of front-end frameworks such as React, Angular, or Vue.js",
+            "display": "Knowledge of front-end frameworks such as React, Angular, or Vue.js",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "must",
+          "label": "JavaScript + Node.js",
+          "skill": "javascript",
+          "trainLabel": "JavaScript",
+          "points": 2500,
+          "evidence": {
+            "quote": "Knowledge of back-end development framework Node.js",
+            "display": "Knowledge of back-end development framework Node.js",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "must",
+          "label": "SQL + MongoDB / NoSQL",
+          "skill": "mongodb",
+          "trainLabel": "MongoDB / NoSQL",
+          "points": 1250,
+          "trainGain": 1250,
+          "evidence": {
+            "quote": "Knowledge of MongoDB and SQL-Based database",
+            "display": "Knowledge of MongoDB and SQL-Based database",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "must",
+          "label": "Unrecognised: Understanding of responsive design",
+          "points": 0,
+          "evidence": {
+            "quote": "Understanding of responsive design",
+            "display": "Understanding of responsive design",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "seniority",
+          "label": "Seniority: junior",
+          "points": 0
+        },
+        {
+          "kind": "experience",
+          "label": "No experience minimum stated",
+          "points": 0
+        },
+        {
+          "kind": "location",
+          "label": "Center: in your region",
+          "points": 0
+        }
+      ]
+    }
+  },
+  {
+    "id": "junior-backend-developer-php-inmanage-rxu7ss45",
+    "title": "Junior Backend Developer (PHP)",
+    "company": "inManage",
+    "city": "Tel Aviv",
+    "workMode": "onsite",
+    "url": "https://www.comeet.com/jobs/inmanage/B7.006/junior-backend-developer-php/A8.A20?t=1792923661847&t=1792929017307&utm_source=freehire.me",
+    "postedAt": "2026-10-25T12:12:57Z",
+    "foundAt": "2026-10-22T10:00:00.000Z",
+    "seniority": "junior",
+    "score": {
+      "total": 5700,
+      "lines": [
+        {
+          "kind": "nice",
+          "label": "SQL + PHP",
+          "skill": "php",
+          "trainLabel": "PHP",
+          "points": 1667,
+          "trainGain": 1666,
+          "evidence": {
+            "quote": "Knowledge of PHP8 and MySQL",
+            "display": "Knowledge of PHP8 and MySQL",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "nice",
+          "label": "Python",
+          "skill": "python",
+          "trainLabel": "Python",
+          "points": 1000,
+          "trainGain": 2333,
+          "evidence": {
+            "quote": "Knowledge of Python",
+            "display": "Knowledge of Python",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "nice",
+          "label": "React + JavaScript + HTML / CSS",
+          "skill": "react",
+          "trainLabel": "React",
+          "points": 3333,
+          "evidence": {
+            "quote": "Experience with JavaScript, ReactJS, jQuery, HTML5, XML, CSS, responsive HTML",
+            "display": "Experience with JavaScript, ReactJS, jQuery, HTML5, XML, CSS, responsive HTML",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "seniority",
+          "label": "Seniority: junior",
+          "points": 0
+        },
+        {
+          "kind": "experience",
+          "label": "No experience minimum stated",
+          "points": 0
+        },
+        {
+          "kind": "education",
+          "label": "Degree required: partly met (final semester)",
+          "points": -300,
+          "evidence": {
+            "quote": "B.Sc in Computer Science or related field",
+            "display": "B.Sc in Computer Science or related field",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "location",
+          "label": "Center: in your region",
+          "points": 0
+        }
+      ]
+    }
+  },
+  {
+    "id": "junior-backend-engineer-varonis-internal-jgskd5qr",
+    "title": "Junior Backend Engineer",
+    "company": "Varonis",
+    "city": "Israel (hybrid)",
+    "workMode": "hybrid",
+    "url": "https://jobs.jobvite.com/varonis-internal/job/o0EVAfwT?utm_source=freehire.me",
+    "postedAt": "2026-10-08T00:00:00Z",
+    "foundAt": "2026-10-22T01:00:00.000Z",
+    "seniority": "junior",
+    "score": {
+      "total": 5200,
+      "lines": [
+        {
+          "kind": "must",
+          "label": "Python",
+          "skill": "python",
+          "trainLabel": "Python",
+          "points": 750,
+          "trainGain": 1750,
+          "evidence": {
+            "quote": "Experience with at least one backend programming language. Python is a significant advantage.",
+            "display": "Experience with at least one backend programming language. Python is a significant advantage.",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "must",
+          "label": "SQL + REST APIs + Microservices",
+          "skill": "microservices",
+          "trainLabel": "Microservices",
+          "points": 2250,
+          "trainGain": 250,
+          "evidence": {
+            "quote": "Basic understanding of backend development concepts, APIs, databases, and distributed systems.",
+            "display": "Basic understanding of backend development concepts, APIs, databases, and distributed systems.",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "must",
+          "label": "SQL",
+          "skill": "sql",
+          "trainLabel": "SQL",
+          "points": 2500,
+          "evidence": {
+            "quote": "Familiarity with technologies such as Docker, Kubernetes, Kafka, databases, or cloud environments is an advantage.",
+            "display": "Familiarity with technologies such as Docker, Kubernetes, Kafka, databases, or cloud environments is an advantage.",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "must",
+          "label": "Unrecognised: Experience or interest in cybersecurity is an …",
+          "points": 0,
+          "evidence": {
+            "quote": "Experience or interest in cybersecurity is an advantage.",
+            "display": "Experience or interest in cybersecurity is an advantage.",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "seniority",
+          "label": "Seniority: junior",
+          "points": 0
+        },
+        {
+          "kind": "experience",
+          "label": "1+ years: you meet it",
+          "points": 0,
+          "evidence": {
+            "quote": "1–2 years of experience in backend development, including relevant hands-on industry experience.",
+            "display": "1–2 years of experience in backend development, including relevant hands-on industry experience.",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "education",
+          "label": "Degree required: partly met (final semester)",
+          "points": -300,
+          "evidence": {
+            "quote": "Bachelor’s degree in Computer Science, Software Engineering, or a related field, or equivalent practical experience, is an advantage.",
+            "display": "Bachelor’s degree in Computer Science, Software Engineering, or a related field, or equivalent practical experience, is an advantage.",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "location",
+          "label": "Center: in your region",
+          "points": 0
+        }
+      ]
+    }
+  },
+  {
+    "id": "graduate-frontend-full-stack-software-engineer-upnext-program-next-insurance-k7dbqtxp",
+    "title": "Graduate Frontend / Full Stack Software Engineer – UpNEXT Program",
+    "company": "Next Insurance",
+    "city": "Kfar Saba",
+    "workMode": "onsite",
+    "url": "https://job-boards.greenhouse.io/nextinsurance66/jobs/7979090003?utm_source=freehire.me",
+    "postedAt": "2026-09-16T12:08:47Z",
+    "foundAt": "2026-10-21T16:00:00.000Z",
+    "seniority": "junior",
+    "score": {
+      "total": 3650,
+      "lines": [
+        {
+          "kind": "nice",
+          "label": "Unrecognised: Prior experience in relevant professional or t…",
+          "points": 0,
+          "evidence": {
+            "quote": "Prior experience in relevant professional or technical roles",
+            "display": "Prior experience in relevant professional or technical roles",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "nice",
+          "label": "Unrecognised: Background in technology units within the mili…",
+          "points": 0,
+          "evidence": {
+            "quote": "Background in technology units within the military",
+            "display": "Background in technology units within the military",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "nice",
+          "label": "LLMs / GenAI",
+          "skill": "llm",
+          "trainLabel": "LLMs / GenAI",
+          "points": 1750,
+          "trainGain": 750,
+          "evidence": {
+            "quote": "Exposure to AI developer tools, AI frameworks, and LLM integrations",
+            "display": "Exposure to AI developer tools, AI frameworks, and LLM integrations",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "nice",
+          "label": "React",
+          "skill": "react",
+          "trainLabel": "React",
+          "points": 2500,
+          "evidence": {
+            "quote": "Involvement in open-source projects or personal web apps (React, Angular, Node.js)",
+            "display": "Involvement in open-source projects or personal web apps (React, Angular, Node.js)",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "seniority",
+          "label": "Seniority: junior",
+          "points": 0
+        },
+        {
+          "kind": "experience",
+          "label": "No experience minimum stated",
+          "points": 0
+        },
+        {
+          "kind": "education",
+          "label": "Degree + grades required: degree partly met, GPA unchecked",
+          "points": -600,
+          "evidence": {
+            "quote": "Strong academic background from leading institutions",
+            "display": "Strong academic background from leading institutions",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "location",
+          "label": "Center: in your region",
+          "points": 0
+        }
+      ]
+    }
+  },
+  {
+    "id": "graduate-backend-software-engineer-upnext-program-next-insurance-5gvci62v",
+    "title": "Graduate Backend Software Engineer- UpNEXT Program",
+    "company": "Next Insurance",
+    "city": "Kfar Saba",
+    "workMode": "onsite",
+    "url": "https://job-boards.greenhouse.io/nextinsurance66/jobs/7979131003?utm_source=freehire.me",
+    "postedAt": "2026-09-16T12:05:30Z",
+    "foundAt": "2026-10-21T07:00:00.000Z",
+    "seniority": "junior",
+    "score": {
+      "total": 1150,
+      "lines": [
+        {
+          "kind": "nice",
+          "label": "Unrecognised: Prior experience in relevant professional or t…",
+          "points": 0,
+          "evidence": {
+            "quote": "Prior experience in relevant professional or technical roles",
+            "display": "Prior experience in relevant professional or technical roles",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "nice",
+          "label": "Unrecognised: Background in technology units within the mili…",
+          "points": 0,
+          "evidence": {
+            "quote": "Background in technology units within the military",
+            "display": "Background in technology units within the military",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "nice",
+          "label": "LLMs / GenAI",
+          "skill": "llm",
+          "trainLabel": "LLMs / GenAI",
+          "points": 1750,
+          "trainGain": 750,
+          "evidence": {
+            "quote": "Exposure to or hands-on experience with AI developer tools, AI frameworks, and LLM integrations",
+            "display": "Exposure to or hands-on experience with AI developer tools, AI frameworks, and LLM integrations",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "nice",
+          "label": "Unrecognised: Involvement in open-source projects or notable…",
+          "points": 0,
+          "evidence": {
+            "quote": "Involvement in open-source projects or notable contributions on GitHub",
+            "display": "Involvement in open-source projects or notable contributions on GitHub",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "seniority",
+          "label": "Seniority: junior",
+          "points": 0
+        },
+        {
+          "kind": "experience",
+          "label": "No experience minimum stated",
+          "points": 0
+        },
+        {
+          "kind": "education",
+          "label": "Degree + grades required: degree partly met, GPA unchecked",
+          "points": -600,
+          "evidence": {
+            "quote": "Strong academic background from leading institutions",
+            "display": "Strong academic background from leading institutions",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "location",
+          "label": "Center: in your region",
+          "points": 0
+        }
+      ]
+    }
+  },
+  {
+    "id": "full-stack-engineer-oobit-pnyo5fsg",
+    "title": "Full Stack Engineer",
+    "company": "Oobit",
+    "city": "Herzliya",
+    "workMode": "onsite",
+    "url": "https://oobit.com/careers/fullstack-engineer?utm_source=freehire.me",
+    "postedAt": "2026-09-22T13:44:05Z",
+    "foundAt": "2026-10-20T22:00:00.000Z",
+    "seniority": "unlabeled",
+    "score": {
+      "total": 9877,
+      "lines": [
+        {
+          "kind": "must",
+          "label": "React + React Native + TypeScript + JavaScript",
+          "skill": "react-native",
+          "trainLabel": "React Native",
+          "points": 1542,
+          "trainGain": 125,
+          "evidence": {
+            "quote": "Experience with JavaScript, TypeScript, React, and React Native",
+            "display": "Experience with JavaScript, TypeScript, React, and React Native",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "must",
+          "label": "JavaScript + Node.js",
+          "skill": "javascript",
+          "trainLabel": "JavaScript",
+          "points": 1667,
+          "evidence": {
+            "quote": "Backend development experience with Node.js",
+            "display": "Backend development experience with Node.js",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "must",
+          "label": "AI coding tools",
+          "skill": "ai-tools",
+          "trainLabel": "AI coding tools",
+          "points": 1667,
+          "evidence": {
+            "quote": "Hands-on experience with AI development tools such as Claude Code, Cursor, or Copilot",
+            "display": "Hands-on experience with AI development tools such as Claude Code, Cursor, or Copilot",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "must",
+          "label": "REST APIs",
+          "skill": "rest",
+          "trainLabel": "REST APIs",
+          "points": 1667,
+          "evidence": {
+            "quote": "Understanding of REST APIs and client-server architecture",
+            "display": "Understanding of REST APIs and client-server architecture",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "must",
+          "label": "PostgreSQL",
+          "skill": "postgresql",
+          "trainLabel": "PostgreSQL",
+          "points": 1667,
+          "evidence": {
+            "quote": "Familiarity with PostgreSQL or similar databases",
+            "display": "Familiarity with PostgreSQL or similar databases",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "must",
+          "label": "Git",
+          "skill": "git",
+          "trainLabel": "Git",
+          "points": 1667,
+          "evidence": {
+            "quote": "Experience with Git and modern development workflows",
+            "display": "Experience with Git and modern development workflows",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "seniority",
+          "label": "Seniority: unlabeled",
+          "points": 0
+        },
+        {
+          "kind": "experience",
+          "label": "1+ years: you meet it",
+          "points": 0,
+          "evidence": {
+            "quote": "1-3 years of experience as a Fullstack or Software Engineer",
+            "display": "1-3 years of experience as a Fullstack or Software Engineer",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "location",
+          "label": "Center: in your region",
+          "points": 0
+        }
+      ]
+    }
+  },
+  {
+    "id": "full-stack-lexense-x2demjgk",
+    "title": "Full stack",
+    "company": "Lexense",
+    "city": "Tel Aviv",
+    "workMode": "onsite",
+    "url": "https://www.careers-page.com/lexense/job/L5WW4R55?utm_source=freehire.me",
+    "postedAt": "2026-10-24T21:33:18Z",
+    "foundAt": "2026-10-20T13:00:00.000Z",
+    "seniority": "unlabeled",
+    "score": {
+      "total": 8400,
+      "lines": [
+        {
+          "kind": "must",
+          "label": "Node.js",
+          "skill": "nodejs",
+          "trainLabel": "Node.js",
+          "points": 5000,
+          "evidence": {
+            "quote": "3+ years of experience with NodeJS",
+            "display": "3+ years of experience with NodeJS",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "must",
+          "label": "JavaScript",
+          "skill": "javascript",
+          "trainLabel": "JavaScript",
+          "points": 5000,
+          "evidence": {
+            "quote": "Talented individual passionate about JavaScript",
+            "display": "Talented individual passionate about JavaScript",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "seniority",
+          "label": "Seniority: unlabeled",
+          "points": 0
+        },
+        {
+          "kind": "experience",
+          "label": "3+ years required, you have 2",
+          "points": -1600,
+          "evidence": {
+            "quote": "3+ years of backend development experience",
+            "display": "3+ years of backend development experience",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "location",
+          "label": "Center: in your region",
+          "points": 0
+        }
+      ]
+    }
+  },
+  {
+    "id": "backend-engineer-lexense-lgxjai74",
+    "title": "Backend Engineer",
+    "company": "Lexense",
+    "city": "Tel Aviv",
+    "workMode": "onsite",
+    "url": "https://www.careers-page.com/lexense/job/QV66974R?utm_source=freehire.me",
+    "postedAt": "2026-10-24T21:33:18Z",
+    "foundAt": "2026-10-20T04:00:00.000Z",
+    "seniority": "unlabeled",
+    "score": {
+      "total": 8400,
+      "lines": [
+        {
+          "kind": "must",
+          "label": "Node.js",
+          "skill": "nodejs",
+          "trainLabel": "Node.js",
+          "points": 5000,
+          "evidence": {
+            "quote": "2+ years of experience with NodeJS",
+            "display": "2+ years of experience with NodeJS",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "must",
+          "label": "JavaScript",
+          "skill": "javascript",
+          "trainLabel": "JavaScript",
+          "points": 5000,
+          "evidence": {
+            "quote": "JavaScript-passionate, talented individual",
+            "display": "JavaScript-passionate, talented individual",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "seniority",
+          "label": "Seniority: unlabeled",
+          "points": 0
+        },
+        {
+          "kind": "experience",
+          "label": "3+ years required, you have 2",
+          "points": -1600,
+          "evidence": {
+            "quote": "3+ years of backend development experience",
+            "display": "3+ years of backend development experience",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "location",
+          "label": "Center: in your region",
+          "points": 0
+        }
+      ]
+    }
+  },
+  {
+    "id": "frontend-developer-minimus-h7orz6na",
+    "title": "Frontend Developer",
+    "company": "Minimus",
+    "city": "Tel Aviv",
+    "workMode": "onsite",
+    "url": "https://www.comeet.com/jobs/minimus/19.00B/frontend-developer/42.843?utm_source=freehire.me",
+    "postedAt": "2026-07-20T08:49:00Z",
+    "foundAt": "2026-10-19T19:00:00.000Z",
+    "seniority": "unlabeled",
+    "score": {
+      "total": 8100,
+      "lines": [
+        {
+          "kind": "must",
+          "label": "React",
+          "skill": "react",
+          "trainLabel": "React",
+          "points": 10000,
+          "evidence": {
+            "quote": "Solid hands-on experience with React.",
+            "display": "Solid hands-on experience with React.",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "seniority",
+          "label": "Seniority: unlabeled",
+          "points": 0
+        },
+        {
+          "kind": "experience",
+          "label": "3+ years required, you have 2",
+          "points": -1600,
+          "evidence": {
+            "quote": "3+ years of experience as a frontend developer.",
+            "display": "3+ years of experience as a frontend developer.",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "education",
+          "label": "Degree required: partly met (final semester)",
+          "points": -300,
+          "evidence": {
+            "quote": "B.Sc. in Computer Science / Software Engineering – an advantage.",
+            "display": "B.Sc. in Computer Science / Software Engineering – an advantage.",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "location",
+          "label": "Center: in your region",
+          "points": 0
+        }
+      ]
+    }
+  },
+  {
+    "id": "full-stack-engineer-check-point-software-ghozsumi",
+    "title": "Full Stack Engineer",
+    "company": "Check Point Software",
+    "city": "Tel Aviv",
+    "workMode": "hybrid",
+    "url": "https://startup.jobs/full-stack-engineer-check-point-software-10579662?utm_source=freehire.me",
+    "postedAt": "2026-10-25T19:19:06Z",
+    "foundAt": "2026-10-19T10:00:00.000Z",
+    "seniority": "unlabeled",
+    "score": {
+      "total": 7312,
+      "lines": [
+        {
+          "kind": "must",
+          "label": "TypeScript",
+          "skill": "typescript",
+          "trainLabel": "TypeScript",
+          "points": 1063,
+          "evidence": {
+            "quote": "2-5 years of experience developing modern web applications using JavaScript or TypeScript, HTML, and CSS",
+            "display": "2-5 years of experience developing modern web applications using JavaScript or TypeScript, HTML, and CSS",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "must",
+          "label": "React",
+          "skill": "react",
+          "trainLabel": "React",
+          "points": 1063,
+          "evidence": {
+            "quote": "Strong experience with React or another modern frontend framework such as Angular or Vue",
+            "display": "Strong experience with React or another modern frontend framework such as Angular or Vue",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "must",
+          "label": "TypeScript + JavaScript + Node.js + Go",
+          "skill": "go",
+          "trainLabel": "Go",
+          "points": 797,
+          "trainGain": 266,
+          "evidence": {
+            "quote": "Strong backend experience with Go and Node.js (TypeScript)",
+            "display": "Strong backend experience with Go and Node.js (TypeScript)",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "must",
+          "label": "PostgreSQL",
+          "skill": "postgresql",
+          "trainLabel": "PostgreSQL",
+          "points": 1063,
+          "evidence": {
+            "quote": "Solid experience with PostgreSQL and relational data modeling",
+            "display": "Solid experience with PostgreSQL and relational data modeling",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "must",
+          "label": "Unrecognised: Solid experience with OpenSearch",
+          "points": 0,
+          "evidence": {
+            "quote": "Solid experience with OpenSearch",
+            "display": "Solid experience with OpenSearch",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "must",
+          "label": "REST APIs",
+          "skill": "rest",
+          "trainLabel": "REST APIs",
+          "points": 1063,
+          "evidence": {
+            "quote": "Solid understanding of frontend and backend architecture, component-based development, state management, API design, and modern web development practices",
+            "display": "Solid understanding of frontend and backend architecture, component-based development, state management, API design, and modern web development practices",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "must",
+          "label": "Unrecognised: Experience building large-scale, distributed, …",
+          "points": 0,
+          "evidence": {
+            "quote": "Experience building large-scale, distributed, or cloud-based SaaS applications",
+            "display": "Experience building large-scale, distributed, or cloud-based SaaS applications",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "must",
+          "label": "AI coding tools",
+          "skill": "ai-tools",
+          "trainLabel": "AI coding tools",
+          "points": 1063,
+          "evidence": {
+            "quote": "Experience working with AI-assisted development tools and workflows",
+            "display": "Experience working with AI-assisted development tools and workflows",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "nice",
+          "label": "SQL",
+          "skill": "sql",
+          "trainLabel": "SQL",
+          "points": 1500,
+          "evidence": {
+            "quote": "Experience with Neptune or other graph databases",
+            "display": "Experience with Neptune or other graph databases",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "seniority",
+          "label": "Seniority: unlabeled",
+          "points": 0
+        },
+        {
+          "kind": "experience",
+          "label": "2+ years: you meet it",
+          "points": 0,
+          "evidence": {
+            "quote": "2-5 years of experience developing modern web applications using JavaScript or TypeScript, HTML, and CSS",
+            "display": "2-5 years of experience developing modern web applications using JavaScript or TypeScript, HTML, and CSS",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "education",
+          "label": "Degree required: partly met (final semester)",
+          "points": -300,
+          "evidence": {
+            "quote": "B.Sc. in Computer Science, Software Engineering, or equivalent practical experience",
+            "display": "B.Sc. in Computer Science, Software Engineering, or equivalent practical experience",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "location",
+          "label": "Center: in your region",
+          "points": 0
+        }
+      ]
+    }
+  },
+  {
+    "id": "backend-engineer-faye-wcaf2lbb",
+    "title": "Backend Engineer",
+    "company": "Faye",
+    "city": "Tel Aviv",
+    "workMode": "hybrid",
+    "url": "https://www.withfaye.com/careers/Backend-Engineer-81.66F/?utm_source=freehire.me",
+    "postedAt": "2026-10-25T11:07:07Z",
+    "foundAt": "2026-10-19T01:00:00.000Z",
+    "seniority": "unlabeled",
+    "score": {
+      "total": 6500,
+      "lines": [
+        {
+          "kind": "must",
+          "label": "TypeScript + JavaScript + Node.js",
+          "skill": "typescript",
+          "trainLabel": "TypeScript",
+          "points": 2500,
+          "evidence": {
+            "quote": "Minimum 4 years of professional backend development experience with strong proficiency in Node.js and TypeScript",
+            "display": "Minimum 4 years of professional backend development experience with strong proficiency in Node.js and TypeScript",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "must",
+          "label": "JavaScript",
+          "skill": "javascript",
+          "trainLabel": "JavaScript",
+          "points": 2500,
+          "evidence": {
+            "quote": "Experience working with backend frameworks such as Nest.js or similar",
+            "display": "Experience working with backend frameworks such as Nest.js or similar",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "must",
+          "label": "PostgreSQL",
+          "skill": "postgresql",
+          "trainLabel": "PostgreSQL",
+          "points": 2500,
+          "evidence": {
+            "quote": "Solid understanding of relational databases and experience with PostgreSQL or similar",
+            "display": "Solid understanding of relational databases and experience with PostgreSQL or similar",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "must",
+          "label": "CI/CD",
+          "skill": "cicd",
+          "trainLabel": "CI/CD",
+          "points": 2500,
+          "evidence": {
+            "quote": "Familiarity with CI/CD pipelines, version control systems (e.g., Git), and agile development methodologies",
+            "display": "Familiarity with CI/CD pipelines, version control systems (e.g., Git), and agile development methodologies",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "seniority",
+          "label": "Seniority: unlabeled",
+          "points": 0
+        },
+        {
+          "kind": "experience",
+          "label": "4+ years required, you have 2",
+          "points": -3200,
+          "evidence": {
+            "quote": "Minimum 4 years of professional backend development experience with strong proficiency in Node.js and TypeScript",
+            "display": "Minimum 4 years of professional backend development experience with strong proficiency in Node.js and TypeScript",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "education",
+          "label": "Degree required: partly met (final semester)",
+          "points": -300,
+          "evidence": {
+            "quote": "Bachelor's degree in Computer Science, Engineering, or related field (or equivalent work experience)",
+            "display": "Bachelor's degree in Computer Science, Engineering, or related field (or equivalent work experience)",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "location",
+          "label": "Center: in your region",
+          "points": 0
+        }
+      ]
+    }
+  },
+  {
+    "id": "ai-native-full-stack-developer-arad-tech-72jck25m",
+    "title": "AI-Native Full Stack Developer",
+    "company": "Arad Tech",
+    "city": "Yokne'am Illit",
+    "workMode": "hybrid",
+    "url": "https://aradtec.com/careers/co/yokneam-science-park/03.374/ai-native-full-stack-developer/all/?utm_source=freehire.me",
+    "postedAt": "2026-10-19T18:48:43Z",
+    "foundAt": "2026-10-18T16:00:00.000Z",
+    "seniority": "middle",
+    "score": {
+      "total": 6052,
+      "lines": [
+        {
+          "kind": "must",
+          "label": "Unrecognised: Proven full stack experience shipping producti…",
+          "points": 0,
+          "evidence": {
+            "quote": "Proven full stack experience shipping production software",
+            "display": "Proven full stack experience shipping production software",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "must",
+          "label": "REST APIs",
+          "skill": "rest",
+          "trainLabel": "REST APIs",
+          "points": 1214,
+          "evidence": {
+            "quote": "Strong C#/.NET (ASP.NET Core, Web API)",
+            "display": "Strong C#/.NET (ASP.NET Core, Web API)",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "must",
+          "label": "TypeScript + Angular",
+          "skill": "angular",
+          "trainLabel": "Angular",
+          "points": 607,
+          "trainGain": 607,
+          "evidence": {
+            "quote": "Strong Angular (TypeScript, RxJS, component architecture)",
+            "display": "Strong Angular (TypeScript, RxJS, component architecture)",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "must",
+          "label": "AI coding tools",
+          "skill": "ai-tools",
+          "trainLabel": "AI coding tools",
+          "points": 1214,
+          "evidence": {
+            "quote": "Heavy daily use of AI coding agents (Claude Code, Cursor or similar)",
+            "display": "Heavy daily use of AI coding agents (Claude Code, Cursor or similar)",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "must",
+          "label": "Docker",
+          "skill": "docker",
+          "trainLabel": "Docker",
+          "points": 1214,
+          "evidence": {
+            "quote": "Hands-on DevOps: CI/CD pipelines (Azure DevOps, GitHub Actions or similar), Docker, deploying to Kubernetes",
+            "display": "Hands-on DevOps: CI/CD pipelines (Azure DevOps, GitHub Actions or similar), Docker, deploying to Kubernetes",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "must",
+          "label": "SQL",
+          "skill": "sql",
+          "trainLabel": "SQL",
+          "points": 1214,
+          "evidence": {
+            "quote": "Solid SQL and relational databases (SQL Server or equivalent)",
+            "display": "Solid SQL and relational databases (SQL Server or equivalent)",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "must",
+          "label": "REST APIs",
+          "skill": "rest",
+          "trainLabel": "REST APIs",
+          "points": 1214,
+          "evidence": {
+            "quote": "Experience with REST APIs, microservices or distributed systems, Git and CI/CD",
+            "display": "Experience with REST APIs, microservices or distributed systems, Git and CI/CD",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "nice",
+          "label": "LLMs / GenAI",
+          "skill": "llm",
+          "trainLabel": "LLMs / GenAI",
+          "points": 175,
+          "trainGain": 75,
+          "evidence": {
+            "quote": "LLM/GenAI in production: RAG, agents, Azure OpenAI or similar",
+            "display": "LLM/GenAI in production: RAG, agents, Azure OpenAI or similar",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "nice",
+          "label": "Unrecognised: Infrastructure as Code (Terraform, Bicep or AR…",
+          "points": 0,
+          "evidence": {
+            "quote": "Infrastructure as Code (Terraform, Bicep or ARM), Helm, deep AKS experience",
+            "display": "Infrastructure as Code (Terraform, Bicep or ARM), Helm, deep AKS experience",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "nice",
+          "label": "Azure",
+          "skill": "azure",
+          "trainLabel": "Azure",
+          "points": 0,
+          "trainGain": 250,
+          "evidence": {
+            "quote": "Observability tooling (Azure Monitor, Application Insights, Grafana, Prometheus)",
+            "display": "Observability tooling (Azure Monitor, Application Insights, Grafana, Prometheus)",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "nice",
+          "label": "Unrecognised: Capacitor or another hybrid mobile framework, …",
+          "points": 0,
+          "evidence": {
+            "quote": "Capacitor or another hybrid mobile framework, publishing to App Store / Google Play",
+            "display": "Capacitor or another hybrid mobile framework, publishing to App Store / Google Play",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "nice",
+          "label": "Message queues",
+          "skill": "kafka",
+          "trainLabel": "Message queues",
+          "points": 0,
+          "trainGain": 250,
+          "evidence": {
+            "quote": "IoT, telemetry or messaging (Service Bus, Event Hubs, Kafka, MQTT)",
+            "display": "IoT, telemetry or messaging (Service Bus, Event Hubs, Kafka, MQTT)",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "nice",
+          "label": "Unrecognised: High-volume data processing and performance tu…",
+          "points": 0,
+          "evidence": {
+            "quote": "High-volume data processing and performance tuning",
+            "display": "High-volume data processing and performance tuning",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "seniority",
+          "label": "Seniority: middle",
+          "points": -800
+        },
+        {
+          "kind": "experience",
+          "label": "No experience minimum stated",
+          "points": 0
+        },
+        {
+          "kind": "location",
+          "label": "North: in your region",
+          "points": 0
+        }
+      ]
+    }
+  },
+  {
+    "id": "backend-node-js-developer-abra-information-technologies-bkb7tm7i",
+    "title": "Backend Node.js Developer",
+    "company": "Abra Information Technologies",
+    "city": "Center",
+    "workMode": "hybrid",
+    "url": "https://www.abra-it.com/career?utm_source=freehire.me",
+    "postedAt": "2026-10-25T10:23:14Z",
+    "foundAt": "2026-10-18T07:00:00.000Z",
+    "seniority": "unlabeled",
+    "score": {
+      "total": 5981,
+      "lines": [
+        {
+          "kind": "must",
+          "label": "JavaScript + Node.js",
+          "skill": "javascript",
+          "trainLabel": "JavaScript",
+          "points": 944,
+          "evidence": {
+            "quote": "At least 2 years of experience in Backend development using Node.js",
+            "display": "At least 2 years of experience in Backend development using Node.js",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "must",
+          "label": "JavaScript",
+          "skill": "javascript",
+          "trainLabel": "JavaScript",
+          "points": 944,
+          "evidence": {
+            "quote": "Strong proficiency in JavaScript",
+            "display": "Strong proficiency in JavaScript",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "must",
+          "label": "Microservices",
+          "skill": "microservices",
+          "trainLabel": "Microservices",
+          "points": 661,
+          "trainGain": 283,
+          "evidence": {
+            "quote": "At least 2 years of experience developing Microservices",
+            "display": "At least 2 years of experience developing Microservices",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "must",
+          "label": "Message queues",
+          "skill": "kafka",
+          "trainLabel": "Message queues",
+          "points": 0,
+          "trainGain": 944,
+          "evidence": {
+            "quote": "At least 2 years of experience working with Kafka and/or RabbitMQ",
+            "display": "At least 2 years of experience working with Kafka and/or RabbitMQ",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "must",
+          "label": "SQL",
+          "skill": "sql",
+          "trainLabel": "SQL",
+          "points": 944,
+          "evidence": {
+            "quote": "At least 2 years of experience developing REST APIs and working with SQL/NoSQL databases",
+            "display": "At least 2 years of experience developing REST APIs and working with SQL/NoSQL databases",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "must",
+          "label": "Automated testing",
+          "skill": "testing",
+          "trainLabel": "Automated testing",
+          "points": 944,
+          "evidence": {
+            "quote": "At least 1 year of experience writing automated Unit and Integration tests",
+            "display": "At least 1 year of experience writing automated Unit and Integration tests",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "must",
+          "label": "Automated testing",
+          "skill": "testing",
+          "trainLabel": "Automated testing",
+          "points": 944,
+          "evidence": {
+            "quote": "Proven experience regularly using AI tools for planning, development, and testing, including critically evaluating outputs and correcting errors",
+            "display": "Proven experience regularly using AI tools for planning, development, and testing, including critically evaluating outputs and correcting errors",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "must",
+          "label": "Unrecognised: Familiarity with Swagger/OpenAPI",
+          "points": 0,
+          "evidence": {
+            "quote": "Familiarity with Swagger/OpenAPI",
+            "display": "Familiarity with Swagger/OpenAPI",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "must",
+          "label": "Unrecognised: Strong system-wide thinking, solution design, …",
+          "points": 0,
+          "evidence": {
+            "quote": "Strong system-wide thinking, solution design, and complex troubleshooting skills",
+            "display": "Strong system-wide thinking, solution design, and complex troubleshooting skills",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "nice",
+          "label": "MongoDB / NoSQL",
+          "skill": "mongodb",
+          "trainLabel": "MongoDB / NoSQL",
+          "points": 0,
+          "trainGain": 300,
+          "evidence": {
+            "quote": "Experience working with MongoDB",
+            "display": "Experience working with MongoDB",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "nice",
+          "label": "Unrecognised: Familiarity with monitoring and log analysis t…",
+          "points": 0,
+          "evidence": {
+            "quote": "Familiarity with monitoring and log analysis tools such as Elasticsearch and Kibana",
+            "display": "Familiarity with monitoring and log analysis tools such as Elasticsearch and Kibana",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "nice",
+          "label": "Kubernetes",
+          "skill": "kubernetes",
+          "trainLabel": "Kubernetes",
+          "points": 0,
+          "trainGain": 300,
+          "evidence": {
+            "quote": "Familiarity with Kubernetes environments",
+            "display": "Familiarity with Kubernetes environments",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "nice",
+          "label": "TypeScript",
+          "skill": "typescript",
+          "trainLabel": "TypeScript",
+          "points": 300,
+          "evidence": {
+            "quote": "Experience developing with TypeScript",
+            "display": "Experience developing with TypeScript",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "nice",
+          "label": "React",
+          "skill": "react",
+          "trainLabel": "React",
+          "points": 300,
+          "evidence": {
+            "quote": "Experience developing with React",
+            "display": "Experience developing with React",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "seniority",
+          "label": "Seniority: unlabeled",
+          "points": 0
+        },
+        {
+          "kind": "experience",
+          "label": "2+ years: you meet it",
+          "points": 0,
+          "evidence": {
+            "quote": "At least 2 years of experience in Backend development using Node.js",
+            "display": "At least 2 years of experience in Backend development using Node.js",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "location",
+          "label": "Center: in your region",
+          "points": 0
+        }
+      ]
+    }
+  },
+  {
+    "id": "backend-engineer-papaya-gaming-iq6zoz6m",
+    "title": "Backend Engineer",
+    "company": "Papaya Gaming",
+    "city": "Tel Aviv",
+    "workMode": "hybrid",
+    "url": "https://www.papaya.com/careers/backend-engineer?utm_source=freehire.me",
+    "postedAt": "2026-10-22T16:24:26Z",
+    "foundAt": "2026-10-17T22:00:00.000Z",
+    "seniority": "unlabeled",
+    "score": {
+      "total": 5963,
+      "lines": [
+        {
+          "kind": "must",
+          "label": "AWS",
+          "skill": "aws",
+          "trainLabel": "AWS",
+          "points": 638,
+          "trainGain": 1487,
+          "evidence": {
+            "quote": "Demonstrated cloud expertise with substantial practical experience in major cloud providers (AWS, GCP, or Azure)",
+            "display": "Demonstrated cloud expertise with substantial practical experience in major cloud providers (AWS, GCP, or Azure)",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "must",
+          "label": "Node.js",
+          "skill": "nodejs",
+          "trainLabel": "Node.js",
+          "points": 2125,
+          "evidence": {
+            "quote": "Experience in at least one major backend development language (NodeJS, Java, or C#)",
+            "display": "Experience in at least one major backend development language (NodeJS, Java, or C#)",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "must",
+          "label": "SQL + Redis",
+          "skill": "sql",
+          "trainLabel": "SQL",
+          "points": 2125,
+          "evidence": {
+            "quote": "Solid grasp of data modeling and caching: relational databases (MySQL) and Redis",
+            "display": "Solid grasp of data modeling and caching: relational databases (MySQL) and Redis",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "must",
+          "label": "AI coding tools",
+          "skill": "ai-tools",
+          "trainLabel": "AI coding tools",
+          "points": 2125,
+          "evidence": {
+            "quote": "Hands-on use of AI coding agents (Claude Code, Cursor, Copilot or similar) in real production work",
+            "display": "Hands-on use of AI coding agents (Claude Code, Cursor, Copilot or similar) in real production work",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "nice",
+          "label": "Microservices",
+          "skill": "microservices",
+          "trainLabel": "Microservices",
+          "points": 350,
+          "trainGain": 150,
+          "evidence": {
+            "quote": "Extensive experience designing, building, and maintaining high-scale, high-throughput distributed systems",
+            "display": "Extensive experience designing, building, and maintaining high-scale, high-throughput distributed systems",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "nice",
+          "label": "Unrecognised: Prior background in the mobile industry, parti…",
+          "points": 0,
+          "evidence": {
+            "quote": "Prior background in the mobile industry, particularly mobile gaming or large-scale B2C mobile platforms",
+            "display": "Prior background in the mobile industry, particularly mobile gaming or large-scale B2C mobile platforms",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "nice",
+          "label": "SQL",
+          "skill": "sql",
+          "trainLabel": "SQL",
+          "points": 500,
+          "evidence": {
+            "quote": "Data-driven product work: A/B tests, working with BI, analytics in SQL (e.g. Snowflake)",
+            "display": "Data-driven product work: A/B tests, working with BI, analytics in SQL (e.g. Snowflake)",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "seniority",
+          "label": "Seniority: unlabeled",
+          "points": 0
+        },
+        {
+          "kind": "experience",
+          "label": "3+ years required, you have 2",
+          "points": -1600,
+          "evidence": {
+            "quote": "3+ years hands-on experience designing, architecting, and developing complex server applications",
+            "display": "3+ years hands-on experience designing, architecting, and developing complex server applications",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "education",
+          "label": "Degree required: partly met (final semester)",
+          "points": -300,
+          "evidence": {
+            "quote": "B.Sc. in Computer Science, Software Engineering, or a highly related technical field",
+            "display": "B.Sc. in Computer Science, Software Engineering, or a highly related technical field",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "location",
+          "label": "Center: in your region",
+          "points": 0
+        }
+      ]
+    }
+  },
+  {
+    "id": "backend-developer-sidelines-group-ujv2mqym",
+    "title": "Backend Developer",
+    "company": "Sidelines Group",
+    "city": "Tel Aviv",
+    "workMode": "onsite",
+    "url": "https://sidelinesgroup.com/jobs/co/tel-aviv/89.B60/backend-developer/all/?utm_source=freehire.me",
+    "postedAt": "2026-10-20T13:25:26Z",
+    "foundAt": "2026-10-17T13:00:00.000Z",
+    "seniority": "unlabeled",
+    "score": {
+      "total": 5642,
+      "lines": [
+        {
+          "kind": "must",
+          "label": "JavaScript + Node.js",
+          "skill": "javascript",
+          "trainLabel": "JavaScript",
+          "points": 2125,
+          "evidence": {
+            "quote": "2+ years hands-on experience with Node.js",
+            "display": "2+ years hands-on experience with Node.js",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "must",
+          "label": "SQL",
+          "skill": "sql",
+          "trainLabel": "SQL",
+          "points": 2125,
+          "evidence": {
+            "quote": "2+ years hands-on experience with MySQL",
+            "display": "2+ years hands-on experience with MySQL",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "must",
+          "label": "REST APIs",
+          "skill": "rest",
+          "trainLabel": "REST APIs",
+          "points": 2125,
+          "evidence": {
+            "quote": "Experience with REST API",
+            "display": "Experience with REST API",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "must",
+          "label": "Unrecognised: Ability to work efficiently both individually …",
+          "points": 0,
+          "evidence": {
+            "quote": "Ability to work efficiently both individually and within a team",
+            "display": "Ability to work efficiently both individually and within a team",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "nice",
+          "label": "AWS",
+          "skill": "aws",
+          "trainLabel": "AWS",
+          "points": 150,
+          "trainGain": 350,
+          "evidence": {
+            "quote": "Experience with AWS",
+            "display": "Experience with AWS",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "nice",
+          "label": "CI/CD",
+          "skill": "cicd",
+          "trainLabel": "CI/CD",
+          "points": 500,
+          "evidence": {
+            "quote": "CI/CD with Jenkins",
+            "display": "CI/CD with Jenkins",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "nice",
+          "label": "Redis + AWS + Message queues",
+          "skill": "kafka",
+          "trainLabel": "Message queues",
+          "points": 217,
+          "trainGain": 283,
+          "evidence": {
+            "quote": "Experience with SQS, Kafka, BigQuery, Redis",
+            "display": "Experience with SQS, Kafka, BigQuery, Redis",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "seniority",
+          "label": "Seniority: unlabeled",
+          "points": 0
+        },
+        {
+          "kind": "experience",
+          "label": "3+ years required, you have 2",
+          "points": -1600,
+          "evidence": {
+            "quote": "3+ years hands-on backend programming experience",
+            "display": "3+ years hands-on backend programming experience",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "location",
+          "label": "Center: in your region",
+          "points": 0
+        }
+      ]
+    }
+  },
+  {
+    "id": "back-end-engineer-1-intuit-r4nb3tni",
+    "title": "Back End Engineer 1",
+    "company": "Intuit",
+    "city": "Petach Tikva",
+    "workMode": "onsite",
+    "url": "https://jobs.intuit.com/job/petah-tikva/back-end-engineer-1/27595/102234880256?utm_source=freehire.me",
+    "postedAt": "2026-10-04T00:00:00Z",
+    "foundAt": "2026-10-17T04:00:00.000Z",
+    "seniority": "unlabeled",
+    "score": {
+      "total": 5375,
+      "lines": [
+        {
+          "kind": "must",
+          "label": "Unrecognised: Demonstrated customer obsession: a track recor…",
+          "points": 0,
+          "evidence": {
+            "quote": "Demonstrated customer obsession: a track record of putting customer and end-user impact at the center of engineering decisions.",
+            "display": "Demonstrated customer obsession: a track record of putting customer and end-user impact at the center of engineering decisions.",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "must",
+          "label": "Java",
+          "skill": "java",
+          "trainLabel": "Java",
+          "points": 750,
+          "trainGain": 1750,
+          "evidence": {
+            "quote": "Proficiency in Java and Spring framework.",
+            "display": "Proficiency in Java and Spring framework.",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "must",
+          "label": "AI coding tools",
+          "skill": "ai-tools",
+          "trainLabel": "AI coding tools",
+          "points": 2500,
+          "evidence": {
+            "quote": "High proficiency with agentic engineering, leveraging tools such as Claude Code and Cursor (must-have).",
+            "display": "High proficiency with agentic engineering, leveraging tools such as Claude Code and Cursor (must-have).",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "must",
+          "label": "SQL + Microservices",
+          "skill": "microservices",
+          "trainLabel": "Microservices",
+          "points": 2125,
+          "trainGain": 375,
+          "evidence": {
+            "quote": "Experience with web applications, databases and microservices.",
+            "display": "Experience with web applications, databases and microservices.",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "seniority",
+          "label": "Seniority: unlabeled",
+          "points": 0
+        },
+        {
+          "kind": "experience",
+          "label": "1+ years: you meet it",
+          "points": 0,
+          "evidence": {
+            "quote": "1+ years of experience in back-end development.",
+            "display": "1+ years of experience in back-end development.",
+            "source": "freehire"
+          }
+        },
+        {
+          "kind": "location",
+          "label": "Center: in your region",
+          "points": 0
+        }
+      ]
+    }
+  }
+]
