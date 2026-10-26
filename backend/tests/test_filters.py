@@ -1,0 +1,73 @@
+import pytest
+
+from scouter.filters import drop_reason, hidden_reason, is_excluded_company, region_label, region_of
+from scouter.models import JobProfile, RawJob
+from scouter.profile import load_seed
+
+
+def raw(location: str | None = "Haifa, Israel", company: str = "Wix", seniority: str | None = "junior") -> RawJob:
+    return RawJob(
+        source="t",
+        source_id="1",
+        url="u",
+        title="Dev",
+        company=company,
+        location=location,
+        seniority=seniority,
+        text="",
+    )
+
+
+@pytest.mark.parametrize(
+    ("loc", "want"),
+    [
+        ("Haifa, Israel", "north"),
+        ("Yokneam Illit", "north"),
+        ("Akko", "north"),
+        ("חיפה", "north"),
+        ("Tel Aviv-Yafo, Israel", "center"),
+        ("Petah Tikva", "center"),
+        ("Rishon LeZion", "center"),
+        ("Jerusalem, Israel", "jerusalem"),
+        ("ירושלים", "jerusalem"),
+        ("Be'er Sheva", "south"),
+        ("Israel", "remote-il"),
+        ("New York, NY, United States", "abroad"),
+        (None, "unknown"),
+    ],
+)
+def test_region_of(loc: str | None, want: str) -> None:
+    assert region_of(loc) == want
+
+
+def test_region_label() -> None:
+    assert region_label("north") == "North: in your region"
+    assert region_label("center") == "Center: in your region"
+
+
+def test_jerusalem_hidden_by_default_shown_with_toggle() -> None:
+    p = load_seed()
+    assert hidden_reason(raw("Jerusalem"), JobProfile(), p) == "region"
+    assert hidden_reason(raw("Jerusalem"), JobProfile(), p.model_copy(update={"show_hidden_regions": True})) is None
+
+
+def test_defense_dropped_by_list_and_by_flag() -> None:
+    p = load_seed()
+    assert is_excluded_company("Elbit Systems-internal", p)
+    assert drop_reason(raw(company="Elbit Systems"), JobProfile(), p) == "defense"
+    assert drop_reason(raw(company="Acme"), JobProfile(is_defense=True), p) == "defense"
+    assert drop_reason(raw(company="Acme"), JobProfile(), p) is None
+    assert drop_reason(raw("Chicago, IL, United States"), JobProfile(), p) == "abroad"
+
+
+def test_student_needing_two_years_hidden() -> None:
+    p = load_seed()
+    assert hidden_reason(raw(), JobProfile(study_years_left_required=2), p) == "student"
+    assert hidden_reason(raw(), JobProfile(study_years_left_required=1), p) is None
+
+
+def test_senior_hidden_not_dropped() -> None:
+    p = load_seed()
+    assert hidden_reason(raw(), JobProfile(seniority="senior+"), p) == "senior"
+    assert drop_reason(raw(), JobProfile(seniority="senior+"), p) is None
+    assert hidden_reason(raw(), JobProfile(seniority="senior+"), p.model_copy(update={"show_senior": True})) is None
