@@ -221,6 +221,10 @@ def rescore_all(session: Session, indexer: Indexer | None = None) -> int:
         if jp is None:
             continue
         raw = repo.raw_of(row)
+        if drop_reason(raw, jp, profile) == "defense":
+            # a company added to the exclusion list disappears on the next rescore (unless already applied to)
+            repo.delete_job(session, row.id)
+            continue
         job = _score_row(session, row.id, raw, jp, profile.version)
         if job and indexer:
             try:

@@ -1,0 +1,19 @@
+# Companies that are never shown (spec §11b: no defense or military employers).
+# Matched case-insensitively as whole words. Always applied, on top of any the profile adds in Settings.
+companies:
+- Elbit
+- Rafael
+- IAI
+- Israel Aerospace Industries
+- Elta
+- Xtend
+- Sentrycs
+- Mobileye
+- Israel Shipyards
+- Tomer
+- Plasan
+- BIRD Aerosystems
+- UVision
+- Smart Shooter
+- Controp
+- D-Fend Solutions

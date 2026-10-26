@@ -41,21 +41,5 @@ skills:
   c: learning
   microservices: used
   system-design: used
-# Defense and military companies are never shown (spec 11b). Matched case-insensitively.
-excluded_companies:
-  - Elbit
-  - Rafael
-  - IAI
-  - Israel Aerospace Industries
-  - Elta
-  - Xtend
-  - Sentrycs
-  - Mobileye
-  - Israel Shipyards
-  - Tomer
-  - Plasan
-  - BIRD Aerosystems
-  - UVision
-  - Smart Shooter
-  - Controp
-  - D-Fend Solutions
+# Defense and military companies are listed in exclusions.yaml and always applied.
+excluded_companies: []

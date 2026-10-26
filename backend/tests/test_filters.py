@@ -101,3 +101,18 @@ def test_only_a_positive_foreign_signal_drops() -> None:
     assert region_of("Berlin, Germany") == "abroad"
     assert region_of("London, UK") == "abroad"
     assert region_of("New York, NY, United States") == "abroad"
+
+
+def test_exclusion_list_comes_from_config_not_the_stored_profile() -> None:
+    from scouter.filters import excluded_companies
+
+    stored = load_seed().model_copy(update={"excluded_companies": []})  # e.g. an old profile, or a PUT that omitted it
+    assert "Elbit" in excluded_companies(stored)
+    assert drop_reason(raw(company="Elbit Systems"), JobProfile(), stored) == "defense"
+
+
+def test_user_additions_are_kept_alongside_config() -> None:
+    from scouter.filters import excluded_companies
+
+    p = load_seed().model_copy(update={"excluded_companies": ["Some Defense Co"]})
+    assert {"Elbit", "Some Defense Co"} <= set(excluded_companies(p))

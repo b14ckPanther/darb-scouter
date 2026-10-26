@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "yearsExperience": 2.0,
+  "yearsExperience": 2,
   "skills": {
     "react": "proven",
     "nextjs": "proven",
@@ -40,22 +40,5 @@
   "showHiddenRegions": false,
   "showSenior": false,
   "alertThreshold": 9000,
-  "excludedCompanies": [
-    "Elbit",
-    "Rafael",
-    "IAI",
-    "Israel Aerospace Industries",
-    "Elta",
-    "Xtend",
-    "Sentrycs",
-    "Mobileye",
-    "Israel Shipyards",
-    "Tomer",
-    "Plasan",
-    "BIRD Aerosystems",
-    "UVision",
-    "Smart Shooter",
-    "Controp",
-    "D-Fend Solutions"
-  ]
+  "excludedCompanies": []
 }

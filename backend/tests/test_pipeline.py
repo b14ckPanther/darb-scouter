@@ -182,3 +182,12 @@ def test_index_gets_the_source_and_rescore_reindexes(session: Session) -> None:
     calls.clear()
     rescore_all(session, Idx())  # type: ignore[arg-type]
     assert calls and calls[0][1] == "fake"
+
+
+def test_rescore_drops_a_newly_excluded_company(session: Session) -> None:
+    scan(session, [Fake("ok", [raw(1, company="Acme Arms")])], FakeLLM())
+    assert len(repo.list_jobs(session)) == 1
+    p = repo.current_profile(session)
+    repo.save_profile(session, p.model_copy(update={"excluded_companies": [*p.excluded_companies, "Acme Arms"]}))
+    rescore_all(session)
+    assert repo.list_jobs(session, include_hidden=True) == []

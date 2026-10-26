@@ -41,9 +41,17 @@ def _norm(s: str) -> str:
     return re.sub(r"[^a-z0-9א-ת]+", " ", s.lower()).strip()
 
 
+_EXCLUDED: list[str] = yaml.safe_load((Path(__file__).parent / "exclusions.yaml").read_text())["companies"]
+
+
+def excluded_companies(profile: Profile) -> list[str]:
+    """The config list (always applied, so new entries reach every install) plus any the profile adds."""
+    return list(dict.fromkeys([*_EXCLUDED, *profile.excluded_companies]))
+
+
 def is_excluded_company(company: str, profile: Profile) -> bool:
     name = f" {_norm(company)} "
-    return any(f" {_norm(c)} " in name for c in profile.excluded_companies)
+    return any(f" {_norm(c)} " in name for c in excluded_companies(profile))
 
 
 def drop_reason(raw: RawJob, jp: JobProfile, profile: Profile) -> DropReason | None:
