@@ -112,3 +112,16 @@ class Application(Model):
     notes: str = ""
     contact: str | None = None
     cv_version: str | None = None
+
+
+class Profile(Model):
+    """Nour's profile. Seeded from profile.yaml, then lives in Postgres and is edited in Settings."""
+
+    version: int = 0
+    years_experience: float
+    skills: dict[str, Level]
+    degree: Literal["in_progress", "completed"]
+    months_to_graduation: int = 0
+    show_hidden_regions: bool = False
+    show_senior: bool = False
+    excluded_companies: list[str] = Field(default_factory=list)

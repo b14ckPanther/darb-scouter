@@ -1,0 +1,58 @@
+# Seed profile, from the CV at zangeel.dev/cv. proven = a public repo shows it.
+# After the first import the profile lives in Postgres and is edited in Settings.
+# Personal overrides go in profile.local.yaml (git-ignored).
+years_experience: 2
+degree: in_progress
+months_to_graduation: 3
+show_hidden_regions: false
+show_senior: false
+skills:
+  react: proven
+  nextjs: proven
+  typescript: proven
+  javascript: proven
+  nodejs: proven
+  nestjs: proven
+  postgresql: proven
+  sql: proven
+  supabase: proven
+  redis: proven
+  prisma: proven
+  docker: proven
+  playwright: proven
+  testing: proven
+  git: proven
+  rest: proven
+  html-css: proven
+  tailwind: proven
+  cicd: proven
+  linux: used
+  ai-tools: proven
+  webhooks: used
+  flutter: used
+  react-native: used
+  llm: used
+  firebase: used
+  python: learning
+  aws: learning
+  java: learning
+  c: learning
+  microservices: used
+  system-design: used
+# Defense and military companies are never shown (spec 11b). Matched case-insensitively.
+excluded_companies:
+  - Elbit
+  - Rafael
+  - IAI
+  - Israel Aerospace Industries
+  - Elta
+  - Xtend
+  - Sentrycs
+  - Mobileye
+  - Israel Shipyards
+  - Tomer
+  - Plasan
+  - BIRD Aerosystems
+  - UVision
+  - Smart Shooter
+  - Controp
