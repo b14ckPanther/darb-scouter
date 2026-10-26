@@ -17,6 +17,7 @@ class Settings(BaseSettings):
     telegram_chat_id: str | None = None
     public_app_url: str = "http://localhost:8000"
     scouter_token: str | None = None
+    frontend_dist: str = "../frontend/dist"
     scan_hour: int = 7
     timezone: str = "Asia/Jerusalem"
 

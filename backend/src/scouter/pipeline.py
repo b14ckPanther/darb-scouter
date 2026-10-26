@@ -4,7 +4,7 @@ import logging
 import re
 from collections.abc import Callable, Sequence
 from datetime import datetime
-from typing import Protocol
+from typing import Literal, Protocol
 
 import httpx
 from sqlalchemy.orm import Session
@@ -12,6 +12,7 @@ from sqlalchemy.orm import Session
 from scouter import repo
 from scouter.collectors.base import Collector
 from scouter.config import get_settings
+from scouter.db import JobRow
 from scouter.dedupe import dedupe
 from scouter.embed import Embedder
 from scouter.extract.graph import content_hash, extract_profile
@@ -59,6 +60,40 @@ def _score_row(session: Session, job_id: str, raw: RawJob, jp: JobProfile, versi
         hidden_reason=hidden,
     )
     return None if hidden else repo.get_job(session, job_id)
+
+
+def process_job(
+    session: Session,
+    row: JobRow,
+    llm: LLM,
+    indexer: Indexer | None = None,
+    *,
+    embedder: Embedder | None = None,
+    model: str,
+) -> Job | Literal["defense"] | None:
+    """Extract (or reuse the cached extraction), then drop, hide or score one stored job.
+
+    Returns the scored job, "defense" when it was dropped, or None when it is stored but hidden.
+    Raises when extraction fails; the job then stays pending.
+    """
+    raw = repo.raw_of(row)
+    profile = repo.current_profile(session)
+    key = content_hash(raw, model)
+    jp = repo.get_profile_cache(session, key)
+    if jp is None:
+        jp, _ = extract_profile(raw, llm, embedder, model=model)
+        repo.put_profile_cache(session, key, model, jp)
+    row.content_hash = key
+    if drop_reason(raw, jp, profile) == "defense":
+        repo.delete_job(session, row.id)
+        return "defense"
+    job = _score_row(session, row.id, raw, jp, profile.version)
+    if job and indexer:
+        try:
+            indexer.index(job, raw.text)
+        except Exception:  # noqa: BLE001 - search is a convenience; the scan still counts
+            log.exception("indexing failed for %s", row.id)
+    return job
 
 
 def run_scan(
@@ -115,32 +150,18 @@ def run_scan(
     matches: list[Job] = []
     new_scores: list[int] = []
     for row in repo.pending_jobs(session):
-        raw = repo.raw_of(row)
-        key = content_hash(raw, model)
-        jp = repo.get_profile_cache(session, key)
-        if jp is None:
-            try:
-                jp, _ = extract_profile(raw, llm, embedder, model=model)
-            except Exception:  # noqa: BLE001 - the job stays pending and is retried next run
-                log.exception("extraction failed for %s", row.url)
-                summary.pending += 1
-                continue
-            repo.put_profile_cache(session, key, model, jp)
-        row.content_hash = key
-        if drop_reason(raw, jp, profile) == "defense":
-            repo.delete_job(session, row.id)
-            summary.dropped["defense"] = summary.dropped.get("defense", 0) + 1
+        try:
+            outcome = process_job(session, row, llm, indexer, embedder=embedder, model=model)
+        except Exception:  # noqa: BLE001 - the job stays pending and is retried next run
+            log.exception("extraction failed for %s", row.url)
+            summary.pending += 1
             continue
-        job = _score_row(session, row.id, raw, jp, profile.version)
-        if job and indexer:
-            try:
-                indexer.index(job, raw.text)
-            except Exception:  # noqa: BLE001 - search is a convenience; the scan still counts
-                log.exception("indexing failed for %s", row.id)
-        if job and row.id in new_ids:
-            new_scores.append(job.score.total)
-            if job.score.total > MATCH:
-                matches.append(job)
+        if outcome == "defense":
+            summary.dropped["defense"] = summary.dropped.get("defense", 0) + 1
+        elif outcome and row.id in new_ids:
+            new_scores.append(outcome.score.total)
+            if outcome.score.total > MATCH:
+                matches.append(outcome)
     summary.new_matches = len(matches)
     summary.top_score = max(new_scores, default=None)
 
