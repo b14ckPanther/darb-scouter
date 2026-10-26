@@ -59,3 +59,12 @@ jobs:
       - uses: astral-sh/setup-uv@v6
       - run: uv sync --frozen
       - run: uv run pytest -m es
+
+  evals:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+      - run: uv sync --frozen
+      # cheap mode: cached extractions, current scorer; skipped until Nour has labelled the set
+      - run: if [ -s ../evals/labels.yaml ]; then uv run python ../evals/run.py; else echo "no labels yet"; fi
