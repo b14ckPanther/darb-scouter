@@ -230,3 +230,4 @@ __pycache__/
 .ruff_cache/
 .pytest_cache/
 frontend/.vite/
+.DS_Store

@@ -71,3 +71,33 @@ def test_senior_hidden_not_dropped() -> None:
     assert hidden_reason(raw(), JobProfile(seniority="senior+"), p) == "senior"
     assert drop_reason(raw(), JobProfile(seniority="senior+"), p) is None
     assert hidden_reason(raw(), JobProfile(seniority="senior+"), p.model_copy(update={"show_senior": True})) is None
+
+
+@pytest.mark.parametrize(
+    "loc",
+    [
+        "Tel-Aviv",
+        "Bnei-Brak",
+        "Kfar-Saba",
+        "תל-אביב",
+        "Kiryat Tivon",
+        "Rosh Pina",
+        "Remote",
+        "Hybrid",
+        "TLV",
+        "Somewhere new",
+    ],
+)
+def test_unknown_israeli_places_are_never_dropped_as_abroad(loc: str) -> None:
+    assert region_of(loc) != "abroad"
+    assert drop_reason(raw(loc), JobProfile(), load_seed()) is None
+
+
+def test_hyphens_match_known_cities() -> None:
+    assert region_of("Tel-Aviv") == "center" and region_of("Kfar-Saba") == "center"
+
+
+def test_only_a_positive_foreign_signal_drops() -> None:
+    assert region_of("Berlin, Germany") == "abroad"
+    assert region_of("London, UK") == "abroad"
+    assert region_of("New York, NY, United States") == "abroad"

@@ -1,0 +1,22 @@
+# Region rules (spec §11b). Patterns are case-insensitive regex, matched after hyphens become spaces.
+# A place is "abroad" only on a positive foreign signal; anything unrecognised stays in, as "unknown".
+regions:
+  north: haifa|yokne|nazareth|nazrat|akko|acre|karmiel|carmiel|nahariya|afula|tiberias|safed|zefat|caesarea|hadera|zichron|zikhron|galilee|kiryat tivon|tivon|rosh pina|kiryat shmona|ma'?alot|shlomi|קרית טבעון|ראש פינה|קרית שמונה|migdal ha|tirat carmel|חיפה|יקנעם|נצרת|עכו|כרמיאל|נהריה|עפולה|טבריה|צפת|קיסריה|חדרה|זכרון|גליל
+  center: tel aviv|herzli|ramat gan|petah|petach|ra'?anana|kfar saba|netanya|holon|bnei brak|rishon|rehovot|ness ziona|nes ziona|yavne|hod hasharon|givatayim|rosh ha'?ayin|\blod\b|ramla|modi'?in|or yehuda|airport city|kfar monash|ramat hasharon|\\bkfar|תל אביב|הרצליה|רמת גן|פתח תקווה|רעננה|כפר סבא|נתניה|חולון|בני ברק|ראשון
+    לציון|רחובות|נס ציונה|יבנה|הוד השרון|גבעתיים|ראש העין|לוד|רמלה|מודיעין|אור יהודה
+  jerusalem: jerusalem|ירושלים|beit shemesh|בית שמש
+  south: be'?er ?sheva|beersheba|ashdod|ashkelon|kiryat gat|eilat|dimona|באר שבע|אשדוד|אשקלון|אילת
+hidden_by_default:
+- jerusalem
+- south
+israel: israel|ישראל|\bil\b|\bisr\b|remote|hybrid|\btlv\b
+foreign: united states|\busa?\b|germany|berlin|london|\buk\b|united kingdom|france|paris|spain|madrid|india|bangalore|ukraine|kyiv|poland|warsaw|romania|canada|toronto|netherlands|amsterdam|cyprus|greece|portugal|lisbon|italy|milan|singapore|australia|new york|chicago|california|texas|dublin|ireland|,
+  [a-z]{2}, united
+labels:
+  north: 'North: in your region'
+  center: 'Center: in your region'
+  remote-il: 'Remote in Israel: in your region'
+  jerusalem: 'Jerusalem: outside your region'
+  south: 'South: outside your region'
+  unknown: Location not stated
+  abroad: Abroad

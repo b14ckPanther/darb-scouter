@@ -33,7 +33,7 @@ def test_lever_parse() -> None:
 
 def test_comeet_parse() -> None:
     j = comeet.parse(load("comeet_positions.json"), "Acme")[0]  # type: ignore[arg-type]
-    assert j.title == "Junior Software Engineer" and j.location == "Yokneam" and j.work_mode == "hybrid"
+    assert j.title == "Junior Software Engineer" and j.location == "Yokneam, IL" and j.work_mode == "hybrid"
     assert "C++ or Python" in j.text and j.seniority == "junior"
 
 
@@ -63,3 +63,8 @@ def test_all_boards_failing_raises() -> None:
     respx.get("https://api.lever.co/v0/postings/x").mock(return_value=httpx.Response(500))
     with polite_client(min_interval=0) as c, pytest.raises(CollectorError):
         ATSCollector([Board(company="X", provider="lever", token="x")]).collect(c)
+
+
+def test_comeet_keeps_country_so_unlisted_israeli_towns_survive() -> None:
+    j = comeet.parse(load("comeet_positions.json"), "Acme")[0]  # type: ignore[arg-type]
+    assert j.location is not None and "IL" in j.location

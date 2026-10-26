@@ -1,7 +1,10 @@
 """Which jobs Nour sees. Dropped jobs are never stored or scored; hidden ones are stored behind a toggle."""
 
 import re
-from typing import Literal
+from pathlib import Path
+from typing import Any, Literal
+
+import yaml
 
 from scouter.models import JobProfile, Profile, RawJob
 
@@ -9,54 +12,25 @@ Region = Literal["north", "center", "jerusalem", "south", "remote-il", "abroad",
 HiddenReason = Literal["senior", "region", "student"]
 DropReason = Literal["defense", "abroad"]
 
-_REGIONS: list[tuple[Region, re.Pattern[str]]] = [
-    (
-        "north",
-        re.compile(
-            r"haifa|yokne|nazareth|nazrat|akko|acre|karmiel|carmiel|nahariya|afula|tiberias|safed|zefat|caesarea"
-            r"|hadera|zichron|zikhron|galilee|migdal ha|tirat carmel|חיפה|יקנעם|נצרת|עכו|כרמיאל|נהריה|עפולה|טבריה"
-            r"|צפת|קיסריה|חדרה|זכרון|גליל",
-            re.I,
-        ),
-    ),
-    (
-        "center",
-        re.compile(
-            r"tel aviv|herzli|ramat gan|petah|petach|ra'?anana|kfar saba|netanya|holon|bnei brak|rishon|rehovot"
-            r"|ness ziona|nes ziona|yavne|hod hasharon|givatayim|rosh ha'?ayin|\blod\b|ramla|modi'?in|or yehuda"
-            r"|airport city|kfar monash|תל אביב|הרצליה|רמת גן|פתח תקווה|רעננה|כפר סבא|נתניה|חולון|בני ברק"
-            r"|ראשון לציון|רחובות|נס ציונה|יבנה|הוד השרון|גבעתיים|ראש העין|לוד|רמלה|מודיעין|אור יהודה",
-            re.I,
-        ),
-    ),
-    ("jerusalem", re.compile(r"jerusalem|ירושלים|beit shemesh|בית שמש", re.I)),
-    (
-        "south",
-        re.compile(r"be'?er ?sheva|beersheba|ashdod|ashkelon|kiryat gat|eilat|dimona|באר שבע|אשדוד|אשקלון|אילת", re.I),
-    ),
-]
-_ISRAEL = re.compile(r"israel|ישראל", re.I)
-_HIDDEN_REGIONS = {"jerusalem", "south"}
-_LABELS = {
-    "north": "North: in your region",
-    "center": "Center: in your region",
-    "remote-il": "Remote in Israel: in your region",
-    "jerusalem": "Jerusalem: outside your region",
-    "south": "South: outside your region",
-    "unknown": "Location not stated",
-    "abroad": "Abroad",
-}
+_RULES: dict[str, Any] = yaml.safe_load((Path(__file__).parent / "regions.yaml").read_text())
+_REGIONS: list[tuple[Region, re.Pattern[str]]] = [(k, re.compile(v, re.I)) for k, v in _RULES["regions"].items()]
+_ISRAEL = re.compile(_RULES["israel"], re.I)
+_FOREIGN = re.compile(_RULES["foreign"], re.I)
+_HIDDEN_REGIONS = set(_RULES["hidden_by_default"])
+_LABELS: dict[str, str] = _RULES["labels"]
 
 
 def region_of(location: str | None) -> Region:
     if not location or not location.strip():
         return "unknown"
+    place = location.replace("-", " ")
     for region, pattern in _REGIONS:
-        if pattern.search(location):
+        if pattern.search(place):
             return region
-    if _ISRAEL.search(location):
-        return "remote-il"
-    return "abroad"
+    # dropping a job is irreversible, so only a positive foreign signal counts as abroad
+    if _FOREIGN.search(place):
+        return "abroad"
+    return "remote-il" if _ISRAEL.search(place) else "unknown"
 
 
 def region_label(region: Region) -> str:

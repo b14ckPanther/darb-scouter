@@ -32,7 +32,7 @@ def parse(payload: list[dict[str, Any]], company: str) -> list[RawJob]:
                 url=p.get("url_active_page") or p.get("url_comeet_hosted_page") or "",
                 title=p["name"].strip(),
                 company=company,
-                location=loc.get("city") or loc.get("name"),
+                location=", ".join(x for x in (loc.get("city") or loc.get("name"), loc.get("country")) if x) or None,
                 work_mode=_MODES.get(str(p.get("workplace_type", "")).lower()),
                 posted_at=datetime.fromisoformat(p["time_updated"]) if p.get("time_updated") else None,
                 seniority="junior" if _JUNIOR.search(level) else (level.lower() or None),
