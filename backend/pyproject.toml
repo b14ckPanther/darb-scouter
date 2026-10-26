@@ -1,0 +1,64 @@
+[project]
+name = "scouter"
+version = "0.1.0"
+description = "Darb Scouter backend: collectors, extraction, honest scoring and API"
+readme = "README.md"
+authors = [
+    { name = "Nour Alden Mousa", email = "nmcryptoinvest@gmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "alembic>=1.20.1",
+    "anthropic>=2.3.0",
+    "apscheduler<4",
+    "elasticsearch>=8.15,<9",
+    "fastapi>=0.162.0",
+    "httpx>=0.28.1",
+    "langgraph>=1.2.17",
+    "psycopg[binary]>=3.3.6",
+    "pydantic>=2.14.1",
+    "pydantic-settings>=2.16.1",
+    "pyyaml>=6.0.3",
+    "rapidfuzz>=3.14.6",
+    "selectolax>=1.0.2",
+    "sqlalchemy>=2.1.6",
+    "uvicorn>=0.54.0",
+]
+
+[project.optional-dependencies]
+search = [
+    "sentence-transformers>=6.2.0",
+]
+
+[build-system]
+requires = ["uv_build>=0.12.23,<0.13.0"]
+build-backend = "uv_build"
+
+[dependency-groups]
+dev = [
+    "mypy>=2.4.0",
+    "pytest>=9.1.1",
+    "pytest-asyncio>=1.4.1",
+    "respx>=0.23.1",
+    "ruff>=0.17.2",
+    "types-pyyaml>=6.0.12.20260906",
+]
+
+[tool.ruff]
+line-length = 120
+target-version = "py313"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+[tool.mypy]
+strict = true
+plugins = ["pydantic.mypy"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+markers = [
+  "db: needs a Postgres DATABASE_URL",
+  "es: needs an Elasticsearch ELASTIC_URL",
+  "live: calls a live paid API",
+]

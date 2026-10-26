@@ -220,3 +220,12 @@ __marimo__/
 .streamlit/secrets.toml
 
 .superpowers/
+
+# backend
+.env
+backend/.venv/
+backend/src/scouter/profile.local.yaml
+__pycache__/
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
