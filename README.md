@@ -167,7 +167,7 @@ The full system runs every day. Two pieces are still open:
 
 ## About
 
-I'm **Nour Alden Mousa**, a final-semester B.Sc. Information Systems Engineering student in Haifa, looking for a junior role in software engineering: full-stack, frontend, backend, DevOps or AI engineering. I built Darb Scouter end to end: the design, the backend, the AI pipeline, the 3D interface and the tests. It belongs to **Darb**, the family of projects I build under one name.
+I'm **Nour Alden Mousa**, a final-semester B.Sc. Information Systems Engineering student in Haifa, looking for a junior role in software engineering: full-stack, frontend, DevOps or AI engineering. I built Darb Scouter end to end: the design, the backend, the AI pipeline, the 3D interface and the tests. It belongs to **Darb**, the family of projects I build under one name.
 
 The look is inspired by the scouter from Dragon Ball. Every visual and sound is original and made in code; no official art, logos, characters or audio are used.
 
