@@ -1,0 +1,150 @@
+# Canonical skill vocabulary. Order matters: it is the order skills are reported in.
+# pattern: Python regex, case-insensitive. aliases: exact phrases (case-insensitive) that mean this skill.
+- id: react
+  label: 'React'
+  pattern: '\breact(\.?js)?\b(?! native)'
+  aliases: ['react']
+- id: react-native
+  label: 'React Native'
+  pattern: 'react native'
+  aliases: ['react-native', 'react native']
+- id: nextjs
+  label: 'Next.js'
+  pattern: 'next\.?js'
+  aliases: ['nextjs', 'next.js']
+- id: typescript
+  label: 'TypeScript'
+  pattern: 'typescript|\bts\b'
+  aliases: ['typescript']
+- id: javascript
+  label: 'JavaScript'
+  pattern: 'javascript|\bjs\b|es6'
+  aliases: ['javascript']
+- id: nodejs
+  label: 'Node.js'
+  pattern: 'node(\.?js)?\b'
+  aliases: ['nodejs', 'node.js']
+- id: nestjs
+  label: 'NestJS'
+  pattern: 'nest\.?js'
+  aliases: ['nestjs']
+- id: postgresql
+  label: 'PostgreSQL'
+  pattern: 'postgres'
+  aliases: ['postgresql']
+- id: sql
+  label: 'SQL'
+  pattern: '\bsql\b|mysql|relational database|rdbms|database'
+  aliases: ['sql']
+- id: mongodb
+  label: 'MongoDB / NoSQL'
+  pattern: 'mongo|nosql'
+  aliases: ['mongodb', 'mongodb / nosql']
+- id: redis
+  label: 'Redis'
+  pattern: 'redis'
+  aliases: ['redis']
+- id: docker
+  label: 'Docker'
+  pattern: 'docker|container'
+  aliases: ['docker']
+- id: kubernetes
+  label: 'Kubernetes'
+  pattern: 'kubernetes|\bk8s\b'
+  aliases: ['kubernetes']
+- id: aws
+  label: 'AWS'
+  pattern: '\baws\b|amazon web services|\bsqs\b|\bsns\b|lambda'
+  aliases: ['aws']
+- id: gcp
+  label: 'GCP'
+  pattern: '\bgcp\b|google cloud'
+  aliases: ['gcp']
+- id: azure
+  label: 'Azure'
+  pattern: 'azure'
+  aliases: ['azure']
+- id: python
+  label: 'Python'
+  pattern: 'python'
+  aliases: ['python']
+- id: java
+  label: 'Java'
+  pattern: '\bjava\b(?!script)'
+  aliases: ['java']
+- id: csharp
+  label: 'C# / .NET'
+  pattern: 'c#|\.net|dotnet'
+  aliases: ['csharp', 'c# / .net']
+- id: go
+  label: 'Go'
+  pattern: '\bgolang\b|\bgo\b(?= |,|\))'
+  aliases: ['go']
+- id: php
+  label: 'PHP'
+  pattern: '\bphp'
+  aliases: ['php']
+- id: cpp
+  label: 'C++'
+  pattern: 'c\+\+'
+  aliases: ['cpp', 'c++']
+- id: angular
+  label: 'Angular'
+  pattern: 'angular'
+  aliases: ['angular']
+- id: vue
+  label: 'Vue'
+  pattern: '\bvue'
+  aliases: ['vue']
+- id: graphql
+  label: 'GraphQL'
+  pattern: 'graphql'
+  aliases: ['graphql']
+- id: kafka
+  label: 'Message queues'
+  pattern: 'kafka|rabbitmq|message queue|event-driven'
+  aliases: ['kafka', 'message queues']
+- id: rest
+  label: 'REST APIs'
+  pattern: '\brest(ful)?\b|\bapis?\b'
+  aliases: ['rest', 'rest apis']
+- id: webhooks
+  label: 'Webhooks + async flows'
+  pattern: 'webhook|asynchronous|async'
+  aliases: ['webhooks', 'webhooks + async flows']
+- id: cicd
+  label: 'CI/CD'
+  pattern: 'ci\/cd|continuous integration|jenkins|github actions'
+  aliases: ['cicd', 'ci/cd']
+- id: testing
+  label: 'Automated testing'
+  pattern: '\btest(ing|s)?\b|tdd|jest'
+  aliases: ['testing', 'automated testing']
+- id: git
+  label: 'Git'
+  pattern: '\bgit\b'
+  aliases: ['git']
+- id: html-css
+  label: 'HTML / CSS'
+  pattern: 'html|css'
+  aliases: ['html-css', 'html / css', 'html css']
+- id: ai-tools
+  label: 'AI coding tools'
+  pattern: 'ai (coding|development) tools|copilot|cursor|claude code|ai[- ]assisted|ai[- ]driven|ai coding|claude'
+  aliases: ['ai-tools', 'ai coding tools', 'ai tools']
+- id: llm
+  label: 'LLMs / GenAI'
+  pattern: '\bllm|genai|generative ai|rag\b|langchain|openai|\bmcps?\b|agents?\b'
+  aliases: ['llm', 'llms / genai']
+- id: microservices
+  label: 'Microservices'
+  pattern: 'microservice|distributed system'
+  aliases: ['microservices']
+- id: payments
+  label: 'Payments'
+  pattern: 'payment|billing|stripe|paypal|adyen'
+  aliases: ['payments']
+- id: linux
+  label: 'Linux'
+  pattern: 'linux'
+  aliases: ['linux']
