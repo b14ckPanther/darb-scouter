@@ -1,28 +1,11 @@
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { isMuted, play, setMuted } from '../audio/sfx'
+import { getProfile, getVocab, saveProfile, type VocabSkill } from '../data/api'
+import { AuthError, getToken, setToken } from '../data/http'
+import type { Level, Profile } from '../domain/types'
 import './settings.css'
 
-type Level = 'proven' | 'used' | 'learning' | 'none'
-const KEY = 'scouter.settings'
-const DEFAULT = {
-  threshold: 9000,
-  south: false,
-  skills: {
-    React: 'proven', 'Next.js': 'proven', TypeScript: 'proven', 'Node.js': 'proven', NestJS: 'proven', PostgreSQL: 'proven',
-    Supabase: 'proven', Redis: 'proven', Docker: 'proven', Playwright: 'proven', Flutter: 'used', Python: 'learning',
-    AWS: 'learning', Java: 'learning', 'C# / .NET': 'none', Go: 'none', Kubernetes: 'none', Angular: 'none',
-  } as Record<string, Level>,
-}
-type Settings = typeof DEFAULT
-
-function load(): Settings {
-  try {
-    const raw = localStorage.getItem(KEY)
-    return raw ? { ...DEFAULT, ...JSON.parse(raw), skills: { ...DEFAULT.skills, ...JSON.parse(raw).skills } } : DEFAULT
-  } catch {
-    return DEFAULT
-  }
-}
+type Choice = Level | 'none'
 
 function Switch({ label, hint, checked, onChange }: { label: string; hint: string; checked: boolean; onChange: (v: boolean) => void }) {
   return (
@@ -39,15 +22,49 @@ function Switch({ label, hint, checked, onChange }: { label: string; hint: strin
 }
 
 export function SettingsScreen() {
-  const [s, setS] = useState<Settings>(load)
+  const [profile, setProfile] = useState<Profile | null>(null)
+  const [vocab, setVocab] = useState<VocabSkill[]>([])
   const [sound, setSound] = useState(() => !isMuted())
-  const update = (next: Settings) => {
-    setS(next)
-    try {
-      localStorage.setItem(KEY, JSON.stringify(next))
-    } catch {
-      /* storage blocked */
+  const [needsToken, setNeedsToken] = useState(false)
+  const [token, setTokenDraft] = useState(getToken)
+  const [status, setStatus] = useState('')
+  const saving = useRef(Promise.resolve())
+
+  useEffect(() => {
+    let alive = true
+    Promise.all([getProfile(), getVocab()])
+      .then(([p, v]) => {
+        if (!alive) return
+        setProfile(p)
+        setVocab(v)
+      })
+      .catch((e: unknown) => {
+        if (alive && e instanceof AuthError) setNeedsToken(true)
+      })
+    return () => {
+      alive = false
     }
+  }, [])
+
+  // edits apply at once; saves queue so they reach the server in order (each one rescores every job)
+  const update = (next: Profile) => {
+    setProfile(next)
+    setStatus('Saving…')
+    saving.current = saving.current
+      .then(() => saveProfile(next))
+      .then((saved) => {
+        setProfile((cur) => (cur ? { ...cur, version: saved.version } : saved))
+        setStatus('Saved. Every job was rescored.')
+      })
+      .catch(() => setStatus('Couldn’t save. Check the server is running, then try again.'))
+  }
+
+  const setLevel = (id: string, choice: Choice) => {
+    if (!profile) return
+    const skills = { ...profile.skills }
+    if (choice === 'none') delete skills[id]
+    else skills[id] = choice
+    update({ ...profile, skills })
   }
 
   return (
@@ -56,57 +73,109 @@ export function SettingsScreen() {
         <p className="st-kicker">Settings</p>
         <h1 className="st-title">Tune the scouter</h1>
         <p className="st-lede">Your skill levels set every match score. Be honest here: proven means a public repo shows it.</p>
+        <p className="st-status" role="status" aria-live="polite">
+          {status}
+        </p>
       </header>
 
-      <section className="st-sec" aria-labelledby="st-skills">
-        <h2 id="st-skills">Your skills</h2>
-        <ul className="st-skills">
-          {Object.entries(s.skills).map(([name, level]) => (
-            <li key={name} data-level={level}>
-              <span>{name}</span>
-              <select aria-label={`${name} level`} value={level} onChange={(e) => update({ ...s, skills: { ...s.skills, [name]: e.target.value as Level } })}>
-                <option value="proven">Proven</option>
-                <option value="used">Used</option>
-                <option value="learning">Learning</option>
-                <option value="none">Not yet</option>
-              </select>
-            </li>
-          ))}
-        </ul>
-      </section>
+      {needsToken && (
+        <section className="st-sec" aria-labelledby="st-access">
+          <h2 id="st-access">Access</h2>
+          <form
+            className="st-row"
+            onSubmit={(e) => {
+              e.preventDefault()
+              setToken(token.trim())
+              window.location.reload()
+            }}
+          >
+            <div>
+              <label className="st-label" htmlFor="st-token">
+                Access token
+              </label>
+              <p className="st-hint">The SCOUTER_TOKEN from the server’s .env file. It stays on this device.</p>
+            </div>
+            <input id="st-token" className="st-num st-token" type="password" autoComplete="off" value={token} onChange={(e) => setTokenDraft(e.target.value)} />
+            <button type="submit" className="st-save">
+              Save token
+            </button>
+          </form>
+        </section>
+      )}
 
-      <section className="st-sec" aria-labelledby="st-scan">
-        <h2 id="st-scan">Scan and alerts</h2>
-        <div className="st-row">
-          <div>
-            <label className="st-label" htmlFor="st-threshold">
-              Alert me above
-            </label>
-            <p className="st-hint">Telegram pings you when a new job reads higher than this.</p>
-          </div>
-          <input
-            id="st-threshold"
-            className="st-num"
-            type="number"
-            min={0}
-            max={12000}
-            step={250}
-            value={s.threshold}
-            onChange={(e) => update({ ...s, threshold: Number(e.target.value) })}
-          />
-        </div>
-        <Switch label="Show Jerusalem and south" hint="Off keeps the radar on the north and center." checked={s.south} onChange={(v) => update({ ...s, south: v })} />
-        <Switch
-          label="Sound effects"
-          hint="Scouter beeps, radar pings and the over-9,000 crack."
-          checked={sound}
-          onChange={(v) => {
-            setMuted(!v)
-            setSound(v)
-            if (v) play('beep')
-          }}
-        />
-      </section>
+      {profile && (
+        <>
+          <section className="st-sec" aria-labelledby="st-skills">
+            <h2 id="st-skills">Your skills</h2>
+            <ul className="st-skills">
+              {vocab.map(({ id, label }) => {
+                const level: Choice = profile.skills[id] ?? 'none'
+                return (
+                  <li key={id} data-level={level}>
+                    <span>{label}</span>
+                    <select aria-label={`${label} level`} value={level} onChange={(e) => setLevel(id, e.target.value as Choice)}>
+                      <option value="proven">Proven</option>
+                      <option value="used">Used</option>
+                      <option value="learning">Learning</option>
+                      <option value="none">Not yet</option>
+                    </select>
+                  </li>
+                )
+              })}
+            </ul>
+          </section>
+
+          <section className="st-sec" aria-labelledby="st-scan">
+            <h2 id="st-scan">Scan and alerts</h2>
+            <div className="st-row">
+              <div>
+                <label className="st-label" htmlFor="st-threshold">
+                  Alert me above
+                </label>
+                <p className="st-hint">Telegram pings you when a new job reads higher than this.</p>
+              </div>
+              <input
+                id="st-threshold"
+                className="st-num"
+                type="number"
+                min={0}
+                max={12000}
+                step={250}
+                value={profile.alertThreshold}
+                onChange={(e) => update({ ...profile, alertThreshold: Number(e.target.value) })}
+              />
+            </div>
+            <Switch
+              label="Show Jerusalem and south"
+              hint="Off keeps the radar on the north and center."
+              checked={profile.showHiddenRegions}
+              onChange={(v) => update({ ...profile, showHiddenRegions: v })}
+            />
+            <Switch
+              label="Show senior roles"
+              hint="Off hides roles labelled senior, lead or staff. Some labels are wrong, so peek now and then."
+              checked={profile.showSenior}
+              onChange={(v) => update({ ...profile, showSenior: v })}
+            />
+            <Switch
+              label="Degree completed"
+              hint="On once you graduate. “B.Sc. required” then counts as fully met."
+              checked={profile.degree === 'completed'}
+              onChange={(v) => update({ ...profile, degree: v ? 'completed' : 'in_progress' })}
+            />
+            <Switch
+              label="Sound effects"
+              hint="Scouter beeps, radar pings and the over-9,000 crack."
+              checked={sound}
+              onChange={(v) => {
+                setMuted(!v)
+                setSound(v)
+                if (v) play('beep')
+              }}
+            />
+          </section>
+        </>
+      )}
     </div>
   )
 }

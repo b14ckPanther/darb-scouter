@@ -18,3 +18,26 @@
 .st-switch span { position: absolute; left: 3px; top: 3px; width: 22px; height: 22px; border-radius: 50%; background: #6f857a; transition: transform .2s, background .2s; }
 .st-switch[aria-checked='true'] { background: #1d5a43; border-color: #8dffb6; }
 .st-switch[aria-checked='true'] span { transform: translateX(22px); background: #8dffb6; box-shadow: 0 0 10px #3dff7e; }
+
+.st-status {
+  min-height: 1.4em;
+  color: var(--ink-dim, currentColor);
+  font-size: 0.875rem;
+}
+.st-token {
+  width: min(100%, 18rem);
+}
+.st-save {
+  min-height: 44px;
+  padding: 0 1rem;
+  border-radius: 999px;
+  border: 1px solid currentColor;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+.st-save:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 3px;
+}
