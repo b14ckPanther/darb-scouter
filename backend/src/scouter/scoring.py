@@ -5,6 +5,7 @@ gets a line (unrecognised ones score 0), and seniority, experience and education
 """
 
 import math
+from typing import Literal
 
 from scouter.models import JobProfile, Level, Profile, RequirementItem, Score, ScoreLine
 from scouter.vocab import label
@@ -27,11 +28,11 @@ def _fmt_years(y: float) -> str:
     return str(int(y)) if y == int(y) else str(y)
 
 
-def _skill_line(item: RequirementItem, per: float, kind: str, profile: Profile) -> ScoreLine:
+def _skill_line(item: RequirementItem, per: float, kind: Literal["must", "nice"], profile: Profile) -> ScoreLine:
     text = item.evidence.quote
     if not item.skills:
         short = text[:46] + "…" if len(text) > 48 else text
-        return ScoreLine(kind=kind, label=f"Unrecognised: {short}", points=0, evidence=item.evidence)  # type: ignore[arg-type]
+        return ScoreLine(kind=kind, label=f"Unrecognised: {short}", points=0, evidence=item.evidence)
 
     def lv(k: str) -> float:
         level = profile.skills.get(k)
@@ -48,7 +49,7 @@ def _skill_line(item: RequirementItem, per: float, kind: str, profile: Profile) 
     points = _round(per * lvl)
     trained = best if item.any_of else weakest
     return ScoreLine(
-        kind=kind,  # type: ignore[arg-type]
+        kind=kind,
         label=label(best) if item.any_of or len(item.skills) == 1 else " + ".join(label(k) for k in item.skills),
         skill=trained,
         train_label=label(trained),
@@ -64,7 +65,11 @@ def score(job: JobProfile, profile: Profile, region_label: str) -> Score:
     must_budget = (MUST if nice else MUST + NICE) if must else 0
     nice_budget = (NICE if must else MUST + NICE) if nice else 0
     lines: list[ScoreLine] = []
-    for items, budget, kind in ((must, must_budget, "must"), (nice, nice_budget, "nice")):
+    kinds: tuple[tuple[list[RequirementItem], int, Literal["must", "nice"]], ...] = (
+        (must, must_budget, "must"),
+        (nice, nice_budget, "nice"),
+    )
+    for items, budget, kind in kinds:
         per = budget / len(items) if items else 0.0
         lines += [_skill_line(i, per, kind, profile) for i in items]
 
