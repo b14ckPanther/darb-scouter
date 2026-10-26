@@ -167,3 +167,18 @@ def test_extraction_stops_after_consecutive_outages(session: Session) -> None:
     llm = FakeLLM(down=True)
     s = scan(session, [Fake("ok", [raw(i) for i in range(10)])], llm)
     assert llm.calls == 3 and s.pending == 10
+
+
+def test_index_gets_the_source_and_rescore_reindexes(session: Session) -> None:
+    calls: list[tuple[str, str]] = []
+
+    class Idx:
+        def index(self, job: Job, text: str, source: str = "") -> None:
+            calls.append((job.id, source))
+
+    with httpx.Client() as c:
+        run_scan(session, [Fake("ok", [raw(1)])], FakeLLM(), Idx(), NOW, client=c, model="m")  # type: ignore[arg-type]
+    assert calls and calls[0][1] == "fake"
+    calls.clear()
+    rescore_all(session, Idx())  # type: ignore[arg-type]
+    assert calls and calls[0][1] == "fake"

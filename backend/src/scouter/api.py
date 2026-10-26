@@ -32,7 +32,7 @@ log = logging.getLogger(__name__)
 
 
 class SearchIndex(Protocol):
-    def index(self, job: Any, text: str) -> None: ...
+    def index(self, job: Any, text: str, source: str = "") -> None: ...
     def search(self, q: str, f: SearchFilters, k: int = 50) -> list[str]: ...
 
 
@@ -166,13 +166,17 @@ def create_app(deps: Deps | None = None) -> FastAPI:
         if found is None:
             response.headers["X-Search-Fallback"] = "1"
             needle = q.strip().lower()
+            sources = repo.job_sources(s)
             found = [
                 j
-                for j in repo.list_jobs(s, min_score=minScore)
+                for j in repo.list_jobs(
+                    s, since_found_at=datetime.fromisoformat(since) if since else None, min_score=minScore
+                )
                 if (not needle or needle in j.title.lower() or needle in j.company.lower())
                 and (maxScore is None or j.score.total <= maxScore)
                 and (not workMode or j.work_mode == workMode)
                 and (not seniority or j.seniority == seniority)
+                and (not source or sources.get(j.id) == source)
             ]
         if stage:
             staged = {a.job_id for a in repo.list_applications(s) if a.stage == stage}
@@ -276,7 +280,7 @@ def create_app(deps: Deps | None = None) -> FastAPI:
     @app.put("/api/profile")
     def save_profile(body: Profile, s: S) -> dict[str, Any]:
         saved = repo.save_profile(s, body)
-        rescore_all(s)
+        rescore_all(s, d.indexer)
         return dump(saved)
 
     if d.frontend_dist:

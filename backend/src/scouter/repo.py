@@ -213,6 +213,10 @@ def list_jobs(
     return [_job(j, s) for j, s in session.execute(q).all()]
 
 
+def job_sources(session: Session) -> dict[str, str]:
+    return {i: src for i, src in session.execute(select(JobRow.id, JobRow.source)).all()}
+
+
 def get_job(session: Session, job_id: str) -> Job | None:
     jobs = list_jobs(session, include_hidden=True, ids=[job_id])
     return jobs[0] if jobs else None

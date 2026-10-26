@@ -34,7 +34,7 @@ _SENIORITY_LABEL = {
 
 
 class Indexer(Protocol):
-    def index(self, job: Job, text: str) -> None: ...
+    def index(self, job: Job, text: str, source: str = "") -> None: ...
 
 
 def city_of(location: str | None) -> str:
@@ -89,7 +89,7 @@ def process_job(
     job = _score_row(session, row.id, raw, jp, profile.version)
     if job and indexer:
         try:
-            indexer.index(job, raw.text)
+            indexer.index(job, raw.text, raw.source)
         except Exception:  # noqa: BLE001 - search is a convenience; the scan still counts
             log.exception("indexing failed for %s", row.id)
     return job
@@ -210,14 +210,22 @@ def _scan(
     return repo.finish_run(session, run_id, summary)
 
 
-def rescore_all(session: Session) -> int:
-    """Rescore every scored job against the current profile from cached extractions. No LLM calls."""
+def rescore_all(session: Session, indexer: Indexer | None = None) -> int:
+    """Rescore every scored job against the current profile from cached extractions. No LLM calls.
+
+    Re-indexes too, so search filters on score never see stale numbers."""
     profile = repo.current_profile(session)
     n = 0
     for row in repo.scored_jobs(session):
         jp = repo.get_profile_cache(session, row.content_hash) if row.content_hash else None
         if jp is None:
             continue
-        _score_row(session, row.id, repo.raw_of(row), jp, profile.version)
+        raw = repo.raw_of(row)
+        job = _score_row(session, row.id, raw, jp, profile.version)
+        if job and indexer:
+            try:
+                indexer.index(job, raw.text, raw.source)
+            except Exception:  # noqa: BLE001
+                log.exception("re-indexing failed for %s", row.id)
         n += 1
     return n

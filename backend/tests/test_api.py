@@ -131,3 +131,22 @@ def test_latest_run_404_then_found(client: TestClient, session: Session) -> None
 def test_vocab_lists_skills_with_labels(client: TestClient) -> None:
     vocab = client.get("/api/vocab").json()
     assert {"id": "nodejs", "label": "Node.js"} in vocab and len(vocab) > 20
+
+
+class RecordingIndexer:
+    def __init__(self) -> None:
+        self.indexed: list[tuple[str, str]] = []
+
+    def index(self, job: Job, text: str, source: str = "") -> None:
+        self.indexed.append((job.id, source))
+
+    def search(self, q: str, f: SearchFilters, k: int = 50) -> list[str]:
+        raise ConnectionError("down")
+
+
+def test_search_fallback_applies_every_filter(client: TestClient, session: Session) -> None:
+    seed(session, "Junior React Developer", 8000)
+    r = client.get("/api/jobs/search", params={"q": "react", "source": "greenhouse"})
+    assert r.json() == []
+    r = client.get("/api/jobs/search", params={"q": "react", "since": "2099-01-01T00:00:00Z"})
+    assert r.json() == []
