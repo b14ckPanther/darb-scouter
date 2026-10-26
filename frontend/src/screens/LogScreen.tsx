@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useState } from 'react'
 import { useNavigate } from 'react-router'
-import { listApplications, listJobs } from '../data/api'
+import { isLive, listApplications, listJobs, searchJobs } from '../data/api'
 import { formatPower, isOver9000, matchTier } from '../domain/power'
 import type { Application, Job } from '../domain/types'
+import { PasteLink } from '../ui/PasteLink'
 import { STAGE_LABEL } from '../ui/StageChip'
 import './log.css'
 
@@ -23,14 +24,31 @@ export function LogScreen() {
     })
   }, [])
 
+  // with the backend running, text search goes to the server (it understands Hebrew and synonyms)
+  const [hits, setHits] = useState<Set<string> | null>(null)
+  useEffect(() => {
+    if (!isLive() || !q.trim()) {
+      setHits(null)
+      return
+    }
+    let alive = true
+    const t = setTimeout(() => {
+      void searchJobs(q).then((r) => alive && setHits(new Set(r.map((j) => j.id))))
+    }, 250)
+    return () => {
+      alive = false
+      clearTimeout(t)
+    }
+  }, [q])
+
   const shown = useMemo(() => {
     const needle = q.trim().toLowerCase()
     return (jobs ?? [])
-      .filter((j) => !needle || `${j.title} ${j.company} ${j.city}`.toLowerCase().includes(needle))
+      .filter((j) => (hits ? hits.has(j.id) : !needle || `${j.title} ${j.company} ${j.city}`.toLowerCase().includes(needle)))
       .filter((j) => j.score.total >= min)
       .filter((j) => mode === 'all' || j.workMode === mode)
       .sort((a, b) => b.score.total - a.score.total)
-  }, [jobs, q, min, mode])
+  }, [jobs, q, min, mode, hits])
 
   return (
     <div className="lg">
@@ -64,6 +82,7 @@ export function LogScreen() {
             {jobs ? `${shown.length} of ${jobs.length}` : ''}
           </span>
         </div>
+        <PasteLink />
       </header>
 
       {jobs && shown.length === 0 ? (

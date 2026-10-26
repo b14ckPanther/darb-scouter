@@ -53,3 +53,19 @@ describe('LogScreen', () => {
     expect(screen.getByText('No jobs match. Clear the search or lower the power filter.')).toBeInTheDocument()
   })
 })
+
+describe('LogScreen paste a link', () => {
+  afterEach(() => __reset())
+
+  it('asks for pasted text when a link is blocked', async () => {
+    render(
+      <MemoryRouter>
+        <LogScreen />
+      </MemoryRouter>,
+    )
+    fireEvent.change(await screen.findByRole('textbox', { name: 'Job link' }), { target: { value: 'https://www.linkedin.com/jobs/view/1' } })
+    fireEvent.click(screen.getByRole('button', { name: 'Scan link' }))
+    expect(await screen.findByRole('textbox', { name: 'Job text' })).toBeInTheDocument()
+    expect(screen.getByText(/paste the job text/i)).toBeInTheDocument()
+  })
+})
