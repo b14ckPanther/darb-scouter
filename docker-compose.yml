@@ -28,6 +28,37 @@ services:
       retries: 30
     restart: unless-stopped
 
+  api:
+    build: {context: ., dockerfile: backend/Dockerfile}
+    image: darb-scouter
+    env_file: [{path: .env, required: false}]
+    environment: &internal
+      DATABASE_URL: postgresql+psycopg://postgres:postgres@db:5432/postgres
+      ELASTIC_URL: http://es:9200
+    ports: ["8000:8000"]
+    volumes: [models:/home/app/.cache]
+    # healthy only after migrations ran and the server answers
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/health')"]
+      interval: 5s
+      retries: 30
+    depends_on:
+      db: {condition: service_healthy}
+      es: {condition: service_healthy}
+    restart: unless-stopped
+
+  scheduler:
+    image: darb-scouter
+    pull_policy: never
+    command: ["python", "-m", "scouter.scheduler"]
+    env_file: [{path: .env, required: false}]
+    environment: *internal
+    volumes: [models:/home/app/.cache]
+    depends_on:
+      api: {condition: service_healthy}
+    restart: unless-stopped
+
 volumes:
   pgdata:
   esdata:
+  models:
