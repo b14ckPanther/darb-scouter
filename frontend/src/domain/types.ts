@@ -60,3 +60,42 @@ export type Milestone = {
   label: string
   earnedAt: string | null
 }
+
+export type SourceResult = { found: number; new: number; failed: boolean; error?: string }
+
+/** One daily scan, as GET /api/runs/latest returns it. */
+export type RunSummary = {
+  startedAt: string
+  finishedAt?: string
+  perSource: Record<string, SourceResult>
+  newJobs: number
+  newMatches: number
+  topScore?: number
+  dropped: Record<string, number>
+  pending: number
+  alertsFailed: number
+}
+
+export type Level = 'proven' | 'used' | 'learning'
+
+export type Profile = {
+  version: number
+  yearsExperience: number
+  skills: Record<string, Level>
+  degree: 'in_progress' | 'completed'
+  monthsToGraduation: number
+  showHiddenRegions: boolean
+  showSenior: boolean
+  alertThreshold: number
+  excludedCompanies: string[]
+}
+
+export type SearchFilters = {
+  minScore?: number
+  maxScore?: number
+  stage?: Stage
+  source?: string
+  seniority?: string
+  workMode?: Job['workMode']
+  since?: string
+}
