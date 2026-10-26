@@ -1,0 +1,61 @@
+/* Darb Scouter tokens. Picked by Nour 2026-10-25: type A, DB-1, Z-1, GT-1.
+   Measured contrast (WCAG):
+   db-ink/db-sky 9.93 · db-ink/paper 16.02 · paper/db-sea-deep 6.28
+   z-ink/z-ground 11.61 · z-ink/z-sky 4.14 (large text only, never body) · lens-ink/z-lens 12.87 · z-ink/z-panel 18.01
+   gt-ink/gt-void 17.37 · gt-ink/gt-violet 13.31 · amber-ink/gt-amber 9.48 · gt-red/gt-void 6.31
+   paper/night 16.81 · muted/night 10.29 · capsule/night 7.45 */
+:root {
+  /* type A: puffy 90s title cards, pixel scouter readout, quiet body */
+  --font-title: 'Rampart One', 'Arial Rounded MT Bold', system-ui, sans-serif;
+  --font-readout: 'DotGothic16', 'Courier New', ui-monospace, monospace;
+  --font-body: 'Zen Kaku Gothic New', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+  /* modular scale, ratio 1.25 from 16px */
+  --step--1: 0.8rem;
+  --step-0: 1rem;
+  --step-1: 1.25rem;
+  --step-2: 1.563rem;
+  --step-3: 1.953rem;
+  --step-4: 2.441rem;
+  --step-5: clamp(3rem, 8vw, 4.768rem);
+
+  /* shared */
+  --night: #0d1226;
+  --paper: #fbf3e2;
+  --muted: #b9c0dd;
+  --capsule: #f28a1c;
+  --focus: #f28a1c;
+
+  /* DB-1 capsule morning */
+  --db-sky: #ffb347;
+  --db-sky-2: #ff8a3d;
+  --db-sea: #2b8fb8;
+  --db-sea-deep: #1b5f86;
+  --db-ink: #2a1206;
+  --db-radar-screen: #103d22;
+  --db-radar-grid: #53e08a;
+  --db-radar-shell: #efeadb;
+  --db-blip: #ffd23a;
+
+  /* Z-1 Namek */
+  --z-sky: #1f8a6a;
+  --z-sky-2: #4fbf8a;
+  --z-ground: #123d36;
+  --z-lens: #3dff7e;
+  --z-lens-ink: #03210f;
+  --z-panel: #04160e;
+  --z-ink: #effff4;
+  --z-gain: #9dffbf;
+  --z-gap: #ffd07a;
+
+  /* GT-1 Black Star */
+  --gt-void: #12081f;
+  --gt-violet: #3b1257;
+  --gt-nebula: #6b1e74;
+  --gt-red: #d1203a;
+  --gt-hot: #ff5a4a;
+  --gt-amber: #ffaa2a;
+  --gt-amber-ink: #2a0e05;
+  --gt-ink: #fbeefe;
+  --gt-stone: #4a4558;
+}
