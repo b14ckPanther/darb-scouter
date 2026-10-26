@@ -1,0 +1,20 @@
+.st { min-height: calc(100dvh - 54px); padding: calc(6vh + env(safe-area-inset-top)) 6vw 8vh; background: radial-gradient(70% 50% at 0% 0%, #102a20, #04070b 60%); color: #e8f3ec; display: grid; gap: 40px; align-content: start; }
+.st > * { max-width: 1100px; width: 100%; }
+.st-head { display: grid; gap: 12px; }
+.st-lede { color: #9fb5a8; max-width: 56ch; }
+.st-sec { display: grid; gap: 14px; }
+.st-sec h2 { font: 400 13px/1 var(--font-readout); letter-spacing: .2em; text-transform: uppercase; color: #8dffb6; }
+.st-skills { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 8px; }
+.st-skills li { display: grid; grid-template-columns: minmax(0, 1fr) 128px; align-items: center; gap: 10px; padding: 8px 8px 8px 14px; border: 1px solid #ffffff12; border-left: 3px solid #3a4a42; }
+.st-skills li[data-level='proven'] { border-left-color: #8dffb6; }
+.st-skills li[data-level='used'] { border-left-color: #5ab88a; }
+.st-skills li[data-level='learning'] { border-left-color: #ffb547; }
+.st-skills select { padding: 7px 28px 7px 10px; font-size: 14px; cursor: pointer; appearance: none; background-image: linear-gradient(45deg, transparent 50%, #8dffb6 50%), linear-gradient(135deg, #8dffb6 50%, transparent 50%); background-position: calc(100% - 14px) 52%, calc(100% - 9px) 52%; background-size: 5px 5px; background-repeat: no-repeat; }
+.st-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 20px; align-items: center; padding: 16px 0; border-bottom: 1px solid #ffffff10; }
+.st-label { font-weight: 700; color: #fff; }
+.st-hint { color: #8a9a92; font-size: 14px; }
+.st-num { width: 130px; font: 400 22px/1 var(--font-readout); color: #8dffb6; text-align: right; }
+.st-switch { width: 52px; height: 30px; border-radius: 999px; border: 1px solid #8dffb655; background: #0c1a14; position: relative; cursor: pointer; transition: background .2s; }
+.st-switch span { position: absolute; left: 3px; top: 3px; width: 22px; height: 22px; border-radius: 50%; background: #6f857a; transition: transform .2s, background .2s; }
+.st-switch[aria-checked='true'] { background: #1d5a43; border-color: #8dffb6; }
+.st-switch[aria-checked='true'] span { transform: translateX(22px); background: #8dffb6; box-shadow: 0 0 10px #3dff7e; }
