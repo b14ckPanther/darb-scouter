@@ -19,6 +19,7 @@ from scouter.db import (
     RunRow,
     ScoreRow,
 )
+from scouter.dedupe import canonical_url, norm_company, same_role
 from scouter.models import (
     Application,
     Board,
@@ -58,9 +59,22 @@ def make_job_id(raw: RawJob) -> str:
 # jobs
 
 
+def _existing(session: Session, raw: RawJob) -> JobRow | None:
+    """The stored row for this job: same canonical link, or the same role at the same company from another source."""
+    url = canonical_url(raw.url)
+    row = session.scalar(select(JobRow).where(JobRow.url == url))
+    if row:
+        return row
+    company = norm_company(raw.company)
+    for cand in session.scalars(select(JobRow).where(JobRow.source != raw.source)):
+        if norm_company(cand.company) == company and same_role(raw_of(cand), raw):
+            return cand
+    return None
+
+
 def upsert_job(session: Session, raw: RawJob, now: datetime) -> tuple[str, bool]:
     """Insert a new job, or refresh last_seen_at on one already stored. Jobs are never deleted by a scan."""
-    row = session.scalar(select(JobRow).where(JobRow.url == raw.url))
+    row = _existing(session, raw)
     if row:
         row.last_seen_at = now
         session.commit()
@@ -69,7 +83,7 @@ def upsert_job(session: Session, raw: RawJob, now: datetime) -> tuple[str, bool]
         id=make_job_id(raw),
         source=raw.source,
         source_id=raw.source_id,
-        url=raw.url,
+        url=canonical_url(raw.url),
         title=raw.title,
         company=raw.company,
         location=raw.location,

@@ -14,6 +14,7 @@ TEXT_MATCH = 80
 
 
 def canonical_url(url: str) -> str:
+    """Lowercased host, no fragment, no trailing slash, tracking parameters removed."""
     p = urlparse(url.strip())
     query = urlencode([(k, v) for k, v in parse_qsl(p.query) if not k.lower().startswith("utm_")])
     return urlunparse((p.scheme.lower(), p.netloc.lower(), p.path.rstrip("/") or "/", "", query, ""))
@@ -30,7 +31,7 @@ def norm_title(s: str) -> str:
     return re.sub(r"\s+", " ", _SENIORITY.sub(" ", s)).strip()
 
 
-def _same_role(a: RawJob, b: RawJob) -> bool:
+def same_role(a: RawJob, b: RawJob) -> bool:
     return (
         norm_company(a.company) == norm_company(b.company)
         and fuzz.token_set_ratio(norm_title(a.title), norm_title(b.title)) >= TITLE_MATCH
@@ -55,7 +56,7 @@ def dedupe(jobs: list[RawJob]) -> list[RawJob]:
     out: list[RawJob] = []
     for j in by_url.values():
         for i, kept in enumerate(out):
-            if _same_role(kept, j):
+            if same_role(kept, j):
                 out[i] = _merge(kept, j)
                 break
         else:

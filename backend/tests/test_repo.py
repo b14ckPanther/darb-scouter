@@ -73,3 +73,33 @@ def test_run_round_trip(session: Session) -> None:
     repo.finish_run(session, run_id, repo.RunSummary(startedAt=NOW.isoformat(), newJobs=3, topScore=8742))
     latest = repo.latest_run(session)
     assert latest and latest.new_jobs == 3 and latest.top_score == 8742 and latest.finished_at
+
+
+def test_tracking_params_do_not_duplicate(session: Session) -> None:
+    a, _ = repo.upsert_job(session, raw("https://jobs.example/9?utm_source=freehire.me"), NOW)
+    b, new = repo.upsert_job(session, raw("https://jobs.example/9?utm_source=other#apply"), NOW)
+    assert a == b and not new
+
+
+def test_same_role_from_another_source_reuses_the_row(session: Session) -> None:
+    fh = RawJob(
+        source="freehire",
+        source_id="1",
+        url="https://freehire.example/x",
+        title="Junior Developer",
+        company="Wix",
+        location="Haifa",
+        text="React and Node",
+    )
+    gh = RawJob(
+        source="greenhouse",
+        source_id="2",
+        url="https://boards.greenhouse.io/wix/jobs/2",
+        title="Junior Developer",
+        company="Wix Ltd",
+        location="Haifa",
+        text="React and Node",
+    )
+    a, _ = repo.upsert_job(session, fh, NOW)
+    b, new = repo.upsert_job(session, gh, NOW + timedelta(days=1))
+    assert a == b and not new
