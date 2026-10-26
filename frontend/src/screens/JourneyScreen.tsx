@@ -88,7 +88,11 @@ export function JourneyScreen() {
     const stage = draft[a.id]
     if (!stage || stage === a.stage) return
     const next = await moveStage(a.id, stage)
-    setDraft(({ [a.id]: _, ...rest }) => rest)
+    setDraft((d) => {
+      const rest = { ...d }
+      delete rest[a.id]
+      return rest
+    })
     setApps((list) => (list ?? []).map((x) => (x.id === next.id ? next : x)))
   }
 
