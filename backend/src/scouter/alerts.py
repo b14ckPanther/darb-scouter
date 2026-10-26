@@ -13,7 +13,7 @@ log = logging.getLogger(__name__)
 
 
 def format_match(job: Job, app_url: str) -> str:
-    return f"⚡ {job.score.total:,} · {job.title} at {job.company}, {job.city}\n{app_url.rstrip('/')}/scan/{job.id}"
+    return f"Match {job.score.total:,} / 10,000 · {job.title} at {job.company}, {job.city}\n{app_url.rstrip('/')}/job/{job.id}"
 
 
 def format_summary(s: RunSummary) -> str:

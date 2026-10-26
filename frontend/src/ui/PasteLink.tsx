@@ -22,7 +22,7 @@ export function PasteLink() {
     setError('')
     try {
       const res = await pasteLink(needsText ? { url, text, title: title || undefined, company: company || undefined } : { url })
-      if ('job' in res) nav(`/scan/${encodeURIComponent(res.job.id)}`)
+      if ('job' in res) nav(`/job/${encodeURIComponent(res.job.id)}`)
       else setNeedsText(res.reason)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'The scan failed. Try again in a moment.')

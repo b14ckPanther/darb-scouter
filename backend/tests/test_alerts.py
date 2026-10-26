@@ -40,8 +40,8 @@ def test_summary_line() -> None:
 
 def test_match_message_has_link() -> None:
     msg = format_match(job(), "https://mac.tail.ts.net")
-    assert msg.startswith("⚡ 9,320 · Junior Backend Developer at Wix, Tel Aviv")
-    assert msg.endswith("https://mac.tail.ts.net/scan/junior-backend-wix-1")
+    assert msg.startswith("Match 9,320 / 10,000 · Junior Backend Developer at Wix, Tel Aviv")
+    assert msg.endswith("https://mac.tail.ts.net/job/junior-backend-wix-1")
 
 
 @respx.mock
@@ -59,3 +59,10 @@ def test_telegram_down_counts_failure() -> None:
 
 def test_alerts_disabled_without_token() -> None:
     assert telegram_alert(summary(), [job()], token=None, chat_id="42", app_url="https://a") == 0
+
+
+def test_messages_carry_no_emoji() -> None:
+    import re
+
+    emoji = re.compile("[\U0001f300-\U0001faff☀-➿⭐⭕]")
+    assert not emoji.search(format_match(job(), "https://a")) and not emoji.search(format_summary(summary()))

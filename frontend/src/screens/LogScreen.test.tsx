@@ -1,6 +1,7 @@
 import { fireEvent, render, screen, within } from '@testing-library/react'
-import { MemoryRouter } from 'react-router'
-import { afterEach, beforeEach, describe, expect, it } from 'vitest'
+import { MemoryRouter, Route, Routes } from 'react-router'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
+import * as api from '../data/api'
 import { __reset, __setFixtureJobs } from '../data/api'
 import type { Job } from '../domain/types'
 import { LogScreen } from './LogScreen'
@@ -67,5 +68,28 @@ describe('LogScreen paste a link', () => {
     fireEvent.click(screen.getByRole('button', { name: 'Scan link' }))
     expect(await screen.findByRole('textbox', { name: 'Job text' })).toBeInTheDocument()
     expect(screen.getByText(/paste the job text/i)).toBeInTheDocument()
+  })
+})
+
+describe('LogScreen paste a link, scanned', () => {
+  afterEach(() => {
+    vi.restoreAllMocks()
+    __reset()
+  })
+
+  it('opens the scanned job on its scouter page', async () => {
+    const job = (await import('../data/fixtures/jobs.json')).default[0] as Job
+    vi.spyOn(api, 'pasteLink').mockResolvedValue({ job })
+    render(
+      <MemoryRouter initialEntries={['/log']}>
+        <Routes>
+          <Route path="/log" element={<LogScreen />} />
+          <Route path="/job/:id" element={<p>scouter page</p>} />
+        </Routes>
+      </MemoryRouter>,
+    )
+    fireEvent.change(await screen.findByRole('textbox', { name: 'Job link' }), { target: { value: 'https://careers.example.com/1' } })
+    fireEvent.click(screen.getByRole('button', { name: 'Scan link' }))
+    expect(await screen.findByText('scouter page')).toBeInTheDocument()
   })
 })
