@@ -142,6 +142,7 @@ class RunSummary(Model):
     new_matches: int = 0
     top_score: int | None = None
     dropped: dict[str, int] = Field(default_factory=dict)
+    pending: int = 0
     alerts_failed: int = 0
 
 
