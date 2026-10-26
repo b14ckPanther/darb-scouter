@@ -50,6 +50,9 @@ class Deps:
 
 
 def default_deps() -> Deps:
+    from scouter.logs import configure_logging
+
+    configure_logging()
     from scouter.db import session_factory
     from scouter.extract.llm import AnthropicLLM
     from scouter.sources import default_collectors
@@ -62,6 +65,8 @@ def default_deps() -> Deps:
 
         indexer = EsIndexer(s.elastic_url, E5Embedder())
     dist = Path(s.frontend_dist)
+    if not s.scouter_token:
+        log.warning("SCOUTER_TOKEN is not set: the API answers anyone who can reach it. Set it in .env.")
     return Deps(
         session_factory=session_factory(),
         llm=AnthropicLLM() if s.anthropic_api_key else None,

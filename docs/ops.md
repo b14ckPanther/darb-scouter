@@ -1,7 +1,8 @@
 # Running Darb Scouter on the Mac
 
 Everything runs in Docker Compose: Postgres, Elasticsearch, the API (which also serves the app) and the scheduler.
-Nothing is exposed to the internet. The phone reaches the app over Tailscale.
+Every port is bound to 127.0.0.1, so nothing is reachable from the internet or the local network.
+The phone reaches the app over Tailscale, which proxies from localhost.
 
 ## 1. First start
 
@@ -44,7 +45,7 @@ docker compose logs -f scheduler     # watch a scan
    `https://api.telegram.org/bot<token>/getUpdates` and copy `message.chat.id` into `TELEGRAM_CHAT_ID`.
 3. `docker compose up -d` to restart with the new values.
 
-You get one message per new job scoring over 9,000, then a one-line morning summary.
+You get one message per new job scoring above your alert threshold (Settings, 9,000 by default), then a one-line morning summary.
 
 ## 4. Phone access over Tailscale
 

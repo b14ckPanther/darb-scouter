@@ -6,7 +6,7 @@ services:
     volumes:
       - pgdata:/var/lib/postgresql/data
     # 5433 on the host so it never clashes with a local Postgres on 5432
-    ports: ["5433:5432"]
+    ports: ["127.0.0.1:5433:5432"]
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "postgres"]
       interval: 5s
@@ -21,7 +21,7 @@ services:
       ES_JAVA_OPTS: -Xms512m -Xmx512m
     volumes:
       - esdata:/usr/share/elasticsearch/data
-    ports: ["9200:9200"]
+    ports: ["127.0.0.1:9200:9200"]
     healthcheck:
       test: ["CMD-SHELL", "curl -fs localhost:9200/_cluster/health || exit 1"]
       interval: 10s
@@ -35,7 +35,7 @@ services:
     environment: &internal
       DATABASE_URL: postgresql+psycopg://postgres:postgres@db:5432/postgres
       ELASTIC_URL: http://es:9200
-    ports: ["8000:8000"]
+    ports: ["127.0.0.1:8000:8000"]
     volumes: [models:/home/app/.cache]
     # healthy only after migrations ran and the server answers
     healthcheck:

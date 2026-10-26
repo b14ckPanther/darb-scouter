@@ -78,8 +78,9 @@ def main() -> None:
     from apscheduler.schedulers.blocking import BlockingScheduler
 
     from scouter.db import make_engine
+    from scouter.logs import configure_logging
 
-    logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(name)s %(message)s")
+    configure_logging()
     s = get_settings()
     tz = ZoneInfo(s.timezone)
     engine = make_engine()
