@@ -1,0 +1,110 @@
+/* Cinematic scouter hero. The canvas is light; the DOM is the HUD on the glass. */
+.hs {
+  --hud: #8dffb6;
+  --hud-dim: #8dffb699;
+  --gap: #ffd07a;
+  position: relative; min-height: 100dvh; overflow: hidden; isolation: isolate;
+  background: radial-gradient(60% 60% at 50% 50%, #3a1a0a, #05060d 70%);
+  color: #effff4;
+}
+.hs-canvas { position: absolute; inset: 0; width: 100%; height: 100%; z-index: 0; display: block; }
+.hs-veil { position: absolute; inset: 0; background: #000; opacity: 0; z-index: 5; pointer-events: none; }
+
+/* glass edge on the right, like the lens sitting in front of one eye */
+.hs-lensframe { position: absolute; inset: 0; z-index: 1; pointer-events: none; }
+.hs-lens-edge {
+  position: absolute; inset: 3vh 3vw;
+  border: 1px solid #8dffb640; border-radius: 4px 4px 4px 64px;
+  box-shadow: inset 0 0 0 1px #00000040, inset 0 0 120px #3dff7e14;
+  clip-path: polygon(0 0, 100% 0, 100% 78%, 86% 100%, 0 100%);
+}
+.hs-lens-glint {
+  position: absolute; left: 6vw; top: 6vh; width: 26vw; height: 3px; border-radius: 3px;
+  background: linear-gradient(90deg, #ffffff00, #ffffff55, #ffffff00); transform: rotate(-4deg);
+}
+
+.hs-reticle {
+  position: absolute; left: 50%; top: 50%; z-index: 2; color: var(--hud);
+  width: min(58vmin, 520px); aspect-ratio: 1; transform: translate(-50%, -50%); pointer-events: none;
+}
+.hs-ring { width: 100%; height: 100%; animation: hs-spin 40s linear infinite; opacity: .8; }
+@keyframes hs-spin { to { rotate: 360deg; } }
+.hs-bracket { position: absolute; width: 14%; aspect-ratio: 1; border: 2px solid var(--hud); }
+.hs-bracket.tl { left: 12%; top: 12%; border-right: 0; border-bottom: 0; }
+.hs-bracket.tr { right: 12%; top: 12%; border-left: 0; border-bottom: 0; }
+.hs-bracket.bl { left: 12%; bottom: 12%; border-right: 0; border-top: 0; }
+.hs-bracket.br { right: 12%; bottom: 12%; border-left: 0; border-top: 0; }
+
+.hs-top {
+  position: absolute; z-index: 3; top: calc(5vh + env(safe-area-inset-top)); left: 6vw; right: 6vw;
+  display: flex; justify-content: space-between; align-items: baseline; gap: 16px; flex-wrap: wrap;
+}
+.hs-mark { font: 400 clamp(18px, 2vw, 24px)/1 var(--font-title); color: #fff3dc; letter-spacing: .02em; }
+.hs-status { font: 400 13px/1 var(--font-readout); color: var(--hud-dim); letter-spacing: .12em; text-transform: uppercase; display: inline-flex; gap: 8px; align-items: center; }
+.hs-status i { width: 7px; height: 7px; border-radius: 50%; background: var(--hud); box-shadow: 0 0 10px var(--hud); animation: hs-pulse 1.4s ease-in-out infinite; }
+@keyframes hs-pulse { 50% { opacity: .3; } }
+
+.hs-tel {
+  position: absolute; z-index: 3; left: 6vw; bottom: 12vh; width: min(30ch, 34vw);
+  display: grid; gap: 8px;
+}
+.hs-k, .hs-readout-label { font: 400 12px/1 var(--font-readout); letter-spacing: .28em; text-transform: uppercase; color: var(--hud-dim); }
+.hs-title { font: 700 clamp(22px, 2.4vw, 34px)/1.08 var(--font-body); letter-spacing: -.01em; color: #fff; text-wrap: balance; }
+.hs-sub { color: #cfe9d8; font-size: 15px; }
+.hs-match { list-style: none; padding: 0; margin: 8px 0 0; display: grid; gap: 4px; font: 400 14px/1.4 var(--font-readout); color: var(--hud); }
+.hs-match b, .hs-gaps b { font-weight: 400; font-size: 10px; margin-right: 6px; }
+
+.hs-readout {
+  position: absolute; z-index: 3; right: 6vw; top: 50%; transform: translateY(-50%);
+  display: grid; justify-items: end; gap: 10px; text-align: right; width: min(36ch, 36vw);
+}
+.hs-num {
+  font: 400 clamp(56px, 8.4vw, 132px)/.9 var(--font-readout);
+  color: #f2fff6; font-variant-numeric: tabular-nums; letter-spacing: -.02em;
+  text-shadow: 0 0 22px #3dff7eaa, 0 0 2px #fff;
+}
+.hs-over {
+  font: 400 clamp(18px, 2.2vw, 28px)/1 var(--font-title); color: #fff3dc;
+  opacity: 0; transform: translateY(8px) scale(.9); transition: opacity .25s, transform .4s cubic-bezier(.2, 1.6, .4, 1);
+}
+.is-over .hs-over { opacity: 1; transform: none; }
+.hs-gaps { list-style: none; padding: 0; margin: 6px 0 0; display: grid; gap: 4px; width: 100%; font: 400 14px/1.4 var(--font-readout); color: var(--gap); }
+.hs-gaps li { display: flex; justify-content: space-between; gap: 12px; border-bottom: 1px dashed #ffd07a33; padding-bottom: 4px; }
+.hs-gain { color: #fff3dc; }
+.hs-actions { display: flex; gap: 8px; flex-wrap: wrap; justify-content: flex-end; margin-top: 6px; }
+.hs-btn {
+  font: 700 14px/1 var(--font-body); padding: 12px 16px; border-radius: 2px; cursor: pointer;
+  color: #03210f; background: var(--hud); border: 0;
+  clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  transition: background .15s, transform .15s;
+}
+.hs-btn:hover { background: #c6ffd9; }
+.hs-btn:active { transform: translateY(1px); }
+.hs-btn:disabled { opacity: .45; cursor: default; }
+.hs-btn.ghost { background: transparent; color: var(--hud); box-shadow: inset 0 0 0 1px var(--hud); }
+
+.hs-crack { filter: drop-shadow(0 0 2px #bfffd4) drop-shadow(0 0 6px #3dff7e88); position: absolute; inset: 0; width: 100%; height: 100%; z-index: 4; pointer-events: none; }
+.hs-crack path { fill: none; stroke: #f2fff6; stroke-width: .14; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 1; stroke-dashoffset: 1;  }
+.hs-crack path:nth-child(n+5) { stroke-width: .08; opacity: .85; }
+.is-over .hs-crack path { animation: hs-crack .32s cubic-bezier(.2, .9, .3, 1) forwards; }
+.is-over .hs-crack path:nth-child(2) { animation-delay: .05s; }
+.is-over .hs-crack path:nth-child(3) { animation-delay: .09s; }
+.is-over .hs-crack path:nth-child(4) { animation-delay: .12s; }
+.is-over .hs-crack path:nth-child(5) { animation-delay: .15s; }
+.is-over .hs-crack path:nth-child(n+6) { animation-delay: .2s; }
+@keyframes hs-crack { to { stroke-dashoffset: 0; } }
+
+/* no WebGL: a still poster, everything readable */
+.no-webgl { background: radial-gradient(22% 30% at 50% 50%, #ffcf7a, #ff8a1c 40%, #9a3a05 62%, #1a0b22 78%, #05060d); }
+.no-webgl .hs-canvas { display: none; }
+
+@media (max-width: 760px) {
+  .hs-reticle { top: 38%; width: 78vmin; }
+  .hs-tel { left: 6vw; right: 6vw; width: auto; bottom: auto; top: calc(11vh + env(safe-area-inset-top)); }
+  .hs-match { display: none; }
+  .hs-readout { left: 6vw; right: 6vw; width: auto; top: auto; bottom: calc(10vh + env(safe-area-inset-bottom)); transform: none; justify-items: start; text-align: left; }
+  .hs-actions { justify-content: flex-start; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .hs-ring, .hs-status i { animation: none; }
+}
