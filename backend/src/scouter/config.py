@@ -13,6 +13,9 @@ class Settings(BaseSettings):
     anthropic_api_key: str | None = None
     model_default: str = "claude-sonnet-5-5"
     model_cheap: str = "claude-haiku-5-5"
+    llm_timeout_s: float = 60
+    max_extract_attempts: int = 3
+    max_consecutive_llm_failures: int = 3
     telegram_bot_token: str | None = None
     telegram_chat_id: str | None = None
     public_app_url: str = "http://localhost:8000"

@@ -9,6 +9,7 @@ from typing import Any, cast
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
+from scouter.config import get_settings
 from scouter.db import (
     ApplicationRow,
     BoardRow,
@@ -130,6 +131,16 @@ def raw_of(row: JobRow) -> RawJob:
 
 def pending_jobs(session: Session) -> list[JobRow]:
     return list(session.scalars(select(JobRow).where(JobRow.status == "pending").order_by(JobRow.found_at)))
+
+
+def count_failed_attempt(session: Session, job_id: str) -> int:
+    """One more failed extraction; after the configured limit the job is parked and never re-billed."""
+    row = job_row(session, job_id)
+    row.attempts += 1
+    if row.attempts >= get_settings().max_extract_attempts:
+        row.status = "parked"
+    session.commit()
+    return row.attempts
 
 
 def scored_jobs(session: Session) -> list[JobRow]:

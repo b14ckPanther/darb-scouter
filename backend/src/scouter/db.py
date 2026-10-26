@@ -19,7 +19,7 @@ class Base(DeclarativeBase):
 
 class JobRow(Base):
     __tablename__ = "jobs"
-    __table_args__ = (CheckConstraint("status in ('pending', 'scored')", name="jobs_status"),)
+    __table_args__ = (CheckConstraint("status in ('pending', 'scored', 'parked')", name="jobs_status"),)
 
     id: Mapped[str] = mapped_column(String, primary_key=True)
     source: Mapped[str]
@@ -40,6 +40,7 @@ class JobRow(Base):
     content_hash: Mapped[str | None]
     status: Mapped[str] = mapped_column(String, default="pending", index=True)
     hidden_reason: Mapped[str | None]
+    attempts: Mapped[int] = mapped_column(default=0, server_default="0")
 
 
 class JobProfileRow(Base):

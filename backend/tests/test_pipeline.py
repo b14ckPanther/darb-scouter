@@ -153,3 +153,17 @@ def test_crash_is_recorded_on_the_run(session: Session, monkeypatch: pytest.Monk
         scan(session, [Fake("ok", [raw(1)])], FakeLLM())
     row = session.scalar(select(RunRow).order_by(RunRow.id.desc()).limit(1))
     assert row is not None and row.error and "boom" in row.error and row.finished_at
+
+
+def test_job_that_keeps_failing_is_parked(session: Session) -> None:
+    llm = FakeLLM(down=True)
+    for day in range(4):
+        scan(session, [Fake("ok", [raw(1)])], llm, NOW + timedelta(days=day))
+    assert llm.calls == 3  # parked after 3 failed attempts, never re-billed
+    assert repo.job_row(session, repo.make_job_id(raw(1))).status == "parked"
+
+
+def test_extraction_stops_after_consecutive_outages(session: Session) -> None:
+    llm = FakeLLM(down=True)
+    s = scan(session, [Fake("ok", [raw(i) for i in range(10)])], llm)
+    assert llm.calls == 3 and s.pending == 10

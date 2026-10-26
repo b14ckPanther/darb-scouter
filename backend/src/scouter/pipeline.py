@@ -172,12 +172,23 @@ def _scan(
     # 3. extract (cached by content hash) and score every pending job, including earlier failures
     matches: list[Job] = []
     new_scores: list[int] = []
-    for row in repo.pending_jobs(session):
+    settings = get_settings()
+    pending = repo.pending_jobs(session)
+    failures_in_a_row = 0
+    for i, row in enumerate(pending):
+        if failures_in_a_row >= settings.max_consecutive_llm_failures:
+            # the model is down: stop paying for timeouts, everything left retries next run
+            summary.pending += len(pending) - i
+            break
         try:
             outcome = process_job(session, row, llm, indexer, embedder=embedder, model=model)
+            failures_in_a_row = 0
         except Exception:  # noqa: BLE001 - the job stays pending and is retried next run
             session.rollback()  # one failed job must not poison the session for the rest
             log.exception("extraction failed for %s", row.url)
+            failures_in_a_row += 1
+            if repo.count_failed_attempt(session, row.id) >= settings.max_extract_attempts:
+                summary.dropped["parked"] = summary.dropped.get("parked", 0) + 1
             summary.pending += 1
             continue
         if outcome == "defense":

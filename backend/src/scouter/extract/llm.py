@@ -6,6 +6,7 @@ from typing import Literal, Protocol
 import anthropic
 from pydantic import BaseModel, Field
 
+from scouter.config import get_settings
 from scouter.models import Requirement
 
 SYSTEM = (Path(__file__).parent / "prompt.md").read_text()
@@ -52,7 +53,7 @@ def user_message(text: str, requirements: list[Requirement]) -> str:
 
 class AnthropicLLM:
     def __init__(self, client: anthropic.Anthropic | None = None) -> None:
-        self.client = client or anthropic.Anthropic()
+        self.client = client or anthropic.Anthropic(timeout=get_settings().llm_timeout_s, max_retries=1)
 
     def extract(self, text: str, requirements: list[Requirement], model: str) -> LLMDraft:
         try:

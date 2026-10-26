@@ -102,3 +102,9 @@ def test_skill_must_be_named_by_its_quote() -> None:
     )
     jp, _ = extract_profile(raw(), FakeLLM(draft), model="m")
     assert jp.must_have[0].skills == ["nodejs"]
+
+
+def test_anthropic_client_has_a_short_timeout() -> None:
+    from scouter.extract.llm import AnthropicLLM
+
+    assert AnthropicLLM().client.timeout <= 90
