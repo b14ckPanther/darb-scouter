@@ -68,3 +68,30 @@ def test_all_boards_failing_raises() -> None:
 def test_comeet_keeps_country_so_unlisted_israeli_towns_survive() -> None:
     j = comeet.parse(load("comeet_positions.json"), "Acme")[0]  # type: ignore[arg-type]
     assert j.location is not None and "IL" in j.location
+
+
+@respx.mock
+def test_renamed_payload_key_is_a_failure_not_zero_jobs() -> None:
+    respx.get("https://boards-api.greenhouse.io/v1/boards/acme/jobs").mock(
+        return_value=httpx.Response(200, json={"postings": []})
+    )
+    with polite_client(min_interval=0) as c, pytest.raises(CollectorError):
+        ATSCollector([Board(company="Acme", provider="greenhouse", token="acme")]).collect(c)
+
+
+@respx.mock
+def test_unexpected_shape_fails_one_board_only() -> None:
+    respx.get("https://boards-api.greenhouse.io/v1/boards/good/jobs").mock(
+        return_value=httpx.Response(200, json=load("greenhouse_jobs.json"))
+    )
+    respx.get("https://api.lever.co/v0/postings/odd").mock(return_value=httpx.Response(200, json={"not": "a list"}))
+    col = ATSCollector(
+        [
+            Board(company="Good", provider="greenhouse", token="good"),
+            Board(company="Odd", provider="lever", token="odd"),
+        ]
+    )
+    with polite_client(min_interval=0) as c:
+        assert len(col.collect(c)) == 2
+    assert col.results == {"greenhouse:good": True, "lever:odd": False}
+    assert col.failures and "lever:odd" in col.failures[0]

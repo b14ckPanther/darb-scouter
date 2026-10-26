@@ -10,8 +10,10 @@ from scouter.models import RawJob
 
 
 def parse(payload: dict[str, Any], company: str) -> list[RawJob]:
+    if not isinstance(payload, dict) or not isinstance(payload.get("jobs"), list):
+        raise ValueError("Greenhouse payload has no 'jobs' list; the API may have changed")
     out = []
-    for j in payload.get("jobs", []):
+    for j in payload["jobs"]:
         out.append(
             RawJob(
                 source="greenhouse",

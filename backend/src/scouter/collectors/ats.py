@@ -23,19 +23,20 @@ class ATSCollector:
     def __init__(self, boards: list[Board]) -> None:
         self.boards = boards
         self.results: dict[str, bool] = {}
+        self.failures: list[str] = []
 
     def collect(self, client: httpx.Client) -> list[RawJob]:
         out: list[RawJob] = []
-        errors: list[str] = []
+        self.failures = []
         for b in self.boards:
             key = f"{b.provider}:{b.token.split(':')[0]}"
             try:
                 out += FETCH[b.provider](client, b.token, b.company)
                 self.results[key] = True
-            except (httpx.HTTPError, ValueError, KeyError) as e:
+            except Exception as e:  # noqa: BLE001 - one dead board never stops the others, but it is reported
                 log.warning("board %s failed: %s", key, e)
                 self.results[key] = False
-                errors.append(f"{key}: {e}")
+                self.failures.append(f"{key}: {type(e).__name__}: {e}")
         if self.boards and not any(self.results.values()):
-            raise CollectorError(f"all {len(self.boards)} ATS boards failed; first: {errors[0]}")
+            raise CollectorError(f"all {len(self.boards)} ATS boards failed; first: {self.failures[0]}")
         return out

@@ -60,7 +60,7 @@ def daily_scan(session: Session, now: datetime) -> None:
     from scouter.collectors.freehire import FreeHireCollector
     from scouter.http import polite_client
     from scouter.pipeline import run_scan
-    from scouter.sources import default_collectors, discover_new_boards, resolve_comeet_seeds
+    from scouter.sources import default_collectors, discover_new_boards, record_board_results, resolve_comeet_seeds
 
     deps = default_deps()
     if deps.llm is None:
@@ -69,6 +69,7 @@ def daily_scan(session: Session, now: datetime) -> None:
         resolve_comeet_seeds(session, client)
         collectors = default_collectors(session)
         summary = run_scan(session, collectors, deps.llm, deps.indexer, now, alert=telegram_alert, client=client)
+        record_board_results(session, collectors, now)
         seen = [j.company for c in collectors if isinstance(c, FreeHireCollector) for j in c.last]
         discover_new_boards(session, client, seen)
     log.info("scan finished: %s", summary.model_dump_json(by_alias=True))

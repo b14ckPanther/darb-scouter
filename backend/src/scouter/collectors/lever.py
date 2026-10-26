@@ -12,6 +12,8 @@ _MODES = {"onsite": "onsite", "on-site": "onsite", "hybrid": "hybrid", "remote":
 
 
 def parse(payload: list[dict[str, Any]], company: str) -> list[RawJob]:
+    if not isinstance(payload, list):
+        raise ValueError("Lever payload is not a list; the API may have changed")
     out = []
     for p in payload:
         lists = "\n".join(f"{x.get('text', '')}\n{html_to_text(x.get('content', ''))}" for x in p.get("lists", []))

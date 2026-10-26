@@ -1,6 +1,7 @@
 """The collectors a real scan runs, built from the boards stored in Postgres (seeded from boards.yaml)."""
 
 import logging
+from datetime import datetime
 
 import httpx
 from sqlalchemy.orm import Session
@@ -60,3 +61,13 @@ def discover_new_boards(
 def default_collectors(session: Session) -> list[Collector]:
     ensure_seed_boards(session)
     return [FreeHireCollector(), ATSCollector(repo.list_boards(session))]
+
+
+def record_board_results(session: Session, collectors: list[Collector], now: datetime) -> None:
+    """Keep each board's failure count, so a board that keeps failing can be found and fixed."""
+    for c in collectors:
+        if isinstance(c, ATSCollector):
+            boards = {f"{b.provider}:{b.token.split(':')[0]}": b for b in c.boards}
+            for key, ok in c.results.items():
+                if key in boards:
+                    repo.board_result(session, boards[key], ok, now)

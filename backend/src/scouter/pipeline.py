@@ -125,6 +125,9 @@ def run_scan(
             for j in jobs:
                 origin[j.url] = c.name
             collected += jobs
+            partial = getattr(c, "failures", None)
+            if partial:
+                result.error = f"{len(partial)} board(s) failed: " + "; ".join(partial[:5])
         except Exception as e:  # noqa: BLE001 - a collector failure is recorded, never raised
             log.exception("collector %s failed", c.name)
             result.failed, result.error = True, f"{type(e).__name__}: {e}"

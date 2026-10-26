@@ -20,6 +20,8 @@ def token_from_page(html: str) -> str | None:
 
 
 def parse(payload: list[dict[str, Any]], company: str) -> list[RawJob]:
+    if not isinstance(payload, list):
+        raise ValueError("Comeet payload is not a list; the API may have changed")
     out = []
     for p in payload:
         loc = p.get("location") or {}

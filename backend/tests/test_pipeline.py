@@ -131,3 +131,12 @@ def test_alert_threshold_comes_from_profile(session: Session) -> None:
     seen: list[list[Job]] = []
     scan(session, [Fake("ok", [raw(1)])], FakeLLM(), alert=lambda s, m: seen.append(m) or 0)
     assert len(seen[0]) == 1 and seen[0][0].score.total > 5000
+
+
+class PartlyBroken(Fake):
+    failures = ["lever:odd: TypeError"]
+
+
+def test_partial_board_failures_are_reported(session: Session) -> None:
+    s = scan(session, [PartlyBroken("ats", [raw(1)])], FakeLLM())
+    assert s.per_source["ats"].error and "lever:odd" in (s.per_source["ats"].error or "")
