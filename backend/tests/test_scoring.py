@@ -78,3 +78,21 @@ def test_matches_fixture_totals() -> None:
         region = next(x["label"] for x in job["score"]["lines"] if x["kind"] == "location")
         got = score(profile_from_fixture_lines(job), p, region)
         assert abs(got.total - job["score"]["total"]) <= 1, job["id"]
+
+
+def test_unverified_three_years_through_extractor_stays_under_9000() -> None:
+    from scouter.extract.graph import extract_profile
+    from scouter.extract.llm import DraftItem, LLMDraft
+    from scouter.models import RawJob
+
+    class Fake:
+        def extract(self, text: str, requirements: object, model: str) -> LLMDraft:
+            return LLMDraft(
+                must_have=[DraftItem(skill_phrases=["React"], quote="React", display="React")],
+                min_years_experience=3,
+                years_quote="3+ years’ experience",  # curly apostrophe: not verbatim
+            )
+
+    r = RawJob(source="t", source_id="1", url="u", title="Dev", company="A", text="React. 3+ years' experience.")
+    jp, _ = extract_profile(r, Fake(), model="m")  # type: ignore[arg-type]
+    assert score(jp, all_proven(["react"]), "x").total <= 9000

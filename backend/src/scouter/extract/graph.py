@@ -100,10 +100,12 @@ def build_graph(llm: LLM, embedder: Embedder | None = None) -> Any:
         return best if score >= SEMANTIC_MATCH else None
 
     def to_item(i: DraftItem, ev: Evidence) -> RequirementItem:
+        # a skill counts only when its own quote names it: the model can't attach extra skills to a line
+        in_quote = set(skills_in(ev.quote))
         ids: list[str] = []
         for phrase in i.skill_phrases:
             k = canonical(phrase) or next(iter(skills_in(phrase)), None) or semantic(phrase)
-            if k and k not in ids:
+            if k and k not in ids and (k in in_quote or verify(phrase, ev.quote)):
                 ids.append(k)
         if not ids:
             ids = skills_in(ev.quote)
@@ -122,11 +124,12 @@ def build_graph(llm: LLM, embedder: Embedder | None = None) -> Any:
         jp = JobProfile(
             must_have=state["items"]["must"],
             nice_to_have=state["items"]["nice"],
-            min_years_experience=d.min_years_experience if ev["years"] else None,
+            # a dropped quote must never raise a score: costs stay, marked as unverified (no evidence)
+            min_years_experience=d.min_years_experience,
             years_evidence=ev["years"],
             seniority=d.seniority,
             education=Education(degree_required=True, gpa_required=d.gpa_required, evidence=ev["education"])
-            if ev["education"]
+            if d.degree_required
             else None,
             work_mode=d.work_mode,
             is_defense=ev["defense"] is not None,

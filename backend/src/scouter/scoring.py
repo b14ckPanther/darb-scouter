@@ -80,7 +80,8 @@ def score(job: JobProfile, profile: Profile, region_label: str) -> Score:
         lines.append(
             ScoreLine(
                 kind="experience",
-                label=f"{_fmt_years(years)}+ years required, you have {_fmt_years(profile.years_experience)}",
+                label=f"{_fmt_years(years)}+ years required, you have {_fmt_years(profile.years_experience)}"
+                + ("" if job.years_evidence else " (quote not verified)"),
                 points=-_round((years - profile.years_experience) * PER_YEAR),
                 evidence=job.years_evidence,
             )

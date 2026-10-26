@@ -62,10 +62,9 @@ def test_defense_flag_requires_evidence() -> None:
     assert extract_profile(raw(), FakeLLM(ok), model="m")[0].is_defense is True
 
 
-def test_years_need_evidence() -> None:
-    draft = LLMDraft(min_years_experience=3, years_quote="3+ years")
-    jp, _ = extract_profile(raw(), FakeLLM(draft), model="m")
-    assert jp.min_years_experience is None
+def test_years_without_evidence_keep_their_cost() -> None:
+    jp, _ = extract_profile(raw(), FakeLLM(LLMDraft(min_years_experience=3, years_quote="3+ years")), model="m")
+    assert jp.min_years_experience == 3 and jp.years_evidence is None
 
 
 def test_freehire_quotes_labelled() -> None:
@@ -79,3 +78,27 @@ def test_content_hash_changes_with_model_and_text() -> None:
     assert content_hash(raw(), "a") != content_hash(raw(), "b")
     assert content_hash(raw(), "a") != content_hash(raw(text=POST + "!"), "a")
     assert content_hash(raw(), "a") == content_hash(raw(), "a")
+
+
+def test_unverified_years_still_cost_points() -> None:
+    draft = LLMDraft(
+        must_have=[item(["NodeJS"], "Experience with NodeJS")], min_years_experience=3, years_quote="3+ yrs"
+    )
+    jp, dropped = extract_profile(raw(), FakeLLM(draft), model="m")
+    assert jp.min_years_experience == 3 and jp.years_evidence is None and dropped
+
+
+def test_unverified_degree_still_counts() -> None:
+    draft = LLMDraft(degree_required=True, education_quote="BSc in CS")
+    jp, _ = extract_profile(raw(), FakeLLM(draft), model="m")
+    assert jp.education is not None and jp.education.degree_required and jp.education.evidence is None
+
+
+def test_skill_must_be_named_by_its_quote() -> None:
+    draft = LLMDraft(
+        must_have=[
+            DraftItem(skill_phrases=["NodeJS", "TypeScript"], any_of=True, quote="Experience with NodeJS", display="x")
+        ]
+    )
+    jp, _ = extract_profile(raw(), FakeLLM(draft), model="m")
+    assert jp.must_have[0].skills == ["nodejs"]
