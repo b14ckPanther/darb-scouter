@@ -1,0 +1,150 @@
+[
+ {
+  "id": "react",
+  "label": "React"
+ },
+ {
+  "id": "react-native",
+  "label": "React Native"
+ },
+ {
+  "id": "nextjs",
+  "label": "Next.js"
+ },
+ {
+  "id": "typescript",
+  "label": "TypeScript"
+ },
+ {
+  "id": "javascript",
+  "label": "JavaScript"
+ },
+ {
+  "id": "nodejs",
+  "label": "Node.js"
+ },
+ {
+  "id": "nestjs",
+  "label": "NestJS"
+ },
+ {
+  "id": "postgresql",
+  "label": "PostgreSQL"
+ },
+ {
+  "id": "sql",
+  "label": "SQL"
+ },
+ {
+  "id": "mongodb",
+  "label": "MongoDB / NoSQL"
+ },
+ {
+  "id": "redis",
+  "label": "Redis"
+ },
+ {
+  "id": "docker",
+  "label": "Docker"
+ },
+ {
+  "id": "kubernetes",
+  "label": "Kubernetes"
+ },
+ {
+  "id": "aws",
+  "label": "AWS"
+ },
+ {
+  "id": "gcp",
+  "label": "GCP"
+ },
+ {
+  "id": "azure",
+  "label": "Azure"
+ },
+ {
+  "id": "python",
+  "label": "Python"
+ },
+ {
+  "id": "java",
+  "label": "Java"
+ },
+ {
+  "id": "csharp",
+  "label": "C# / .NET"
+ },
+ {
+  "id": "go",
+  "label": "Go"
+ },
+ {
+  "id": "php",
+  "label": "PHP"
+ },
+ {
+  "id": "cpp",
+  "label": "C++"
+ },
+ {
+  "id": "angular",
+  "label": "Angular"
+ },
+ {
+  "id": "vue",
+  "label": "Vue"
+ },
+ {
+  "id": "graphql",
+  "label": "GraphQL"
+ },
+ {
+  "id": "kafka",
+  "label": "Message queues"
+ },
+ {
+  "id": "rest",
+  "label": "REST APIs"
+ },
+ {
+  "id": "webhooks",
+  "label": "Webhooks + async flows"
+ },
+ {
+  "id": "cicd",
+  "label": "CI/CD"
+ },
+ {
+  "id": "testing",
+  "label": "Automated testing"
+ },
+ {
+  "id": "git",
+  "label": "Git"
+ },
+ {
+  "id": "html-css",
+  "label": "HTML / CSS"
+ },
+ {
+  "id": "ai-tools",
+  "label": "AI coding tools"
+ },
+ {
+  "id": "llm",
+  "label": "LLMs / GenAI"
+ },
+ {
+  "id": "microservices",
+  "label": "Microservices"
+ },
+ {
+  "id": "payments",
+  "label": "Payments"
+ },
+ {
+  "id": "linux",
+  "label": "Linux"
+ }
+]

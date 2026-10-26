@@ -1,7 +1,7 @@
-import { beforeEach, describe, expect, it } from 'vitest'
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import jobs from './fixtures/jobs.json'
 import type { Job } from '../domain/types'
-import { __reset, applyToJob, getJob, listApplications, listJobs, moveStage } from './api'
+import { __reset, __setApiBase, applyToJob, getJob, listApplications, listJobs, moveStage, pasteLink } from './api'
 
 describe('fixture data', () => {
   const all = jobs as Job[]
@@ -59,5 +59,31 @@ describe('api', () => {
     await applyToJob(job.id)
     await applyToJob(job.id)
     expect((await listApplications()).filter((a) => a.jobId === job.id)).toHaveLength(1)
+  })
+})
+
+describe('http mode', () => {
+  afterEach(() => {
+    vi.unstubAllGlobals()
+    __setApiBase(undefined)
+    localStorage.clear()
+  })
+
+  it('sends the token and reads jobs from the API', async () => {
+    const fetchMock = vi.fn(async () => new Response(JSON.stringify(jobs.slice(0, 2)), { headers: { 'content-type': 'application/json' } }))
+    vi.stubGlobal('fetch', fetchMock)
+    localStorage.setItem('scouter.token', 'tok')
+    __setApiBase('')
+    const got = await listJobs({ minScore: 8000 })
+    const [url, init] = fetchMock.mock.calls[0] as unknown as [string, RequestInit]
+    expect(url).toBe('/api/jobs?minScore=8000')
+    expect(new Headers(init.headers).get('X-Scouter-Token')).toBe('tok')
+    expect(got.map((j) => j.id)).toEqual(jobs.slice(0, 2).map((j) => j.id))
+  })
+
+  it('turns a blocked link into a request for pasted text', async () => {
+    vi.stubGlobal('fetch', vi.fn(async () => new Response(JSON.stringify({ needsText: true, reason: 'LinkedIn' }), { status: 422, headers: { 'content-type': 'application/json' } })))
+    __setApiBase('')
+    expect(await pasteLink({ url: 'https://www.linkedin.com/jobs/view/1' })).toEqual({ needsText: true, reason: 'LinkedIn' })
   })
 })
