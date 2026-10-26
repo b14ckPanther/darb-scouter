@@ -25,6 +25,7 @@ from scouter.http import polite_client
 from scouter.models import Model, Profile, Stage
 from scouter.pipeline import process_job, rescore_all, run_scan
 from scouter.search import SearchFilters
+from scouter.vocab import SKILLS
 
 log = logging.getLogger(__name__)
 
@@ -121,6 +122,10 @@ def create_app(deps: Deps | None = None) -> FastAPI:
     @app.get("/api/health")
     def health() -> dict[str, bool]:
         return {"ok": True}
+
+    @app.get("/api/vocab")
+    def vocab() -> list[dict[str, str]]:
+        return [{"id": k.id, "label": k.label} for k in SKILLS]
 
     @app.get("/api/jobs")
     def jobs(

@@ -126,3 +126,8 @@ def test_latest_run_404_then_found(client: TestClient, session: Session) -> None
     run_id = repo.start_run(session, NOW)
     repo.finish_run(session, run_id, repo.RunSummary(startedAt=repo.iso(NOW), newJobs=2))
     assert client.get("/api/runs/latest").json()["newJobs"] == 2
+
+
+def test_vocab_lists_skills_with_labels(client: TestClient) -> None:
+    vocab = client.get("/api/vocab").json()
+    assert {"id": "nodejs", "label": "Node.js"} in vocab and len(vocab) > 20
