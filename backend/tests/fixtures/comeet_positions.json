@@ -1,0 +1,6 @@
+[
+  {"uid": "A1.B2C", "name": "Junior Software Engineer", "url_active_page": "https://www.comeet.com/jobs/acme/A1.002/junior-software-engineer/A1.B2C",
+   "time_updated": "2026-10-22T08:00:00Z", "workplace_type": "Hybrid", "experience_level": "Entry-level",
+   "location": {"name": "Yokneam", "city": "Yokneam", "country": "IL"},
+   "details": [{"name": "Description", "value": "<p>Embedded tooling team.</p>"}, {"name": "Requirements", "value": "<ul><li>C++ or Python</li></ul>"}]}
+]

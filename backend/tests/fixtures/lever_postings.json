@@ -1,0 +1,6 @@
+[
+  {"id": "a1b2c3", "text": "Junior Full Stack Developer", "hostedUrl": "https://jobs.lever.co/acme/a1b2c3", "createdAt": 1792900000000,
+   "workplaceType": "hybrid", "categories": {"location": "Herzliya, Israel", "commitment": "Full-time", "team": "R&D"},
+   "descriptionPlain": "Join our team.", "lists": [{"text": "Requirements", "content": "<li>Node.js</li><li>React</li>"}],
+   "additionalPlain": "Nice to have: AWS"}
+]

@@ -1,0 +1,7 @@
+{"jobs": [
+  {"id": 4012345, "title": "Junior Backend Engineer", "absolute_url": "https://boards.greenhouse.io/acme/jobs/4012345", "updated_at": "2026-10-20T09:12:00-04:00",
+   "location": {"name": "Tel Aviv, Israel"},
+   "content": "&lt;p&gt;We build payments.&lt;/p&gt;&lt;h3&gt;Requirements&lt;/h3&gt;&lt;ul&gt;&lt;li&gt;1+ years with Python or Go&lt;/li&gt;&lt;li&gt;SQL&lt;/li&gt;&lt;/ul&gt;"},
+  {"id": 4012346, "title": "Frontend Developer", "absolute_url": "https://boards.greenhouse.io/acme/jobs/4012346", "updated_at": "2026-10-21T10:00:00Z",
+   "location": {"name": "Haifa"}, "content": "&lt;p&gt;React and TypeScript.&lt;/p&gt;"}
+], "meta": {"total": 2}}

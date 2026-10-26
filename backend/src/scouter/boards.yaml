@@ -1,0 +1,89 @@
+# Known public job boards, seeded from apply links in the FreeHire snapshot (no live requests).
+# Discovery adds more at run time. Comeet needs a token from the careers page, so only its page id is seeded.
+greenhouse:
+  - {token: "aidocmedical", company: "Aidoc"}
+  - {token: "asteralabs", company: "Astera Labs"}
+  - {token: "atbayjobs", company: "At-Bay"}
+  - {token: "beamup", company: "Beamup"}
+  - {token: "brainpop", company: "BrainPOP"}
+  - {token: "cymulate", company: "Cymulate"}
+  - {token: "daylightsecurity", company: "Daylight Security"}
+  - {token: "doitintl", company: "DoiT"}
+  - {token: "ebury", company: "Ebury"}
+  - {token: "eleoshealth", company: "Eleos Health"}
+  - {token: "forter", company: "forter"}
+  - {token: "gongio", company: "Gong.io"}
+  - {token: "helloheart", company: "Hello Heart"}
+  - {token: "island", company: "Island"}
+  - {token: "melio", company: "Melio"}
+  - {token: "neosecurityinc", company: "Neo Security Inc"}
+  - {token: "next-internal", company: "ERGO NEXT Group INTERNAL"}
+  - {token: "nextinsurance66", company: "Next Insurance"}
+  - {token: "pagayais", company: "Pagaya Israel"}
+  - {token: "phasev", company: "PhaseV"}
+  - {token: "residenthome", company: "Ashley Digital"}
+  - {token: "scaleops", company: "ScaleOps"}
+  - {token: "similarweb", company: "Similarweb"}
+  - {token: "unframe", company: "Unframe"}
+  - {token: "venncity", company: "Venn"}
+  - {token: "via", company: "Designer Fund"}
+  - {token: "vybs", company: "VYBS"}
+  - {token: "wedev", company: "WeDev"}
+  - {token: "zscaler", company: "Zscaler"}
+lever:
+  - {token: "d-fendsolutions", company: "D-Fend Solutions"}
+  - {token: "jobgether", company: "Jobgether"}
+  - {token: "lendbuzz", company: "Lendbuzz"}
+  - {token: "oktopost", company: "Oktopost"}
+comeet_pages:
+  - {page: "abovesecurity/FA.00D", company: "Above Security"}
+  - {page: "abra-web-mobile/D3.004", company: "Abra Information Technologies"}
+  - {page: "airis_labs/69.00A", company: "Airis Labs"}
+  - {page: "aitan/FA.006", company: "eyesatop"}
+  - {page: "anchorfintech/87.00D", company: "Anchor Fintech"}
+  - {page: "arpeely/57.001", company: "Arpeely"}
+  - {page: "bagirasystems/47.006", company: "Bagira Systems"}
+  - {page: "biocatch/03.00E", company: "BioCatch"}
+  - {page: "blinkops/C7.004", company: "BlinkOps"}
+  - {page: "bondsports/F7.009", company: "Bond Sports"}
+  - {page: "bridgewise/F9.009", company: "Bridgewise"}
+  - {page: "cglms/69.003", company: "Colmex"}
+  - {page: "clover_security/7A.00A", company: "Clover Security"}
+  - {page: "codevalue/81.009", company: "CodeValue"}
+  - {page: "comm-it/76.008", company: "CommIT"}
+  - {page: "crossriver/C7.00F", company: "Cross River Bank"}
+  - {page: "cyera/17.008", company: "Cyera"}
+  - {page: "draftt/3A.00F", company: "Draftt"}
+  - {page: "foresightauto/13.000", company: "Foresight Autonomous Holdings"}
+  - {page: "grain/4A.000", company: "Grain"}
+  - {page: "groundcover/88.008", company: "groundcover"}
+  - {page: "guideline/89.009", company: "Guideline Group"}
+  - {page: "hypernative/8A.00E", company: "Hypernative"}
+  - {page: "infinidat/D6.003", company: "INFINIDAT"}
+  - {page: "inmanage/B7.006", company: "inManage"}
+  - {page: "israeltechguard/29.009", company: "LeadSpotting"}
+  - {page: "lab42/58.001", company: "Lab42"}
+  - {page: "landacorp/A4.000", company: "Landa Corporation"}
+  - {page: "majesticlabs/AA.004", company: "Majestic Labs"}
+  - {page: "mami/BA.008", company: "Mami"}
+  - {page: "mayven/0B.002", company: "Mayven"}
+  - {page: "mentee_robotics/6A.002", company: "Mentee Robotics"}
+  - {page: "minimus/19.00B", company: "Minimus"}
+  - {page: "paragon/76.006", company: "Paragon"}
+  - {page: "pipl/22.008", company: "Pipl"}
+  - {page: "plaee/5B.004", company: "Plaee"}
+  - {page: "port/59.004", company: "port"}
+  - {page: "qedma/7A.006", company: "Qedma"}
+  - {page: "quantummachines/D6.000", company: "Quantum Machines"}
+  - {page: "realplay/9A.003", company: "RealPlay"}
+  - {page: "sedric/0A.00F", company: "Sedric"}
+  - {page: "senai/CA.004", company: "SENAI"}
+  - {page: "sentra/87.00B", company: "Sentra"}
+  - {page: "ship4wd/29.00B", company: "Marine Shipp Fast China Co. Ltd."}
+  - {page: "silverfort/54.007", company: "Silverfort"}
+  - {page: "sliceglobal/DA.009", company: "Slice Global"}
+  - {page: "sunflower/AA.009", company: "Sunflower"}
+  - {page: "toka/46.00D", company: "Toka"}
+  - {page: "utila/D9.00F", company: "Utila"}
+  - {page: "weski/F8.00C", company: "WeSki"}
+  - {page: "zyg/DA.006", company: "ZyG"}
