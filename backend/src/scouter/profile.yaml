@@ -6,6 +6,8 @@ degree: in_progress
 months_to_graduation: 3
 show_hidden_regions: false
 show_senior: false
+# Telegram pings for new jobs scoring above this
+alert_threshold: 9000
 skills:
   react: proven
   nextjs: proven

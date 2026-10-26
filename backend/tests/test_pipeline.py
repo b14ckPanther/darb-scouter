@@ -123,3 +123,11 @@ def test_abroad_dropped_before_extraction(session: Session) -> None:
     far = raw(9).model_copy(update={"location": "Chicago, IL, United States"})
     s = scan(session, [Fake("ok", [far])], llm)
     assert s.dropped.get("abroad") == 1 and llm.calls == 0
+
+
+def test_alert_threshold_comes_from_profile(session: Session) -> None:
+    p = repo.current_profile(session)
+    repo.save_profile(session, p.model_copy(update={"alert_threshold": 5000}))
+    seen: list[list[Job]] = []
+    scan(session, [Fake("ok", [raw(1)])], FakeLLM(), alert=lambda s, m: seen.append(m) or 0)
+    assert len(seen[0]) == 1 and seen[0][0].score.total > 5000

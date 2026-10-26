@@ -124,6 +124,7 @@ class Profile(Model):
     months_to_graduation: int = 0
     show_hidden_regions: bool = False
     show_senior: bool = False
+    alert_threshold: int = 9000
     excluded_companies: list[str] = Field(default_factory=list)
 
 

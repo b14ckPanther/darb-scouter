@@ -23,7 +23,6 @@ from scouter.models import Job, JobProfile, RawJob, RunSummary, SourceResult
 from scouter.scoring import score
 
 log = logging.getLogger(__name__)
-MATCH = 9000
 Alert = Callable[[RunSummary, list[Job]], int]
 _SENIORITY_LABEL = {
     "intern": "intern",
@@ -160,7 +159,7 @@ def run_scan(
             summary.dropped["defense"] = summary.dropped.get("defense", 0) + 1
         elif outcome and row.id in new_ids:
             new_scores.append(outcome.score.total)
-            if outcome.score.total > MATCH:
+            if outcome.score.total > profile.alert_threshold:
                 matches.append(outcome)
     summary.new_matches = len(matches)
     summary.top_score = max(new_scores, default=None)
