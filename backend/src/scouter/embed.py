@@ -7,3 +7,21 @@ class Embedder(Protocol):
     dim: int
 
     def encode(self, texts: list[str], kind: str = "passage") -> list[list[float]]: ...
+
+
+class E5Embedder:
+    """intfloat/multilingual-e5-small: Hebrew and English in one 384-dimension space. Loaded on first use."""
+
+    dim = 384
+    MODEL = "intfloat/multilingual-e5-small"
+
+    def __init__(self) -> None:
+        self._model: object | None = None
+
+    def encode(self, texts: list[str], kind: str = "passage") -> list[list[float]]:
+        if self._model is None:
+            from sentence_transformers import SentenceTransformer  # optional "search" extra
+
+            self._model = SentenceTransformer(self.MODEL)
+        vectors = self._model.encode([f"{kind}: {t}" for t in texts], normalize_embeddings=True)  # type: ignore[attr-defined]
+        return [list(map(float, v)) for v in vectors]
