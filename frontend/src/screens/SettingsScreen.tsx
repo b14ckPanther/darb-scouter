@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { isMuted, play, setMuted } from '../audio/sfx'
-import { getProfile, getVocab, saveProfile, type VocabSkill } from '../data/api'
+import { getProfile, getScanSettings, getVocab, saveProfile, saveScanSettings, startScan, type VocabSkill } from '../data/api'
 import { AuthError, getToken, setToken } from '../data/http'
 import type { Level, Profile } from '../domain/types'
 import './settings.css'
@@ -28,15 +28,17 @@ export function SettingsScreen() {
   const [needsToken, setNeedsToken] = useState(false)
   const [token, setTokenDraft] = useState(getToken)
   const [status, setStatus] = useState('')
+  const [autoScan, setAutoScan] = useState(false)
   const saving = useRef(Promise.resolve())
 
   useEffect(() => {
     let alive = true
-    Promise.all([getProfile(), getVocab()])
-      .then(([p, v]) => {
+    Promise.all([getProfile(), getVocab(), getScanSettings()])
+      .then(([p, v, scan]) => {
         if (!alive) return
         setProfile(p)
         setVocab(v)
+        setAutoScan(scan.autoScan)
       })
       .catch((e: unknown) => {
         if (alive && e instanceof AuthError) setNeedsToken(true)
@@ -57,6 +59,25 @@ export function SettingsScreen() {
         setStatus('Saved. Every job was rescored.')
       })
       .catch(() => setStatus('Couldn’t save. Check the server is running, then try again.'))
+  }
+
+  const toggleScan = (on: boolean) => {
+    setAutoScan(on)
+    saveScanSettings({ autoScan: on })
+      .then(() =>
+        setStatus(on ? 'Daily scan on. If today’s scan hasn’t run, it starts within 10 minutes.' : 'Daily scan off. No scans run and nothing is spent.'),
+      )
+      .catch(() => {
+        setAutoScan(!on)
+        setStatus('Couldn’t save. Check the server is running, then try again.')
+      })
+  }
+
+  const scanNow = () => {
+    setStatus('Starting a scan…')
+    startScan()
+      .then(setStatus)
+      .catch(() => setStatus('Couldn’t start a scan. Check the server is running, then try again.'))
   }
 
   const setLevel = (id: string, choice: Choice) => {
@@ -127,6 +148,21 @@ export function SettingsScreen() {
 
           <section className="st-sec" aria-labelledby="st-scan">
             <h2 id="st-scan">Scan and alerts</h2>
+            <Switch
+              label="Daily scan"
+              hint="Reads new jobs every morning at 07:00. Each new post costs one Claude call; off means no scans and no spend."
+              checked={autoScan}
+              onChange={toggleScan}
+            />
+            <div className="st-row">
+              <div>
+                <p className="st-label">Scan once</p>
+                <p className="st-hint">Reads everything new right now, even with the daily scan off.</p>
+              </div>
+              <button type="button" className="st-save" onClick={scanNow}>
+                Scan now
+              </button>
+            </div>
             <div className="st-row">
               <div>
                 <label className="st-label" htmlFor="st-threshold">

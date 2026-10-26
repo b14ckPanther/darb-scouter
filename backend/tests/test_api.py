@@ -150,3 +150,10 @@ def test_search_fallback_applies_every_filter(client: TestClient, session: Sessi
     assert r.json() == []
     r = client.get("/api/jobs/search", params={"q": "react", "since": "2099-01-01T00:00:00Z"})
     assert r.json() == []
+
+
+def test_daily_scan_switch_starts_off_and_saves(client: TestClient) -> None:
+    assert client.get("/api/settings/scan").json() == {"autoScan": False}
+    assert client.put("/api/settings/scan", json={"autoScan": True}).json() == {"autoScan": True}
+    assert client.get("/api/settings/scan").json() == {"autoScan": True}
+    assert client.put("/api/settings/scan", json={"autoScan": False}).json() == {"autoScan": False}

@@ -40,6 +40,8 @@ def test_should_catch_up() -> None:
 def clean(engine: Engine) -> Iterator[Engine]:
     with engine.begin() as c:
         c.execute(delete(RunRow))
+    with Session(engine) as s:
+        repo.set_auto_scan(s, True)
     yield engine
     with engine.begin() as c:
         c.execute(delete(RunRow))
@@ -104,3 +106,12 @@ def test_manual_scan_holds_the_same_lock(clean: Engine) -> None:
     with scan_lock(clean) as got:
         assert got
         assert run_once_if_due(clean, at(9, 0), lambda s, now: None) is False
+
+
+@pytest.mark.db
+def test_switched_off_never_scans_even_when_due(clean: Engine) -> None:
+    with Session(clean) as s:
+        repo.set_auto_scan(s, False)
+    calls: list[datetime] = []
+    assert not run_once_if_due(clean, at(9, 30), lambda s, now: calls.append(now))
+    assert calls == []

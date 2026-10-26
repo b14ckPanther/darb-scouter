@@ -12,6 +12,7 @@ from sqlalchemy.orm import Session
 from scouter.config import get_settings
 from scouter.db import (
     ApplicationRow,
+    AppSettingsRow,
     BoardRow,
     EventRow,
     JobProfileRow,
@@ -256,6 +257,23 @@ def save_profile(session: Session, p: Profile) -> Profile:
     session.add(row)
     session.commit()
     return p.model_copy(update={"version": row.version})
+
+
+# app settings
+
+
+def auto_scan(session: Session) -> bool:
+    """Whether the 07:00 scan runs. Off until switched on, so an idle install never spends on the model."""
+    row = session.get(AppSettingsRow, 1)
+    return bool(row and row.auto_scan)
+
+
+def set_auto_scan(session: Session, on: bool) -> bool:
+    row = session.get(AppSettingsRow, 1) or AppSettingsRow(id=1)
+    row.auto_scan = on
+    session.add(row)
+    session.commit()
+    return on
 
 
 # applications and events

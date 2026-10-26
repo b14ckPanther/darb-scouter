@@ -11,6 +11,7 @@ import { HttpError, request } from './http'
 export type VocabSkill = { id: string; label: string }
 export type PasteInput = { url: string; text?: string; title?: string; company?: string }
 export type PasteResult = { job: Job } | { needsText: true; reason: string }
+export type ScanSettings = { autoScan: boolean }
 export type ApplicationPatch = { stage?: Stage; notes?: string; contact?: string; cvVersion?: string }
 
 let apiBase: string | undefined = import.meta.env.VITE_API_URL
@@ -29,6 +30,7 @@ const qs = (params: Record<string, string | number | boolean | undefined>) => {
 
 const APPS_KEY = 'scouter.applications'
 const PROFILE_KEY = 'scouter.profile'
+const SCAN_KEY = 'scouter.scan'
 let jobs: Job[] = fixtureJobs as Job[]
 let apps: Application[] = loadLocal<Application[]>(APPS_KEY) ?? []
 let lastScan: string = fixtureScan.startedAt
@@ -179,6 +181,33 @@ export async function getVocab(): Promise<VocabSkill[]> {
   return fixtureVocab
 }
 
+// ---- scans on demand and the daily switch ----
+
+/** Whether the 07:00 scan runs. Off by default, so an idle install never spends on the model. */
+export async function getScanSettings(): Promise<ScanSettings> {
+  if (http()) return call<ScanSettings>('/api/settings/scan')
+  return loadLocal<ScanSettings>(SCAN_KEY) ?? { autoScan: false }
+}
+
+export async function saveScanSettings(next: ScanSettings): Promise<ScanSettings> {
+  if (http()) return call<ScanSettings>('/api/settings/scan', { method: 'PUT', body: JSON.stringify(next) })
+  saveLocal(SCAN_KEY, next)
+  return next
+}
+
+/** One scan right now, whatever the switch says. Resolves to what to tell the user. */
+export async function startScan(): Promise<string> {
+  if (!http()) return 'Scanning needs the backend running.'
+  try {
+    await call<{ status: string }>('/api/runs', { method: 'POST' })
+    return 'Scan started. New jobs appear on the radar as they are read.'
+  } catch (e) {
+    if (e instanceof HttpError && e.status === 409) return 'A scan is already running.'
+    if (e instanceof HttpError && e.status === 503) return 'Scanning needs ANTHROPIC_API_KEY in the server’s .env.'
+    throw e
+  }
+}
+
 // ---- test helpers ----
 
 /** Tests only. */
@@ -198,7 +227,7 @@ export function __reset() {
   jobs = fixtureJobs as Job[]
   lastScan = fixtureScan.startedAt
   apps = []
-  for (const k of [APPS_KEY, PROFILE_KEY])
+  for (const k of [APPS_KEY, PROFILE_KEY, SCAN_KEY])
     try {
       localStorage.removeItem(k)
     } catch {

@@ -83,6 +83,10 @@ def dump(m: BaseModel) -> dict[str, Any]:
     return m.model_dump(mode="json", by_alias=True, exclude_none=True)
 
 
+class ScanSettings(Model):
+    auto_scan: bool
+
+
 class PasteIn(Model):
     url: str
     text: str | None = None
@@ -254,6 +258,14 @@ def create_app(deps: Deps | None = None) -> FastAPI:
 
         threading.Thread(target=work, name="scan", daemon=True).start()
         return {"status": "started"}
+
+    @app.get("/api/settings/scan")
+    def scan_settings(s: S) -> dict[str, Any]:
+        return dump(ScanSettings(auto_scan=repo.auto_scan(s)))
+
+    @app.put("/api/settings/scan")
+    def save_scan_settings(body: ScanSettings, s: S) -> dict[str, Any]:
+        return dump(ScanSettings(auto_scan=repo.set_auto_scan(s, body.auto_scan)))
 
     @app.get("/api/applications")
     def applications(s: S) -> list[dict[str, Any]]:

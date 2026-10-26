@@ -3,7 +3,7 @@
 from datetime import datetime
 from typing import Any
 
-from sqlalchemy import JSON, CheckConstraint, DateTime, ForeignKey, Integer, String, Text, create_engine, func
+from sqlalchemy import JSON, CheckConstraint, DateTime, ForeignKey, Integer, String, Text, create_engine, false, func
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.engine import Engine
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, sessionmaker
@@ -67,6 +67,15 @@ class ProfileRow(Base):
     version: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     data: Mapped[dict[str, Any]]
     created_at: Mapped[datetime] = mapped_column(server_default=func.now())
+
+
+class AppSettingsRow(Base):
+    """One row of switches that are not part of the scoring profile."""
+
+    __tablename__ = "app_settings"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    auto_scan: Mapped[bool] = mapped_column(default=False, server_default=false())
 
 
 class ApplicationRow(Base):

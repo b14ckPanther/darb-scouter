@@ -81,6 +81,7 @@ flowchart TB
 | **Runs on a laptop that sleeps** | The scan runs at 07:00. If the Mac was asleep, it catches up once on wake. A Postgres advisory lock stops two scans from overlapping. See [`scheduler.py`](backend/src/scouter/scheduler.py). |
 | **Hybrid search in two languages** | BM25 and multilingual E5 vectors are fused by reciprocal rank, so a Hebrew query finds English posts and the other way round. See [`search.py`](backend/src/scouter/search.py). |
 | **Config, not code** | Regions (place names in Hebrew and English), exclusions, thresholds, the skill vocabulary and the boards live in YAML or the database. Tuning never needs a code change. |
+| **Costs nothing when idle** | The daily scan is a switch in Settings and starts off. The scheduler checks it before every run, so nothing calls the model until you turn it on or press Scan now. |
 | **Private by default** | Every port is bound to localhost. The API requires a token, compared in constant time. Secrets live only in `.env`. |
 | **Measured, not assumed** | An eval harness compares the scouter's ranking with my own hand scores (Spearman ρ) and checks extraction precision and recall. See [`evals/`](evals). |
 
@@ -114,7 +115,7 @@ scripts/smoke.sh              # checks that the API and the app answer
 open http://localhost:8000    # paste the token under Settings
 ```
 
-The first scan starts on its own. To run one by hand:
+The daily 07:00 scan is **off** until you switch it on in Settings, so an idle install never spends anything on the model. **Scan now** in Settings runs one scan at any time, or from the terminal:
 
 ```bash
 curl -X POST -H "X-Scouter-Token: $SCOUTER_TOKEN" localhost:8000/api/runs

@@ -56,4 +56,19 @@ describe('SettingsScreen', () => {
     await waitFor(() => expect(save).toHaveBeenCalled())
     expect(save.mock.calls[0][0].skills).not.toHaveProperty('java')
   })
+
+  it('keeps the daily scan off until it is switched on, and remembers it', async () => {
+    render(<SettingsScreen />)
+    const toggle = await screen.findByRole('switch', { name: 'Daily scan' })
+    expect(toggle).toHaveAttribute('aria-checked', 'false')
+    fireEvent.click(toggle)
+    await waitFor(() => expect(toggle).toHaveAttribute('aria-checked', 'true'))
+    expect(await api.getScanSettings()).toEqual({ autoScan: true })
+  })
+
+  it('offers a one-off scan and says when it needs the backend', async () => {
+    render(<SettingsScreen />)
+    fireEvent.click(await screen.findByRole('button', { name: 'Scan now' }))
+    expect(await screen.findByText('Scanning needs the backend running.')).toBeInTheDocument()
+  })
 })

@@ -55,6 +55,8 @@ def run_once_if_due(engine: Engine, now: datetime, scan: Scan) -> bool:
             return False
         try:
             with Session(engine) as session:
+                if not repo.auto_scan(session):
+                    return False
                 if not should_catch_up(repo.last_run_started(session), now, tz, s.scan_hour):
                     return False
                 log.info("scan due (scheduled %s), starting", due_scan_time(now, tz, s.scan_hour))
