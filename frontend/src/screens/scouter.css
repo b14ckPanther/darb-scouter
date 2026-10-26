@@ -20,7 +20,7 @@
 }
 .sc-line button:disabled { cursor: default; }
 .sc-line button:not(:disabled):hover { color: #fff; }
-.sc-line-mark { font-size: 10px; }
+.sc-line-mark { display: inline-flex; align-items: center; font-size: 14px; }
 .sc-line.is-gap button { color: var(--gap); }
 .sc-line.is-neg button { color: #ff8a7a; }
 .sc-line:not(.kind-must):not(.kind-nice) button { color: #9fb5a8; }
