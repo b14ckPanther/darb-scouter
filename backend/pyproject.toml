@@ -65,3 +65,7 @@ markers = [
   "es: needs an Elasticsearch ELASTIC_URL",
   "live: calls a live paid API",
 ]
+
+[[tool.mypy.overrides]]
+module = ["apscheduler.*", "sentence_transformers.*"]
+ignore_missing_imports = true

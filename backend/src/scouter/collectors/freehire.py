@@ -64,6 +64,7 @@ class FreeHireCollector:
     def __init__(self, roles: tuple[str, ...] = ("fullstack", "backend", "frontend"), max_pages: int = 10) -> None:
         self.roles = roles
         self.max_pages = max_pages
+        self.last: list[RawJob] = []
 
     def collect(self, client: httpx.Client) -> list[RawJob]:
         out: dict[str, RawJob] = {}
@@ -83,4 +84,5 @@ class FreeHireCollector:
                     break
                 for j in jobs:
                     out.setdefault(j.source_id, j)
-        return list(out.values())
+        self.last = list(out.values())
+        return self.last
