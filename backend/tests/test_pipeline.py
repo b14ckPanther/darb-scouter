@@ -2,10 +2,12 @@ from datetime import UTC, datetime, timedelta
 
 import httpx
 import pytest
+from sqlalchemy import select
 from sqlalchemy.orm import Session
 
 from scouter import repo
 from scouter.collectors.base import CollectorError
+from scouter.db import RunRow
 from scouter.extract.llm import DraftItem, ExtractionError, LLMDraft
 from scouter.models import Job, RawJob, Requirement, RunSummary
 from scouter.pipeline import rescore_all, run_scan
@@ -140,3 +142,14 @@ class PartlyBroken(Fake):
 def test_partial_board_failures_are_reported(session: Session) -> None:
     s = scan(session, [PartlyBroken("ats", [raw(1)])], FakeLLM())
     assert s.per_source["ats"].error and "lever:odd" in (s.per_source["ats"].error or "")
+
+
+def test_crash_is_recorded_on_the_run(session: Session, monkeypatch: pytest.MonkeyPatch) -> None:
+    def boom(*a: object, **k: object) -> None:
+        raise RuntimeError("database went away: boom")
+
+    monkeypatch.setattr(repo, "upsert_job", boom)
+    with pytest.raises(RuntimeError):
+        scan(session, [Fake("ok", [raw(1)])], FakeLLM())
+    row = session.scalar(select(RunRow).order_by(RunRow.id.desc()).limit(1))
+    assert row is not None and row.error and "boom" in row.error and row.finished_at

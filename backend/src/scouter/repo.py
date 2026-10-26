@@ -338,8 +338,24 @@ def latest_run(session: Session) -> RunSummary | None:
     return RunSummary.model_validate(row.summary) if row else None
 
 
+def fail_run(session: Session, run_id: int, error: str, now: datetime | None = None) -> None:
+    row = session.get(RunRow, run_id)
+    if row is None:
+        return
+    row.error = error[:2000]
+    row.finished_at = now or utcnow()
+    row.summary = {**row.summary, "finishedAt": iso(row.finished_at), "error": row.error}
+    session.commit()
+
+
 def last_run_started(session: Session) -> datetime | None:
-    return session.scalar(select(RunRow.started_at).order_by(RunRow.started_at.desc()).limit(1))
+    """When the last scan that finished cleanly started. Crashed or unfinished runs don't count, so they retry."""
+    return session.scalar(
+        select(RunRow.started_at)
+        .where(RunRow.finished_at.is_not(None), RunRow.error.is_(None))
+        .order_by(RunRow.started_at.desc())
+        .limit(1)
+    )
 
 
 # ATS boards

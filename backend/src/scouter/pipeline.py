@@ -109,6 +109,27 @@ def run_scan(
 ) -> RunSummary:
     model = model or get_settings().model_default
     run_id = repo.start_run(session, now)
+    try:
+        return _scan(session, run_id, collectors, llm, indexer, now, alert, client, embedder, model)
+    except BaseException as e:
+        # a crash is recorded on the run, so the Radar shows it and the scheduler retries it
+        session.rollback()
+        repo.fail_run(session, run_id, f"{type(e).__name__}: {e}")
+        raise
+
+
+def _scan(
+    session: Session,
+    run_id: int,
+    collectors: Sequence[Collector],
+    llm: LLM,
+    indexer: Indexer | None,
+    now: datetime,
+    alert: Alert | None,
+    client: httpx.Client | None,
+    embedder: Embedder | None,
+    model: str,
+) -> RunSummary:
     summary = RunSummary(started_at=repo.iso(now))
     profile = repo.current_profile(session)
     own_client = client is None
@@ -155,6 +176,7 @@ def run_scan(
         try:
             outcome = process_job(session, row, llm, indexer, embedder=embedder, model=model)
         except Exception:  # noqa: BLE001 - the job stays pending and is retried next run
+            session.rollback()  # one failed job must not poison the session for the rest
             log.exception("extraction failed for %s", row.url)
             summary.pending += 1
             continue

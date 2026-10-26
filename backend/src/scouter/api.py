@@ -24,6 +24,7 @@ from scouter.extract.llm import LLM
 from scouter.http import polite_client
 from scouter.models import Model, Profile, Stage
 from scouter.pipeline import process_job, rescore_all, run_scan
+from scouter.scheduler import scan_lock
 from scouter.search import SearchFilters
 from scouter.vocab import SKILLS
 
@@ -233,7 +234,14 @@ def create_app(deps: Deps | None = None) -> FastAPI:
         def work() -> None:
             s = d.session_factory()
             try:
-                run_scan(s, collectors(s), llm, d.indexer, repo.utcnow(), model=d.model)
+                # the same Postgres lock the 07:00 scheduler takes, so a manual scan never overlaps it
+                bind = s.get_bind()
+                engine = bind.engine if hasattr(bind, "engine") else bind
+                with scan_lock(engine) as got:  # type: ignore[arg-type]
+                    if got:
+                        run_scan(s, collectors(s), llm, d.indexer, repo.utcnow(), model=d.model)
+                    else:
+                        log.info("manual scan skipped: a scheduled scan is running")
             except Exception:
                 log.exception("manual scan failed")
             finally:

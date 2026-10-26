@@ -5,7 +5,8 @@ when it hasn't. A Postgres advisory lock plus a re-check inside the lock make it
 """
 
 import logging
-from collections.abc import Callable
+from collections.abc import Callable, Iterator
+from contextlib import contextmanager
 from datetime import datetime, time, timedelta
 from zoneinfo import ZoneInfo
 
@@ -32,12 +33,25 @@ def should_catch_up(last_started: datetime | None, now: datetime, tz: ZoneInfo, 
     return last_started is None or last_started < due_scan_time(now, tz, hour)
 
 
+@contextmanager
+def scan_lock(engine: Engine) -> Iterator[bool]:
+    """The one lock every scan takes, scheduled or manual. Yields False when another scan holds it."""
+    with engine.connect() as conn:
+        got = bool(conn.execute(text("select pg_try_advisory_lock(:id)"), {"id": LOCK_ID}).scalar())
+        try:
+            yield got
+        finally:
+            if got:
+                conn.execute(text("select pg_advisory_unlock(:id)"), {"id": LOCK_ID})
+                conn.commit()
+
+
 def run_once_if_due(engine: Engine, now: datetime, scan: Scan) -> bool:
     """Runs `scan` when the latest scheduled scan hasn't happened. True when this call ran it."""
     s = get_settings()
     tz = ZoneInfo(s.timezone)
-    with engine.connect() as lock_conn:
-        if not lock_conn.execute(text("select pg_try_advisory_lock(:id)"), {"id": LOCK_ID}).scalar():
+    with scan_lock(engine) as got:
+        if not got:
             return False
         try:
             with Session(engine) as session:
@@ -49,9 +63,6 @@ def run_once_if_due(engine: Engine, now: datetime, scan: Scan) -> bool:
         except Exception:
             log.exception("scheduled scan failed")
             return False
-        finally:
-            lock_conn.execute(text("select pg_advisory_unlock(:id)"), {"id": LOCK_ID})
-            lock_conn.commit()
 
 
 def daily_scan(session: Session, now: datetime) -> None:

@@ -16,6 +16,11 @@ from scouter.scheduler import due_scan_time, run_once_if_due, should_catch_up
 TZ = ZoneInfo("Asia/Jerusalem")
 
 
+def done_run(s: Session, when: datetime) -> None:
+    """A scan that started at `when` and finished cleanly."""
+    repo.finish_run(s, repo.start_run(s, when), repo.RunSummary(startedAt=repo.iso(when)), when)
+
+
 def at(h: int, m: int, day: int = 26) -> datetime:
     return datetime(2026, 10, day, h, m, tzinfo=TZ)
 
@@ -46,12 +51,12 @@ def test_woke_at_0930_runs_exactly_once(clean: Engine) -> None:
 
     def scan(s: Session, now: datetime) -> None:
         calls.append(now)
-        repo.start_run(s, now)
+        done_run(s, now)
         time.sleep(0.3)
 
     now = at(9, 30)
     with Session(clean) as s:
-        repo.start_run(s, (now - timedelta(days=1)).astimezone(UTC))
+        done_run(s, (now - timedelta(days=1)).astimezone(UTC))
     threads = [threading.Thread(target=run_once_if_due, args=(clean, now, scan)) for _ in range(2)]
     for t in threads:
         t.start()
@@ -65,7 +70,7 @@ def test_woke_at_0930_runs_exactly_once(clean: Engine) -> None:
 def test_no_run_when_today_done(clean: Engine) -> None:
     calls: list[datetime] = []
     with Session(clean) as s:
-        repo.start_run(s, at(7, 0))
+        done_run(s, at(7, 0))
     assert run_once_if_due(clean, at(12, 0), lambda s, now: calls.append(now)) is False
     assert calls == []
 
@@ -78,3 +83,24 @@ def test_failed_scan_still_releases_lock(clean: Engine) -> None:
     assert run_once_if_due(clean, at(9, 0), boom) is False
     calls: list[datetime] = []
     assert run_once_if_due(clean, at(9, 10), lambda s, now: calls.append(now)) is True
+
+
+@pytest.mark.db
+def test_crashed_run_is_retried(clean: Engine) -> None:
+    calls: list[datetime] = []
+
+    def boom(s: Session, now: datetime) -> None:
+        repo.start_run(s, now)
+        raise RuntimeError("container restarted mid-scan")
+
+    assert run_once_if_due(clean, at(7, 0), boom) is False
+    assert run_once_if_due(clean, at(7, 10), lambda s, now: calls.append(now)) is True
+
+
+@pytest.mark.db
+def test_manual_scan_holds_the_same_lock(clean: Engine) -> None:
+    from scouter.scheduler import scan_lock
+
+    with scan_lock(clean) as got:
+        assert got
+        assert run_once_if_due(clean, at(9, 0), lambda s, now: None) is False

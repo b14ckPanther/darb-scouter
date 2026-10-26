@@ -145,6 +145,7 @@ class RunSummary(Model):
     dropped: dict[str, int] = Field(default_factory=dict)
     pending: int = 0
     alerts_failed: int = 0
+    error: str | None = None
 
 
 class Board(Model):
