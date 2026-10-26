@@ -1,14 +1,14 @@
-import gsap from 'gsap'
-import { useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
-import { Link, useNavigate } from 'react-router'
-import { play } from '../audio/sfx'
-import { getLastScan, listJobs } from '../data/api'
-import { formatPower, isOver9000, matchTier } from '../domain/power'
-import { blipPosition } from '../domain/radar'
-import type { Job } from '../domain/types'
-import { useShaderCanvas, type Uniforms } from '../three/useShaderCanvas'
-import { EmptyState } from '../ui/EmptyState'
-import './radar.css'
+import gsap from "gsap";
+import { useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
+import { Link, useNavigate } from "react-router";
+import { play } from "../audio/sfx";
+import { getLastRun, getLastScan, listJobs } from "../data/api";
+import { formatPower, isOver9000, matchTier } from "../domain/power";
+import { blipPosition } from "../domain/radar";
+import type { Job, RunSummary } from "../domain/types";
+import { useShaderCanvas, type Uniforms } from "../three/useShaderCanvas";
+import { EmptyState } from "../ui/EmptyState";
+import "./radar.css";
 
 // Phosphor radar: rings, grid, a sweeping beam with afterglow, slow noise in the glass.
 // Blips are drawn by the DOM on top, so they stay real buttons.
@@ -40,116 +40,197 @@ void main(){
   col += vec3(.75, .95, .8) * bezel * .35;
   float alpha = max(disc, bezel) * uIntro;
   gl_FragColor = vec4(col * uIntro, alpha);
-}`
+}`;
 
 const scanLabel = (iso: string) => {
-  const d = new Date(iso)
-  const date = d.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short', timeZone: 'Asia/Jerusalem' }).replace(',', '')
-  const time = d.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'Asia/Jerusalem' })
-  return `${date} · ${time} scan`
+  const d = new Date(iso);
+  const date = d
+    .toLocaleDateString("en-GB", {
+      weekday: "short",
+      day: "numeric",
+      month: "short",
+      timeZone: "Asia/Jerusalem",
+    })
+    .replace(",", "");
+  const time = d.toLocaleTimeString("en-GB", {
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+    timeZone: "Asia/Jerusalem",
+  });
+  return `${date} · ${time} scan`;
+};
+
+/** A broken collector must never look like a quiet night (spec §4): name it and say what it means. */
+function SourceHealth({ run }: { run: RunSummary | null }) {
+  if (!run) return null;
+  const failed = Object.entries(run.perSource).filter(([, r]) => r.failed);
+  if (!failed.length && !run.pending) return null;
+  return (
+    <div role="status">
+      <ul className="rd-health">
+        {failed.map(([name, r]) => (
+          <li key={name}>
+            <b>{name} scan failed.</b> Jobs from it are missing tonight.{" "}
+            {r.error ? <span className="rd-err">{r.error}</span> : null}
+          </li>
+        ))}
+        {run.pending > 0 && (
+          <li>
+            {run.pending} {run.pending === 1 ? "job is" : "jobs are"} waiting to
+            be read and will be scored on the next scan.
+          </li>
+        )}
+      </ul>
+    </div>
+  );
 }
 
 export function RadarScreen() {
-  const [jobs, setJobs] = useState<Job[] | null>(null)
-  const [since, setSince] = useState<string | null>(null)
-  const [webgl, setWebgl] = useState(true)
-  const [focus, setFocus] = useState<string | null>(null)
-  const nav = useNavigate()
-  const uniforms = useRef<Uniforms>({ uSweep: 0, uIntro: 0 })
-  const canvasRef = useShaderCanvas(RADAR_FRAG, uniforms, () => setWebgl(false))
-  const rootRef = useRef<HTMLDivElement>(null)
+  const [jobs, setJobs] = useState<Job[] | null>(null);
+  const [since, setSince] = useState<string | null>(null);
+  const [run, setRun] = useState<RunSummary | null>(null);
+  const [webgl, setWebgl] = useState(true);
+  const [focus, setFocus] = useState<string | null>(null);
+  const nav = useNavigate();
+  const uniforms = useRef<Uniforms>({ uSweep: 0, uIntro: 0 });
+  const canvasRef = useShaderCanvas(RADAR_FRAG, uniforms, () =>
+    setWebgl(false),
+  );
+  const rootRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    let alive = true
-    void Promise.all([listJobs(), getLastScan()]).then(([j, scan]) => {
-      if (!alive) return
-      setSince(scan.startedAt)
-      setJobs(j)
-    })
+    let alive = true;
+    void Promise.all([listJobs(), getLastScan(), getLastRun()]).then(
+      ([j, scan, r]) => {
+        if (!alive) return;
+        setSince(scan.startedAt);
+        setRun(r);
+        setJobs(j);
+      },
+    );
     return () => {
-      alive = false
-    }
-  }, [])
+      alive = false;
+    };
+  }, []);
 
-  const fresh = useMemo(() => (jobs && since ? jobs.filter((j) => j.foundAt >= since) : []), [jobs, since])
-  const best = fresh[0]
+  const fresh = useMemo(
+    () => (jobs && since ? jobs.filter((j) => j.foundAt >= since) : []),
+    [jobs, since],
+  );
+  const best = fresh[0];
   const blips = useMemo(
-    () => (jobs ?? []).map((j, i) => ({ job: j, pos: blipPosition(j.score.total, i), fresh: fresh.includes(j) })),
+    () =>
+      (jobs ?? []).map((j, i) => ({
+        job: j,
+        pos: blipPosition(j.score.total, i),
+        fresh: fresh.includes(j),
+      })),
     [jobs, fresh],
-  )
+  );
 
   // sweep + power-on choreography; pings fire as the beam crosses each fresh blip
   useLayoutEffect(() => {
-    if (!jobs) return
-    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches
-    const u = uniforms.current
+    if (!jobs) return;
+    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const u = uniforms.current;
     if (reduce) {
-      u.uIntro = 1
-      u.uSweep = 1.2
-      return
+      u.uIntro = 1;
+      u.uSweep = 1.2;
+      return;
     }
     const ctx = gsap.context(() => {
-      gsap.to(u, { uIntro: 1, duration: 1.2, ease: 'power2.out' })
-      gsap.from('.rd-head > *', { y: 16, opacity: 0, duration: 0.7, stagger: 0.08, ease: 'power3.out', delay: 0.2 })
-      gsap.from('.rd-blip', { scale: 0, opacity: 0, duration: 0.5, stagger: 0.04, ease: 'back.out(3)', delay: 1.1 })
-      gsap.from('.rd-find', { x: 24, opacity: 0, duration: 0.6, stagger: 0.1, ease: 'power3.out', delay: 1.3 })
-    }, rootRef)
-    const pinged = new Set<string>()
-    let last = performance.now()
-    let raf = 0
+      gsap.to(u, { uIntro: 1, duration: 1.2, ease: "power2.out" });
+      gsap.from(".rd-head > *", {
+        y: 16,
+        opacity: 0,
+        duration: 0.7,
+        stagger: 0.08,
+        ease: "power3.out",
+        delay: 0.2,
+      });
+      gsap.from(".rd-blip", {
+        scale: 0,
+        opacity: 0,
+        duration: 0.5,
+        stagger: 0.04,
+        ease: "back.out(3)",
+        delay: 1.1,
+      });
+      gsap.from(".rd-find", {
+        x: 24,
+        opacity: 0,
+        duration: 0.6,
+        stagger: 0.1,
+        ease: "power3.out",
+        delay: 1.3,
+      });
+    }, rootRef);
+    const pinged = new Set<string>();
+    let last = performance.now();
+    let raf = 0;
     const spin = (now: number) => {
-      const dt = (now - last) / 1000
-      last = now
-      const prev = u.uSweep as number
-      u.uSweep = (prev + dt * 1.6) % (Math.PI * 2)
+      const dt = (now - last) / 1000;
+      last = now;
+      const prev = u.uSweep as number;
+      u.uSweep = (prev + dt * 1.6) % (Math.PI * 2);
       for (const b of blips) {
-        if (!b.fresh) continue
+        if (!b.fresh) continue;
         // shader space is y-up; DOM is y-down
-        const ang = (Math.atan2(-b.pos.y, b.pos.x) + Math.PI * 2) % (Math.PI * 2)
-        const crossed = prev <= ang && (u.uSweep as number) > ang
+        const ang =
+          (Math.atan2(-b.pos.y, b.pos.x) + Math.PI * 2) % (Math.PI * 2);
+        const crossed = prev <= ang && (u.uSweep as number) > ang;
         if (crossed && !pinged.has(b.job.id)) {
-          pinged.add(b.job.id)
-          play('ping')
-          const el = rootRef.current?.querySelector(`[data-blip="${CSS.escape(b.job.id)}"]`)
-          el?.classList.remove('is-hit')
-          void (el as HTMLElement | null)?.offsetWidth
-          el?.classList.add('is-hit')
+          pinged.add(b.job.id);
+          play("ping");
+          const el = rootRef.current?.querySelector(
+            `[data-blip="${CSS.escape(b.job.id)}"]`,
+          );
+          el?.classList.remove("is-hit");
+          void (el as HTMLElement | null)?.offsetWidth;
+          el?.classList.add("is-hit");
         }
       }
-      if ((u.uSweep as number) < prev) pinged.clear()
-      raf = requestAnimationFrame(spin)
-    }
-    raf = requestAnimationFrame(spin)
+      if ((u.uSweep as number) < prev) pinged.clear();
+      raf = requestAnimationFrame(spin);
+    };
+    raf = requestAnimationFrame(spin);
     return () => {
-      cancelAnimationFrame(raf)
-      ctx.revert()
-    }
-  }, [jobs, blips])
+      cancelAnimationFrame(raf);
+      ctx.revert();
+    };
+  }, [jobs, blips]);
 
   if (jobs && fresh.length === 0) {
     return (
       <div className="rd rd-empty">
         <EmptyState kind="radar-empty" />
       </div>
-    )
+    );
   }
 
-  const focused = blips.find((b) => b.job.id === focus)
+  const focused = blips.find((b) => b.job.id === focus);
 
   return (
-    <div className={`rd${webgl ? '' : ' no-webgl'}`} ref={rootRef}>
+    <div className={`rd${webgl ? "" : " no-webgl"}`} ref={rootRef}>
       <div className="rd-sky" aria-hidden="true" />
       <header className="rd-head">
         <span className="rd-mark">Darb Scouter</span>
-        <p className="rd-kicker">{since ? scanLabel(since) : ''}</p>
+        <p className="rd-kicker">{since ? scanLabel(since) : ""}</p>
         <h1 className="rd-title">
-          {fresh.length} new {fresh.length === 1 ? 'job' : 'jobs'} found overnight
+          {fresh.length} new {fresh.length === 1 ? "job" : "jobs"} found
+          overnight
         </h1>
         {best && (
           <p className="rd-lede">
-            Best match: {best.title} at {best.company}, <b className={isOver9000(best.score.total) ? 'is-over' : ''}>{formatPower(best.score.total)}</b> out of 10,000.
+            Best match: {best.title} at {best.company},{" "}
+            <b className={isOver9000(best.score.total) ? "is-over" : ""}>
+              {formatPower(best.score.total)}
+            </b>{" "}
+            out of 10,000.
           </p>
         )}
+        <SourceHealth run={run} />
       </header>
 
       <div className="rd-stage">
@@ -161,13 +242,16 @@ export function RadarScreen() {
               {blips.map((b) => (
                 <li
                   key={b.job.id}
-                  className={`rd-blip${b.fresh ? ' is-fresh' : ''}${isOver9000(b.job.score.total) ? ' is-hot' : ''}`}
-                  style={{ left: `${50 + b.pos.x * 46}%`, top: `${50 + b.pos.y * 46}%` }}
+                  className={`rd-blip${b.fresh ? " is-fresh" : ""}${isOver9000(b.job.score.total) ? " is-hot" : ""}`}
+                  style={{
+                    left: `${50 + b.pos.x * 46}%`,
+                    top: `${50 + b.pos.y * 46}%`,
+                  }}
                   data-blip={b.job.id}
                 >
                   <button
                     type="button"
-                    aria-label={`${b.job.title} at ${b.job.company}, match ${formatPower(b.job.score.total)} out of 10,000${b.fresh ? ', new' : ''}`}
+                    aria-label={`${b.job.title} at ${b.job.company}, match ${formatPower(b.job.score.total)} out of 10,000${b.fresh ? ", new" : ""}`}
                     onClick={() => nav(`/job/${encodeURIComponent(b.job.id)}`)}
                     onMouseEnter={() => setFocus(b.job.id)}
                     onMouseLeave={() => setFocus(null)}
@@ -182,7 +266,8 @@ export function RadarScreen() {
         {focused && (
           <div className="rd-tip" role="status">
             <span className="rd-tip-num">
-              {formatPower(focused.job.score.total)} <small>/ 10,000 · {matchTier(focused.job.score.total)}</small>
+              {formatPower(focused.job.score.total)}{" "}
+              <small>/ 10,000 · {matchTier(focused.job.score.total)}</small>
             </span>
             <span className="rd-tip-t">{focused.job.title}</span>
             <span className="rd-tip-c">
@@ -194,12 +279,19 @@ export function RadarScreen() {
 
       <aside className="rd-finds" aria-label="Found overnight">
         <h2 className="rd-finds-h">Found overnight</h2>
-        <p className="rd-legend">Match out of 10,000. Closer to the centre of the radar means a better fit.</p>
+        <p className="rd-legend">
+          Match out of 10,000. Closer to the centre of the radar means a better
+          fit.
+        </p>
         <ol>
           {fresh.map((j) => (
             <li key={j.id} className="rd-find">
               <Link to={`/job/${encodeURIComponent(j.id)}`}>
-                <span className={`rd-find-num${isOver9000(j.score.total) ? ' is-over' : ''}`}>{formatPower(j.score.total)}</span>
+                <span
+                  className={`rd-find-num${isOver9000(j.score.total) ? " is-over" : ""}`}
+                >
+                  {formatPower(j.score.total)}
+                </span>
                 <span className="rd-find-t" dir="auto">
                   {j.title}
                 </span>
@@ -215,5 +307,5 @@ export function RadarScreen() {
         </Link>
       </aside>
     </div>
-  )
+  );
 }

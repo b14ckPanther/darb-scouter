@@ -45,3 +45,12 @@ describe('RadarScreen', () => {
     expect(blips.length).toBeGreaterThanOrEqual(15)
   })
 })
+
+describe('RadarScreen sources', () => {
+  afterEach(() => __reset())
+
+  it('says out loud when a source failed in the last scan', async () => {
+    mount()
+    expect(await screen.findByText(/ats scan failed/i)).toBeInTheDocument()
+  })
+})

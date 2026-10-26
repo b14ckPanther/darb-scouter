@@ -100,3 +100,23 @@
 
 .rd-legend { color: #8a9a92; font-size: 13px; margin-top: -6px; }
 .rd-tip-num small { font: 400 13px var(--font-body); color: #9fb5a8; }
+
+.rd-health {
+  list-style: none;
+  margin: 0.75rem 0 0;
+  padding: 0.6rem 0.85rem;
+  border-left: 3px solid var(--danger, #ff8a6b);
+  background: color-mix(in oklab, var(--danger, #ff8a6b) 12%, transparent);
+  font-size: 0.875rem;
+  line-height: 1.45;
+  max-width: 62ch;
+}
+.rd-health b {
+  text-transform: capitalize;
+}
+.rd-err {
+  display: block;
+  opacity: 0.75;
+  font-size: 0.8125rem;
+  overflow-wrap: anywhere;
+}
