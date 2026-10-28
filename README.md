@@ -123,6 +123,21 @@ curl -X POST -H "X-Scouter-Token: $SCOUTER_TOKEN" localhost:8000/api/runs
 
 Telegram alerts, phone access over Tailscale and backups are covered in [`docs/ops.md`](docs/ops.md).
 
+## Make it yours
+
+I built it for my own search in Israel, but nothing about me or Israel lives in the code. It's all YAML in [`backend/src/scouter/`](backend/src/scouter):
+
+| File | What to change |
+|---|---|
+| `profile.yaml` | Your skills, years of experience and degree. Put personal overrides in `profile.local.yaml` (git-ignored); after the first import you edit it in Settings. |
+| `regions.yaml` | The places you'd work, as regex in any language. |
+| `boards.yaml` | Company boards on Greenhouse, Lever or Comeet. Those work anywhere; FreeHire is the Israel-specific source. |
+| `exclusions.yaml` | Employers you never want to see. |
+| `vocab.yaml` | The skill vocabulary and its aliases. |
+| `tuning.yaml` | Dedupe thresholds, discovery pace and FreeHire roles. |
+
+If you adapt it to another country or add a new board type, I'd love a PR or an issue telling me how it went.
+
 ## Tests
 
 | Suite | What it covers | Tests |
