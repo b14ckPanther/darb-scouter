@@ -4,6 +4,8 @@
 
 **Reads every new junior software job in Israel each morning, checks it against my CV, and tells me honestly how well I fit, with a quote from the post behind every point.**
 
+**[Try the live demo](https://darb-scouter.vercel.app)**: it runs on sample data, no keys or sign-up.
+
 [![backend](https://github.com/b14ckPanther/darb-scouter/actions/workflows/backend.yml/badge.svg)](https://github.com/b14ckPanther/darb-scouter/actions/workflows/backend.yml) [![frontend](https://github.com/b14ckPanther/darb-scouter/actions/workflows/frontend.yml/badge.svg)](https://github.com/b14ckPanther/darb-scouter/actions/workflows/frontend.yml) ![Python 3.13](https://img.shields.io/badge/Python-3.13-3776AB?logo=python&logoColor=white) ![React 19](https://img.shields.io/badge/React-19-149ECA?logo=react&logoColor=white) ![Claude](https://img.shields.io/badge/Claude-Sonnet%205.5-D9A54C) [![MIT](https://img.shields.io/badge/license-MIT-0E3527)](LICENSE)
 
 <img src="docs/media/lockon.gif" alt="Opening a job: the scouter locks on and the match score counts up to 8,258 out of 10,000, with every requirement listed beside it" width="860">
